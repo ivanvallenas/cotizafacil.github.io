@@ -6,26 +6,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/index.css">
 
-    <title>Cotiza fácil</title>
+    <title>Cotiza Fácil</title>
     <div class="container">
-        <img alt="Logo" height="150px" al width="500px" src="https://dsm01pap006files.storage.live.com/y4mmr8UT99THHcPhRhQ3lYV38uyDihrtmYHo63HU4xUikKIUjHvFaNqIA4345Kzy9KrIZE2GwjMheDS0F0u7du25azNUdvfIrI3Y5YLvOFw5BhCAyfOjJZ18iIBe1fzVfVo8bpg1uPrXqZQs5iROe5o8mt_NejYbi2jRU3Cz2fybBSIE9qz3mdNjXtu1B3Ik91i?width=800&height=244&cropmode=none">
+        <img alt="Logo" height="150px" al width="400px" src="https://dsm01pap006files.storage.live.com/y4mmr8UT99THHcPhRhQ3lYV38uyDihrtmYHo63HU4xUikKIUjHvFaNqIA4345Kzy9KrIZE2GwjMheDS0F0u7du25azNUdvfIrI3Y5YLvOFw5BhCAyfOjJZ18iIBe1fzVfVo8bpg1uPrXqZQs5iROe5o8mt_NejYbi2jRU3Cz2fybBSIE9qz3mdNjXtu1B3Ik91i?width=800&height=244&cropmode=none">
     </div>
-
-
-
 </head>
+
+
+
+
 <body>
     <section class="container">
-        <button class="main_buttons" onclick="window.location='solicitar_cotizaciones.html'">Solicitar cotizaciones</button>
+        <button class="main_buttons" id="solicitar_cotizaciones" onclick="window.location='solicitar_cotizaciones.html'">Solicitar cotizaciones</button>
 
         <div class="container">  
-            <input class="main_inputs" type="text" placeholder="Colocar código">
-            <button class="main_buttons" onclick="window.location='ver_cotizaciones.html'">Ver cotizaciones</button>
+            <input class="main_inputs" id="codigo_solicitud" type="text" placeholder="Colocar código">
+            <button class="main_buttons" id="btn_ver_cotizaciones">Ver cotizaciones</button>
         </div>
       
 
-        <button class="main_buttons" onclick="window.location='login_ferreterias.html'">Dueños de ferreterías</button>
+        <button class="main_buttons" id="login_ferreterias" onclick="window.location='login_ferreterias.html'">Dueños de ferreterías</button>
     </section>
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAYYZG2pOQV_F82AkuU0SuCy06uscG83B4",
+          authDomain: "cotizafacilv1.firebaseapp.com",
+          databaseURL: "https://cotizafacilv1-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "cotizafacilv1",
+          storageBucket: "cotizafacilv1.appspot.com",
+          messagingSenderId: "715378274746",
+          appId: "1:715378274746:web:08e783bbc2c5901edaed83"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        import {getDatabase,set, get, update, remove, ref, child}
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+        const db = getDatabase();
+
+        var codigo_solictud = document.getElementById("codigo_solicitud");
+        
+        var btn_ver_cotizaciones = document.getElementById("btn_ver_cotizaciones");
+
+        function InsertData() {
+            set(ref(db, "Solicitudes3/"+codigo_solictud.value),{
+                codigo_solictud: codigo_solictud.value,
+            })
+            .then(()=>{
+                alert("Data added successfully");
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+
+
+
+        function FindData() {
+            const dbref = ref(db);
+
+            get(child(dbref, "Solicitudes3/"+ codigo_solictud.value))
+            .then((snapshot)=>{
+                if(snapshot.exists()){
+                    alert("Existe la solicitud");
+                } else {
+                    alert("No data found");
+                }
+            })
+            .catch((error)=>{
+                alert(error)
+            })
+            
+      }
+
+        btn_ver_cotizaciones.addEventListener('click', FindData);
+
+
+      </script>
+
+      
     
 </body>
 </html>
