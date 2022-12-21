@@ -47,30 +47,29 @@
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        import {getDatabase,set, get, update, remove, ref, child}
+        import {getDatabase,query, set, get, update, remove, ref, child,onValue}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
-        import {collection, query, where, getDocs, getFirestore}
+        import {collection, where, getDocs, getFirestore}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 
-
-        const pol = getFirestore(app)
-        const querySnapshot = await getDocs(collection(pol, "Solicitudes"));
-        querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        });
-
-        
-
         const db = getDatabase();
-        var dataArray = [];
+        const parte = query(ref(db,'Solicitudes'))
+        let keys = [1,2,3];
         
-        var databaseRef = ref(db)
+        onValue(parte, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            keys.push(7);
+        });
+        },)
 
-        const coll = collection(pol, "Solicitudes");
+        console.log(keys)
 
-   
+
+
+        
+
+       
         var codigo_solictud = document.getElementById("codigo_solicitud");
         var btn_ver_cotizaciones = document.getElementById("btn_ver_cotizaciones");
 
