@@ -1,0 +1,50 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.main_buttons{
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    border: 2px solid rgb(4, 44, 247);
+    color:black;
+    font-family: 'Roboto', sans-serif;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+.main_buttons:hover {
+    background: hsl(250, 46%, 81%);
+}
+
+.titulos_tabla{
+
+    border: solid 3px gray ;
+    border-radius: 15px;
+    width: 400px;
+    height: 40px;
+    display: grid;
+    grid-template-columns:auto auto auto;
+
+}
+
+a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -47,57 +47,24 @@
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
-        import {getDatabase,set, get, update, remove, ref, child}
-        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
-        import {collection, query, where, getDocs, getFirestore}
-        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
-
-
-        const pol = getFirestore(app)
-        const querySnapshot = await getDocs(collection(pol, "Solicitudes"));
-        querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        });
-
-        
-
-        const db = getDatabase();
+        var database = firebase.database();
         var dataArray = [];
-        
-        var databaseRef = ref(db)
 
-        const coll = collection(pol, "Solicitudes");
-
-   
-        var codigo_solictud = document.getElementById("codigo_solicitud");
-        var btn_ver_cotizaciones = document.getElementById("btn_ver_cotizaciones");
-
-
-        function FindData() {
-            const dbref = ref(db);
-
-            get(child(dbref, "Solicitudes/"+ codigo_solictud.value)).then((snapshot)=>{
-                if(snapshot.exists()){
-                    window.location="ver_cotizaciones.html";
-                } else {
-                    alert("No existe esta solicitud");
-                }
-            })
-            .catch((error)=>{
-                alert(error)
-            })
+            // Get the data from the database
             
-        }
-  
+            database.ref("Solicitudes").once("value", function(snapshot) {
+            snapshot.forEach(function(childSnapshot) {
+                // Get the data for each child in the snapshot
+                var childData = childSnapshot.val();
+                // Add the data to the array
+                dataArray.push(childData);
+            });
+        });
+        
+        console.log(dataArray)
 
-        btn_ver_cotizaciones.addEventListener('click', FindData);
-
-
-       
-
-
+    
 
       </script>
     
