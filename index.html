@@ -53,41 +53,26 @@
         const db = getDatabase();
 
         var codigo_solictud = document.getElementById("codigo_solicitud");
-        
         var btn_ver_cotizaciones = document.getElementById("btn_ver_cotizaciones");
-
-        function InsertData() {
-            set(ref(db, "Solicitudes3/"+codigo_solictud.value),{
-                codigo_solictud: codigo_solictud.value,
-            })
-            .then(()=>{
-                alert("Data added successfully");
-            })
-            .catch((error)=>{
-                alert(error);
-            });
-        }
-
-
 
         function FindData() {
             const dbref = ref(db);
 
-            get(child(dbref, "Solicitudes3/"+ codigo_solictud.value))
+            get(child(dbref, "Solicitudes/"+ codigo_solictud.value))
             .then((snapshot)=>{
                 if(snapshot.exists()){
-                    alert("Existe la solicitud");
+                    window.location="ver_cotizaciones.html";
                 } else {
-                    alert("No data found");
+                    alert("No existe esta solicitud");
                 }
             })
             .catch((error)=>{
                 alert(error)
             })
             
-      }
+        }
 
-        btn_ver_cotizaciones.addEventListener('click', InsertData);
+        btn_ver_cotizaciones.addEventListener('click', FindData);
 
 
       </script>

@@ -89,8 +89,10 @@
 
     const db = getDatabase();
 
+
     var btn_enviar_solicitud = document.getElementById("btn_enviar_solicitud");
     var codigo_solicitud = Math.floor(Math.random()*10000);
+    sessionStorage.setItem("cod_solicitud", codigo_solicitud);
     var fecha_limite = document.getElementById("fecha_limite");
     var direccion_obra = document.getElementById("direccion_obra");
   
@@ -112,13 +114,6 @@
     var cantidad3 = document.getElementById("cantidad3");
     var cantidad4 = document.getElementById("cantidad4");
     var cantidad5 = document.getElementById("cantidad5");
-
-    var unidad1 = document.getElementById("unidad1").innerHTML;
-    var unidad2 = document.getElementById("unidad2");
-    var unidad3 = document.getElementById("unidad3");
-    var unidad4 = document.getElementById("unidad4");
-    var unidad5 = document.getElementById("unidad5");
-
 
 
     function InsertData() {
@@ -149,7 +144,7 @@
             
         })
         .then(()=>{
-            alert("Data added successfully");
+            window.location="confirmacion_solicitud.html"
         })
         .catch((error)=>{
             alert(error);
