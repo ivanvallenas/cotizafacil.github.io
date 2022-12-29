@@ -1,45 +1,10 @@
-*{
-    padding: 0;
-    margin: 0;
-}
-
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-}
-
-.main_buttons{
-    background-color: white;
-    width: 200px;
-    height: 50px;
-    border: 2px solid rgb(4, 44, 247);
-    color:black;
-    font-family: 'Roboto', sans-serif;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-}
-.main_buttons:hover {
-    background: hsl(250, 46%, 81%);
-}
-
 .titulos_tabla{
-
     border: solid 3px gray ;
     border-radius: 15px;
     width: 400px;
     height: 40px;
     display: grid;
     grid-template-columns:auto auto auto;
-
 }
 
 a {
@@ -48,3 +13,85 @@ a {
     justify-content: center;
     align-items: center;
 }
+
+.collapsible {
+    background-color: #777;
+    color: white;
+    height: 10px;
+    display: grid;
+    Grid-template-columns:auto auto auto;
+    cursor: pointer;
+    padding: 18px;
+    width: 600PX;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.titulo_cotizaciones {
+    color: black;
+    height: 10px;
+    display: grid;
+    Grid-template-columns:auto auto auto;
+    cursor: pointer;
+    padding: 18px;
+    width: 600PX;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.quantity_box{
+    background-color: white;
+    width: 50px;
+    height: 20px;
+    border: 2px solid rgb(96, 95, 95);
+    color:black;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+    
+.titulo_columna{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+    
+.table{
+    display: grid;
+    border: solid black 2px;
+    width: 400px;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 20px;
+    grid-template-columns:150px 150px 50px;
+}
+
+

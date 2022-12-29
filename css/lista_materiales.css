@@ -1,0 +1,43 @@
+
+
+.table{
+    display: grid;
+    border: solid black 2px;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 20px;
+    grid-template-columns:auto auto auto;
+
+}
+
+
+.item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    }
+
+.quantity_box{
+    background-color: white;
+    width: 50px;
+    height: 20px;
+    border: 2px solid rgb(96, 95, 95);
+    color:black;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.titulo_columna{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
