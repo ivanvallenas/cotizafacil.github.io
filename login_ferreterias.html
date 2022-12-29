@@ -18,9 +18,7 @@
 
 <body>
 
-    <section class="container">
-        <button class="main_buttons" id="login_google">Login con google</button>
-    </section>
+
 
     <script type="module">
 
@@ -46,14 +44,29 @@
             // Initialize Firebase
             const app = initializeApp(firebaseConfig);
 
-        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } 
+        import { getAuth, GoogleAuthProvider, signInWithPopup, getRedirectResult } 
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
 
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider(app);
+        const provider = new GoogleAuthProvider();
 
+        function login(){
+        signInWithPopup(auth,provider).then((result)=>{
+            console.log("todobien");
+
+        })
+        };
+
+        login_google.addEventListener('click',login)
         
     </script>
+
+
+<section class="container">
+    <button class="main_buttons" id="login_google">Login con google</button>
+</section>
+
+
 </body>
 </html>
