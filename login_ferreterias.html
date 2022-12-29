@@ -30,8 +30,7 @@
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
 
-            import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } 
-            from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
 
             // Your web app's Firebase configuration
             const firebaseConfig = {
@@ -44,39 +43,17 @@
             appId: "1:715378274746:web:08e783bbc2c5901edaed83"
             };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+
+        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } 
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider(app);
 
-
-            
-
-        function pp(){
-            signInWithRedirect(auth, provider);
-
-            getRedirectResult(auth)
-                .then((result) => {
-                    // This gives you a Google Access Token. You can use it to access Google APIs.
-                    const credential = GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-
-                    // The signed-in user info.
-                    const user = result.user;
-                }).catch((error) => {
-                    // Handle Errors here.
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // The email of the user's account used.
-                    const email = error.customData.email;
-                    // The AuthCredential type that was used.
-                    const credential = GoogleAuthProvider.credentialFromError(error);
-                    // ...
-                });
-
-        }
-
-        login_google.addEventListener("click", pp);
+        
     </script>
 </body>
 </html>
