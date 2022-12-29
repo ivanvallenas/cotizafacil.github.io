@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    
+
+    <title>Cotiza Fácil</title>
+    <div class="container">
+        <img alt="Logo" height="150px" width="400px" src="https://dsm01pap006files.storage.live.com/y4mmr8UT99THHcPhRhQ3lYV38uyDihrtmYHo63HU4xUikKIUjHvFaNqIA4345Kzy9KrIZE2GwjMheDS0F0u7du25azNUdvfIrI3Y5YLvOFw5BhCAyfOjJZ18iIBe1fzVfVo8bpg1uPrXqZQs5iROe5o8mt_NejYbi2jRU3Cz2fybBSIE9qz3mdNjXtu1B3Ik91i?width=800&height=244&cropmode=none">
+    </div>
+</head>
+
+
+<body>
+
+    <section class="container">
+        <button class="main_buttons" id="login_google">Login con google</button>
+    </section>
+
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+            import { initializeApp } 
+            from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+            import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult } 
+            from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+            apiKey: "AIzaSyAYYZG2pOQV_F82AkuU0SuCy06uscG83B4",
+            authDomain: "cotizafacilv1.firebaseapp.com",
+            databaseURL: "https://cotizafacilv1-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "cotizafacilv1",
+            storageBucket: "cotizafacilv1.appspot.com",
+            messagingSenderId: "715378274746",
+            appId: "1:715378274746:web:08e783bbc2c5901edaed83"
+            };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider(app);
+
+
+            
+
+        function pp(){
+            signInWithRedirect(auth, provider);
+
+            getRedirectResult(auth)
+                .then((result) => {
+                    // This gives you a Google Access Token. You can use it to access Google APIs.
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+
+                    // The signed-in user info.
+                    const user = result.user;
+                }).catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // The email of the user's account used.
+                    const email = error.customData.email;
+                    // The AuthCredential type that was used.
+                    const credential = GoogleAuthProvider.credentialFromError(error);
+                    // ...
+                });
+
+        }
+
+        login_google.addEventListener("click", pp);
+    </script>
+</body>
+</html>

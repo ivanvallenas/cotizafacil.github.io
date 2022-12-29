@@ -20,6 +20,11 @@ import {getDatabase,set, get, update, remove, ref, child}
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const db = getDatabase();
+
+export{
+  app
+}
+
 export{
   db
 }
