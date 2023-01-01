@@ -22,43 +22,93 @@
 
     <script type="module">
 
-        // Import the functions you need from the SDKs you need
-            import { initializeApp } 
-            from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
+        import {app} from "./js/firebase.js"; 
+        import {db} from "./js/firebase.js"; 
 
-
-
-            // Your web app's Firebase configuration
-            const firebaseConfig = {
-            apiKey: "AIzaSyAYYZG2pOQV_F82AkuU0SuCy06uscG83B4",
-            authDomain: "cotizafacilv1.firebaseapp.com",
-            databaseURL: "https://cotizafacilv1-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "cotizafacilv1",
-            storageBucket: "cotizafacilv1.appspot.com",
-            messagingSenderId: "715378274746",
-            appId: "1:715378274746:web:08e783bbc2c5901edaed83"
-            };
-
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-
-        import { getAuth, GoogleAuthProvider, signInWithPopup, getRedirectResult } 
+        import { getAuth, GoogleAuthProvider, signInWithPopup, getRedirectResult, getAdditionalUserInfo } 
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        import {getDatabase,set, get, update, remove, ref, child}
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        function login(){
-        signInWithPopup(auth,provider).then((result)=>{
-            console.log("todobien");
+
+        function InsertData(pp) {
+        set(ref(db, "ferreterias/"+pp),{
+            codigo_solicitud: 12678,
+            nombre: "Colocar nombre del negocio",
+            direccion: "Colocar dirección del negocio",
+
+                    material1: "Elegir material",
+                    material2: "Elegir material",
+                    material3: "Elegir material",
+                    material4: "Elegir material",
+                    material5: "Elegir material",
+                    material6: "Elegir material",
+                    material7: "Elegir material",
+                    material8: "Elegir material",
+                    material9: "Elegir material",
+                    material10: "Elegir material",
+
+                    marca1: "Elegir marca",
+                    marca2: "Elegir marca",
+                    marca3: "Elegir marca",
+                    marca4: "Elegir marca",
+                    marca5: "Elegir marca",
+                    marca6: "Elegir marca",
+                    marca7: "Elegir marca",
+                    marca8: "Elegir marca",
+                    marca9: "Elegir marca",
+                    marca10: "Elegir marca",
+
+                    precio1: 0,
+                    precio2: 0,
+                    precio3: 0,
+                    precio4: 0,
+                    precio5: 0,
+                    precio6: 0,
+                    precio7: 0,
+                    precio8: 0,
+                    precio9: 0,
+                    precio10: 0,
+
+            
 
         })
-        };
+        .then(()=>{
+            window.location="confirmacion_solicitud.html"
+        })
+        .catch((error)=>{
+            alert(error);
+        });
+    }
 
-        login_google.addEventListener('click',login)
+
+            
+        login_google.addEventListener('click',(e)=>{
+
+            signInWithPopup(auth,provider).then((result)=>{
+                const primer_login= getAdditionalUserInfo(result).isNewUser
+                const usuario = result.user.uid;
+                sessionStorage.setItem("usuario",usuario)
+                sessionStorage.setItem("primer_login",primer_login)
+    
+                if(primer_login==true){
+
+                    console.log(result.user)
+                    InsertData(usuario)
+
+             
+
+
+                }else{
+                    window.location='lista_solicitudes.html';
+                }           
+            })
+        })
         
     </script>
 

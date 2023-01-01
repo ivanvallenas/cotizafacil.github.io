@@ -12,7 +12,6 @@
 <body>
 
     <section class="container">
-        <h1 id="print_user_name">Ferretería demo</h1>
 
         <div id="btns_de_listas" >
             <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'""  >Cotizar</button>
@@ -78,9 +77,103 @@
               <div class="item"><input id="cantidad10" class="quantity_box" type="number"></div>
 
             </div>
-
             <button class="main_buttons" id="btn_enviar_solicitud"> Actualizar precios base</button>
           </section>
     </section>   
+
+    <script type="module">
+
+        import {db} from "./js/firebase.js";
+        import {getDatabase,set, get, update, remove, ref, child}
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+    
+  
+        var material1 = document.getElementById("material1");
+        var material2 = document.getElementById("material2");
+        var material3 = document.getElementById("material3");
+        var material4 = document.getElementById("material4");
+        var material5 = document.getElementById("material5");
+        var material6 = document.getElementById("material6");
+        var material7 = document.getElementById("material7");
+        var material8 = document.getElementById("material8");
+        var material9 = document.getElementById("material9");
+        var material10 = document.getElementById("material10");
+
+
+
+    
+        var marca1 = document.getElementById("marca1");
+        var marca2 = document.getElementById("marca2");
+        var marca3 = document.getElementById("marca3");
+        var marca4 = document.getElementById("marca4");
+        var marca5 = document.getElementById("marca5");
+        var marca6 = document.getElementById("marca6");
+        var marca7 = document.getElementById("marca7");
+        var marca8 = document.getElementById("marca8");
+        var marca9 = document.getElementById("marca9");
+        var marca10 = document.getElementById("marca10");
+    
+        var precio1 = document.getElementById("precio1");
+        var precio2 = document.getElementById("precio2");
+        var precio3 = document.getElementById("precio3");
+        var precio4 = document.getElementById("precio4");
+        var precio5 = document.getElementById("precio5");
+        var precio6 = document.getElementById("precio6");
+        var precio7 = document.getElementById("precio7");
+        var precio8 = document.getElementById("precio8");
+        var precio9 = document.getElementById("precio9");
+        var precio10 = document.getElementById("precio10");
+
+    
+    
+        function InsertData() {
+            set(ref(db, "Solicitudes/"+codigo_solicitud),{
+                codigo_solicitud: codigo_solicitud,
+                direccion_obra: direccion_obra.value,
+                fecha_limite: fecha_limite.value,
+   
+                material1: material1.value,
+                material2: material2.value,
+                material3: material3.value,
+                material4: material4.value,
+                material5: material5.value,
+                material6: material6.value,
+                material7: material7.value,
+                material8: material8.value,
+                material9: material9.value,
+                material10: material10.value,
+    
+                precio1: precio1.value,
+                precio2: precio2.value,
+                precio3: precio3.value,
+                precio4: precio4.value,
+                precio5: precio5.value,
+                precio6: precio6.value,
+                precio7: precio7.value,
+                precio8: precio8.value,
+                precio9: precio9.value,
+                precio10: precio10.value,
+
+
+            })
+            .then(()=>{
+                window.location="confirmacion_solicitud.html"
+            })
+            .catch((error)=>{
+                alert(error);
+            });
+        }
+    
+    
+        btn_enviar_solicitud.addEventListener('click', InsertData);
+    
+    
+      </script>
+    
+
+
+
+
+
 </body>
 </html>
