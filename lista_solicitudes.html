@@ -32,14 +32,44 @@
    
 
     <script type="module">
+
+       
+
         //Import the database and the principal functions
-        import {db} from "./js/firebase.js";    
+        import {db} from "./js/firebase.js";   
         import {getDatabase,query, set, get, update, remove, ref, child,onValue}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         //Get only the requests of quotes from the database  
         const parte = query(ref(db,'Solicitudes'))
         //Define a varible that makes reference to the div where all the quotes request are going to apear
         var btncon = document.getElementById("botones")
+        const usuario = sessionStorage.getItem("usuario")
+
+        console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
+
+        let ferreteria_pruductos = []
+        ferreteria_pruductos =JSON.parse(sessionStorage.getItem("ferreteria_pruductos"))
+
+        let ferreteria_precios = []
+        ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
+
+        console.log(usuario)
+
+
+ 
+        
+        function valor_de_material(material){
+            for(var i=0; i<ferreteria_pruductos.length;i++){
+                if(ferreteria_pruductos[i]==material){
+                    return(ferreteria_precios[i])
+                    console.log("lollll")
+                }else{
+                    console.log("kkkkk")
+                }
+            }
+        }
+       
+        
         //function to show all the quotes and refresh when a change in the db apears
         onValue(parte, (snapshot) => {
             //first we delete everything inside the div
@@ -51,6 +81,8 @@
                 var cbt = document.createElement("div")
                 var precio = document.createElement("div")
                 var pedido = document.createElement("div")
+                var ppp = childSnapshot.val().marca1
+                console.log(childSnapshot.val().material1+childSnapshot.val().marca1)
 
                 cbt.className="collapsible"
 
@@ -97,6 +129,13 @@
                 titulo3.appendChild(titulo3_t)
                 tabla.appendChild(titulo3)
 
+                var titulo4 = document.createElement("div")
+                titulo4.className="titulo_columna"
+                var titulo4_t = document.createElement("p")
+                titulo4_t.innerHTML="Precio"
+                titulo4.appendChild(titulo4_t)
+                tabla.appendChild(titulo4)
+
                         
                 var m1 = document.createElement("div")
                 m1.className="item"
@@ -112,6 +151,11 @@
                 ca1.className="item"
                 ca1.innerHTML=childSnapshot.val().cantidad1
                 tabla.appendChild(ca1)
+
+                var p1 = document.createElement("input")
+                p1.className="quantity_box"
+                p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)
+                tabla.appendChild(p1)
 
 
                 var m2 = document.createElement("div")
@@ -131,7 +175,20 @@
 
 
                 content.appendChild(tabla)
+
+                var button_cotizar = document.createElement("button")
+                button_cotizar.className="main_buttons"
+                button_cotizar.innerHTML="COTIZAR"
+                content.appendChild(button_cotizar)
+
+
                 btncon.appendChild(content)
+
+
+
+
+
+
             });
             //This code is for only show the elements with class "content" when the elements with class "expandible" are clicked
             var coll = document.getElementsByClassName("collapsible");
