@@ -4,16 +4,21 @@
     justify-content: center;
     align-items: center;
     margin: 5px;
+    width: 95%;
+
+
 }
 
 
 .titulos_tabla{
     border: solid 3px gray ;
     border-radius: 15px;
-    width: 600px;
+    width: 90%;
     height: 40px;
     display: grid;
     grid-template-columns:auto auto auto;
+
+    margin-top: 10px;
 }
 
 a {
@@ -25,16 +30,15 @@ a {
 
 .collapsible {
  
-    height: 10px;
+    height: 55px;
     display: grid;
     Grid-template-columns:auto auto auto;
     cursor: pointer;
-    padding: 18px;
-    width: 560PX;
+    width: 95%;
     border: solid black;
     outline: none;
     font-size: 15px;
-    border-radius: 20px;
+    border-radius: 15px;
     margin: 4px;
 }
 
@@ -48,6 +52,8 @@ a {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    width: 90%;
+    text-align: center;
 
 }
 
@@ -58,7 +64,7 @@ a {
     Grid-template-columns:auto auto auto;
     cursor: pointer;
     padding: 18px;
-    width: 600PX;
+    width: 90%;
     border: none;
     outline: none;
     font-size: 15px;
@@ -69,8 +75,10 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 20px;
-    margin-right: 20px;
+    align-content: center;
+    text-align: center;
+    margin-top: 3px;
+    margin-top: 3px;
 }
 
 .quantity_box{
@@ -78,8 +86,7 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-left: 20px;
-    margin-right: 20px;
+
 
     background-color: white;
     width: 50px;
@@ -104,11 +111,11 @@ a {
 .table{
     display: grid;
     border: solid black 2px;
-    width: 600px;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 20px;
-    grid-template-columns:200px 200px 100px 100px;
+    width: 90%;
+
+
+    border-radius: 10px;
+    grid-template-columns:auto auto 60px 60px;
 }
 
 
