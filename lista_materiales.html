@@ -121,6 +121,8 @@
         var precio9 = document.getElementById("precio9");
         var precio10 = document.getElementById("precio10");
 
+
+
         
         get(ref(db, "ferreterias/"+usuario))
         .then((snapshot)=>{
@@ -165,20 +167,6 @@
 
         })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         
         btn_actualizar_datos.addEventListener('click', (e)=>{
 
@@ -216,6 +204,23 @@
                 precio9: precio9.value,
                 precio10: precio10.value
             })
+
+            var producto1 = material1.value+marca1.value
+            var producto2 = material2.value+marca2.value
+            var producto3 = material3.value+marca3.value
+            var producto4 = material4.value+marca4.value
+            var producto5 = material5.value+marca5.value
+            var producto6 = material6.value+marca6.value
+            var producto7 = material7.value+marca7.value
+            var producto8 = material8.value+marca8.value
+            var producto9 = material9.value+marca9.value
+            var producto10 = material10.value+marca10.value
+
+
+            const ferreteria_pruductos =[producto1,producto2,producto3,producto4,producto5,producto6,producto7,producto8,producto9,producto10]
+            const ferreteria_precios = [precio1.value,precio2.value, precio3.value, precio4.value, precio5.value, precio6.value, precio7.value, precio8.value, precio9.value, precio10.value]
+            sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
+                        sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
 
             alert("Datos actualizados correctamente")
 

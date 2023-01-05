@@ -26,7 +26,7 @@
             <a>Monto</a>
         </div>
 
-        <div id="botones" class="container"></div>
+        <div id="botones" class="container2"></div>
     </section>
 
    
@@ -46,6 +46,7 @@
         const usuario = sessionStorage.getItem("usuario")
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
+        console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
 
         let ferreteria_pruductos = []
         ferreteria_pruductos =JSON.parse(sessionStorage.getItem("ferreteria_pruductos"))
@@ -53,20 +54,20 @@
         let ferreteria_precios = []
         ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
 
-        console.log(usuario)
-
-
- 
         
         function valor_de_material(material){
+            var precio
             for(var i=0; i<ferreteria_pruductos.length;i++){
                 if(ferreteria_pruductos[i]==material){
-                    return(ferreteria_precios[i])
-                    console.log("lollll")
-                }else{
-                    console.log("kkkkk")
+                    precio=ferreteria_precios[i];
+                    break;
+
+                }
+                else{
+                    precio=0
                 }
             }
+            return(precio);
         }
        
         
@@ -90,7 +91,6 @@
                 empresa.innerHTML=childSnapshot.key
 
                 pedido.className="item"
-                pedido.innerHTML=childSnapshot.val().material1
 
                 precio.className="item"
                 precio.innerHTML=childSnapshot.val().marca1
@@ -154,7 +154,7 @@
 
                 var p1 = document.createElement("input")
                 p1.className="quantity_box"
-                p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)
+                p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
                 tabla.appendChild(p1)
 
 
@@ -173,6 +173,86 @@
                 ca2.innerHTML=childSnapshot.val().cantidad2
                 tabla.appendChild(ca2)
 
+                var p2 = document.createElement("input")
+                p2.className="quantity_box"
+                p2.value=valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
+                tabla.appendChild(p2)
+
+
+
+                var m3 = document.createElement("div")
+                m3.className="item"
+                m3.innerHTML=childSnapshot.val().material3
+                tabla.appendChild(m3)
+
+                var ma3 = document.createElement("div")
+                ma3.className="item"
+                ma3.innerHTML=childSnapshot.val().marca3
+                tabla.appendChild(ma3)
+
+                var ca3 = document.createElement("div")
+                ca3.className="item"
+                ca3.innerHTML=childSnapshot.val().cantidad3
+                tabla.appendChild(ca3)
+
+                var p3 = document.createElement("input")
+                p3.className="quantity_box"
+                p3.value=valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
+                tabla.appendChild(p3)
+
+
+
+                var m4 = document.createElement("div")
+                m4.className="item"
+                m4.innerHTML=childSnapshot.val().material4
+                tabla.appendChild(m4)
+
+                var ma4 = document.createElement("div")
+                ma4.className="item"
+                ma4.innerHTML=childSnapshot.val().marca4
+                tabla.appendChild(ma4)
+
+                var ca4 = document.createElement("div")
+                ca4.className="item"
+                ca4.innerHTML=childSnapshot.val().cantidad4
+                tabla.appendChild(ca4)
+
+                var p4 = document.createElement("input")
+                p4.className="quantity_box"
+                p4.value=valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
+                tabla.appendChild(p4)
+
+
+                var m5 = document.createElement("div")
+                m5.className="item"
+                m5.innerHTML=childSnapshot.val().material5
+                tabla.appendChild(m5)
+
+                var ma5 = document.createElement("div")
+                ma5.className="item"
+                ma5.innerHTML=childSnapshot.val().marca5
+                tabla.appendChild(ma5)
+
+                var ca5 = document.createElement("div")
+                ca5.className="item"
+                ca5.innerHTML=childSnapshot.val().cantidad5
+                tabla.appendChild(ca5)
+
+                var p5 = document.createElement("input")
+                p5.className="quantity_box"
+                p5.value=valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
+                tabla.appendChild(p5)
+
+
+
+
+
+
+
+
+
+
+
 
                 content.appendChild(tabla)
 
@@ -184,23 +264,25 @@
 
                 btncon.appendChild(content)
 
+                precio.innerHTML=Math.floor(p1.value)+Math.floor(p2.value)
+
 
 
 
 
 
             });
-            //This code is for only show the elements with class "content" when the elements with class "expandible" are clicked
+            //This code is for only show the elements with class "content" when the elements with class "collapsible" are clicked
             var coll = document.getElementsByClassName("collapsible");
             var i;
             for (i = 0; i < coll.length; i++) {
                 coll[i].addEventListener("click", function() {
                     this.classList.toggle("active");
                     var content = this.nextElementSibling;
-                    if (content.style.display === "block") {
+                    if (content.style.display === "flex") {
                     content.style.display = "none";
                     } else {
-                    content.style.display = "block";
+                    content.style.display = "flex";
                     }
                 });
             }        
