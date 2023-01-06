@@ -11,14 +11,17 @@
 </head>
 <body>
 
-    <section class="container">
+    <section class="container2">
 
-        <div id="btns_de_listas" >
-            <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'"" style="background-color:rgb(106, 106, 126)">Cotizar</button>
-            <button id="lista_cotizaciones_realizadas" class="main_buttons"  onclick="window.location='lista_cotizaciones.html'"">Tus Ofertas</button>
-            <button id="lista_materiales" class="main_buttons"  onclick="window.location='lista_materiales.html'"">Tus Materiales</button>
-
+        <div class="container2">
+            <div class="container2" >
+                <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'"" style="background-color:rgb(106, 106, 126)">Cotizar</button>
+                <button id="lista_cotizaciones_realizadas" class="main_buttons"  onclick="window.location='lista_cotizaciones.html'"">Tus Ofertas</button>
+                <button id="lista_materiales" class="main_buttons"  onclick="window.location='lista_materiales.html'"">Tus Materiales</button>
+    
+            </div>
         </div>
+
 
         <div id="titulos_tabla_principal" class="titulos_tabla">
             <a>Código de solicitud</a>
@@ -41,6 +44,10 @@
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         //Get only the requests of quotes from the database  
         const parte = query(ref(db,'Solicitudes'))
+  
+
+
+
         //Define a varible that makes reference to the div where all the quotes request are going to apear
         var btncon = document.getElementById("botones")
         const usuario = sessionStorage.getItem("usuario")
@@ -77,7 +84,14 @@
             btncon.replaceChildren()
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
-                //
+            
+                if (childSnapshot.child(usuario).exists()) {
+
+                }else{ 
+    
+                
+                
+                
                 var empresa = document.createElement("div")
                 var cbt = document.createElement("div")
                 var precio = document.createElement("div")
@@ -257,9 +271,22 @@
                 content.appendChild(tabla)
 
                 var button_cotizar = document.createElement("button")
-                button_cotizar.className="main_buttons"
+                button_cotizar.className="main_buttons2"
                 button_cotizar.innerHTML="COTIZAR"
                 content.appendChild(button_cotizar)
+                button_cotizar.addEventListener("click",function(){
+
+                    set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
+                    precio1: p1.value,
+                    precio2: p2.value,
+                    precio3: p3.value,
+                    precio4: p4.value,
+                    precio5: p5.value,
+                    })
+
+                    alert("Cotización enviada")
+
+                })
 
 
                 btncon.appendChild(content)
@@ -271,7 +298,7 @@
 
 
 
-            });
+            }});
             //This code is for only show the elements with class "content" when the elements with class "collapsible" are clicked
             var coll = document.getElementsByClassName("collapsible");
             var i;
@@ -284,8 +311,16 @@
                     } else {
                     content.style.display = "flex";
                     }
+                    var valor_total = this.getElementsByClassName("item");
+                    var pp = valor_total[2].textContent
+                    console.log(pp)
                 });
-            }        
+            }    
+            
+
+            
+
+
         },)
     </script>
     
