@@ -41,7 +41,8 @@
             const dbref = ref(db);
             get(child(dbref, "Solicitudes/"+ codigo_solictud.value)).then((snapshot)=>{
                 if(snapshot.exists() && codigo_solictud.value!=""){
-                    window.location="ver_cotizaciones.html";
+                    sessionStorage.setItem("codigo_solicitud",codigo_solictud.value);
+                    window.location="ver_coto.html";
                 } else {
                     alert("No existe esta solicitud, colocar otro código");
                 }

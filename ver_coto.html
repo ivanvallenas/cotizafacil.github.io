@@ -13,18 +13,8 @@
 
     <section class="container2">
 
-        <div class="container2">
-            <div class="container2" >
-                <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'"" style="background-color:rgb(106, 106, 126)">Cotizar</button>
-                <button id="lista_cotizaciones_realizadas" class="main_buttons"  onclick="window.location='lista_cotizaciones.html'"">Tus Ofertas</button>
-                <button id="lista_materiales" class="main_buttons"  onclick="window.location='lista_materiales.html'"">Tus Materiales</button>
-    
-            </div>
-        </div>
-
-
         <div id="titulos_tabla_principal" class="titulos_tabla">
-            <a>Código de solicitud</a>
+            <a>Ferretería</a>
             <a>Pedido</a>
             <a>Precio total </a>
         </div>
@@ -43,7 +33,9 @@
         import {getDatabase,query, set, get, update, remove, ref, child,onValue}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         //Get only the requests of quotes from the database  
-        const parte = query(ref(db,'Solicitudes'))
+
+        const codigo_solicitud = sessionStorage.getItem("codigo_solicitud")
+        const parte = query(ref(db,'Solicitudes/'+codigo_solicitud+"/Cotizaciones"))
   
 
 
@@ -85,9 +77,7 @@
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
             
-                if (childSnapshot.child(usuario).exists()) {
 
-                }else{ 
     
                 
                 
@@ -97,7 +87,6 @@
                 var precio = document.createElement("div")
                 var pedido = document.createElement("div")
                 var ppp = childSnapshot.val().marca1
-                console.log(childSnapshot.val().material1+childSnapshot.val().marca1)
 
                 cbt.className="collapsible"
 
@@ -168,7 +157,7 @@
 
                 var p1 = document.createElement("input")
                 p1.className="quantity_box"
-                p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
+                p1.value=childSnapshot.val().precio1
                 tabla.appendChild(p1)
 
 
@@ -189,7 +178,7 @@
 
                 var p2 = document.createElement("input")
                 p2.className="quantity_box"
-                p2.value=valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
+                p2.value=childSnapshot.val().precio2
                 tabla.appendChild(p2)
 
 
@@ -211,7 +200,7 @@
 
                 var p3 = document.createElement("input")
                 p3.className="quantity_box"
-                p3.value=valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
+                p3.value=childSnapshot.val().precio3
                 tabla.appendChild(p3)
 
 
@@ -233,7 +222,7 @@
 
                 var p4 = document.createElement("input")
                 p4.className="quantity_box"
-                p4.value=valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
+                p4.value=childSnapshot.val().precio4
                 tabla.appendChild(p4)
 
 
@@ -254,7 +243,7 @@
 
                 var p5 = document.createElement("input")
                 p5.className="quantity_box"
-                p5.value=valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
+                p5.value=childSnapshot.val().precio5
                 tabla.appendChild(p5)
 
 
@@ -272,60 +261,10 @@
 
                 var button_cotizar = document.createElement("button")
                 button_cotizar.className="main_buttons2"
-                button_cotizar.innerHTML="COTIZAR"
+                button_cotizar.innerHTML="Descargar cotización"
                 content.appendChild(button_cotizar)
                 button_cotizar.addEventListener("click",function(){
 
-                    set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
-                    precio1: p1.value,
-                    precio2: p2.value,
-                    precio3: p3.value,
-                    precio4: p4.value,
-                    precio5: p5.value,
-                    })
-
-                    
-                    set(ref(db, "Solicitudes/"+childSnapshot.val().codigo_solicitud+"/Cotizaciones/"+usuario),{
-                    precio1: p1.value,
-                    precio2: p2.value,
-                    precio3: p3.value,
-                    precio4: p4.value,
-                    precio5: p5.value,
-
-                    marca1: ma1.innerHTML,
-                    marca2: ma2.innerHTML,
-                    marca3: ma3.innerHTML,
-                    marca4: ma4.innerHTML,
-                    marca5: ma5.innerHTML,
-
-                    cantidad1: ca1.innerHTML,
-                    cantidad2: ca2.innerHTML,
-                    cantidad3: ca3.innerHTML,
-                    cantidad4: ca4.innerHTML,
-                    cantidad5: ca5.innerHTML,
-
-                    material1: m1.innerHTML,
-                    material2: m2.innerHTML,
-                    material3: m3.innerHTML,
-                    material4: m4.innerHTML,
-                    material5: m5.innerHTML,
-
-
-                    
-
-
-                    
-
-
-
-
-
-
-                    })
-
-
-
-                    alert("Cotización enviada")
 
                 })
 
@@ -339,7 +278,7 @@
 
 
 
-            }});
+            });
             //This code is for only show the elements with class "content" when the elements with class "collapsible" are clicked
             var coll = document.getElementsByClassName("collapsible");
             var i;
