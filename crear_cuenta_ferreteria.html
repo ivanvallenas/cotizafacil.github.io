@@ -60,6 +60,7 @@
                 const user = userCredential.user;
                 const usuario = user.uid
                 sessionStorage.setItem("usuario",usuario)
+                sessionStorage.setItem("nombre",nombre_ferreteria)
                 console.log(usuario)
 
 
@@ -102,6 +103,7 @@
                         precio10: 0,
                     })
                     .then(()=>{
+
                         window.location="lista_materiales.html"
                     })
                
