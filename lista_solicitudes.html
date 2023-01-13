@@ -278,6 +278,8 @@
                 button_cotizar.addEventListener("click",function(){
 
                     set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
+                    precio1: p1.value,
+
                     })
 
                     
