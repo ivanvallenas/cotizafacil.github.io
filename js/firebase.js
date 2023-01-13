@@ -19,6 +19,9 @@ const app = initializeApp(firebaseConfig);
 import {getDatabase,set, get, update, remove, ref, child}
 from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
+import { getAuth, GoogleAuthProvider, signInWithPopup,signInWithRedirect, getRedirectResult, getAdditionalUserInfo } 
+from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
 const db = getDatabase();
 
 export{

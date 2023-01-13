@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/main_elements.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+
 
     
 
@@ -18,191 +20,89 @@
 
 <body>
 
+    <section class="container">
+
+    
+        <container class="container_form">
+            <h1 class="Title">Iniciar sesion</h1>
+
+            <input placeholder="Correo" id="email" type="email">
+  
+            <input placeholder="Contraseña" id="password" type="password">
+
+
+            <button id="registrar_usuario">Ingresar</button>
+            
+            <a href="/cotiza_facil/crear_cuenta_ferreteria.html">Crear una cuenta</a>
+            
+            
+        </container>
+
+    </section>
 
 
     <script type="module">
-
         import {app} from "./js/firebase.js"; 
         import {db} from "./js/firebase.js"; 
-
-        import { getAuth, GoogleAuthProvider, signInWithPopup, getRedirectResult, getAdditionalUserInfo } 
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,signInWithPopup, getRedirectResult, getAdditionalUserInfo } 
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-
         import {getDatabase,set, get, update, remove, ref, child}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+        const auth = getAuth();
 
+        registrar_usuario.addEventListener('click',(e)=>{          
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
 
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
 
-
-        function InsertData(pp) {
-        set(ref(db, "ferreterias/"+pp),{
-            codigo_solicitud: 12678,
-            nombre: "Colocar nombre del negocio",
-            direccion: "Colocar dirección del negocio",
-
-                    material1: "Elegir material",
-                    material2: "Elegir material",
-                    material3: "Elegir material",
-                    material4: "Elegir material",
-                    material5: "Elegir material",
-                    material6: "Elegir material",
-                    material7: "Elegir material",
-                    material8: "Elegir material",
-                    material9: "Elegir material",
-                    material10: "Elegir material",
-
-                    marca1: "Elegir marca",
-                    marca2: "Elegir marca",
-                    marca3: "Elegir marca",
-                    marca4: "Elegir marca",
-                    marca5: "Elegir marca",
-                    marca6: "Elegir marca",
-                    marca7: "Elegir marca",
-                    marca8: "Elegir marca",
-                    marca9: "Elegir marca",
-                    marca10: "Elegir marca",
-
-                    precio1: 0,
-                    precio2: 0,
-                    precio3: 0,
-                    precio4: 0,
-                    precio5: 0,
-                    precio6: 0,
-                    precio7: 0,
-                    precio8: 0,
-                    precio9: 0,
-                    precio10: 0,
-
-            
-
-        })
-        .then(()=>{
-            window.location="confirmacion_solicitud.html"
-        })
-        .catch((error)=>{
-            alert(error);
-        });
-    }
-
-
-            
-        login_google.addEventListener('click',(e)=>{
-
-            signInWithPopup(auth,provider).then((result)=>{
-                const primer_login= getAdditionalUserInfo(result).isNewUser
-                const usuario = result.user.uid;
+                const user = userCredential.user;
+                const usuario = user.uid
                 sessionStorage.setItem("usuario",usuario)
-                sessionStorage.setItem("primer_login",primer_login)
-    
-                if(primer_login==true){
-                    console.log(result.user)
-                    set(ref(db, "ferreterias/"+usuario),{
-                        uid: usuario,
-                        nombre: "Colocar nombre del negocio",
-                        direccion: "Colocar dirección del negocio",
-                        
-                                material1: "Elegir material",
-                                material2: "Elegir material",
-                                material3: "Elegir material",
-                                material4: "Elegir material",
-                                material5: "Elegir material",
-                                material6: "Elegir material",
-                                material7: "Elegir material",
-                                material8: "Elegir material",
-                                material9: "Elegir material",
-                                material10: "Elegir material",
-
-                                marca1: "Elegir marca",
-                                marca2: "Elegir marca",
-                                marca3: "Elegir marca",
-                                marca4: "Elegir marca",
-                                marca5: "Elegir marca",
-                                marca6: "Elegir marca",
-                                marca7: "Elegir marca",
-                                marca8: "Elegir marca",
-                                marca9: "Elegir marca",
-                                marca10: "Elegir marca",
-
-                                precio1: 0,
-                                precio2: 0,
-                                precio3: 0,
-                                precio4: 0,
-                                precio5: 0,
-                                precio6: 0,
-                                precio7: 0,
-                                precio8: 0,
-                                precio9: 0,
-                                precio10: 0,
-                    })
-                    .then(()=>{
-                        window.location="lista_materiales.html"
-                    })
-                    .catch((error)=>{
-                        alert(error);
-                    });
-                }else{
-                    get(ref(db, "ferreterias/"+usuario))
-                    .then((snapshot)=>{
-                        const precio1 = snapshot.val().precio1;
-                        const precio2 = snapshot.val().precio2;
-                        const precio3 = snapshot.val().precio3;
-                        const precio4 = snapshot.val().precio4;
-                        const precio5 = snapshot.val().precio5;
-                        const precio6 = snapshot.val().precio6;
-                        const precio7 = snapshot.val().precio7;
-                        const precio8 = snapshot.val().precio8;
-                        const precio9 = snapshot.val().precio9;
-                        const precio10 = snapshot.val().precio10;
-                        const producto1 = snapshot.val().material1+snapshot.val().marca1;
-                        const producto2 = snapshot.val().material2+snapshot.val().marca2;
-                        const producto3 = snapshot.val().material3+snapshot.val().marca3;
-                        const producto4 = snapshot.val().material4+snapshot.val().marca4;
-                        const producto5 = snapshot.val().material5+snapshot.val().marca5;
-                        const producto6 = snapshot.val().material6+snapshot.val().marca6;
-                        const producto7 = snapshot.val().material7+snapshot.val().marca7;
-                        const producto8 = snapshot.val().material8+snapshot.val().marca8;
-                        const producto9 = snapshot.val().material9+snapshot.val().marca9;
-                        const producto10 = snapshot.val().material10+snapshot.val().marca10;
-
-                        const ferreteria_pruductos =[producto1,producto2,producto3,producto4,producto5,producto6,producto7,producto8,producto9,producto10]
-                        const ferreteria_precios = [precio1,precio2, precio3, precio4, precio5, precio6, precio7, precio8, precio9, precio10]
-                        sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
-                        sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
+                console.log(usuario)
 
 
+                get(ref(db, "ferreterias/"+usuario))
+                .then((snapshot)=>{
 
+                    const nombre = snapshot.val().nombre;
 
+                    const precio1 = snapshot.val().precio1;
+                    const precio2 = snapshot.val().precio2;
+                    const precio3 = snapshot.val().precio3;
+                    const precio4 = snapshot.val().precio4;
+                    const precio5 = snapshot.val().precio5;
+                    const precio6 = snapshot.val().precio6;
+                    const precio7 = snapshot.val().precio7;
+                    const precio8 = snapshot.val().precio8;
+                    const precio9 = snapshot.val().precio9;
+                    const precio10 = snapshot.val().precio10;
+                    const producto1 = snapshot.val().material1+snapshot.val().marca1;
+                    const producto2 = snapshot.val().material2+snapshot.val().marca2;
+                    const producto3 = snapshot.val().material3+snapshot.val().marca3;
+                    const producto4 = snapshot.val().material4+snapshot.val().marca4;
+                    const producto5 = snapshot.val().material5+snapshot.val().marca5;
+                    const producto6 = snapshot.val().material6+snapshot.val().marca6;
+                    const producto7 = snapshot.val().material7+snapshot.val().marca7;
+                    const producto8 = snapshot.val().material8+snapshot.val().marca8;
+                    const producto9 = snapshot.val().material9+snapshot.val().marca9;
+                    const producto10 = snapshot.val().material10+snapshot.val().marca10;
 
+                    const ferreteria_pruductos =[producto1,producto2,producto3,producto4,producto5,producto6,producto7,producto8,producto9,producto10]
+                    const ferreteria_precios = [precio1,precio2, precio3, precio4, precio5, precio6, precio7, precio8, precio9, precio10]
+                    sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
+                    sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
+                    sessionStorage.setItem("nombre",nombre)
 
-                        window.location="lista_solicitudes.html"
-
-                
-
-                        
-
-                    })
-
-
-
-                    
-
-
-
-
-                    
-                }  
-  
-                
-                        
+                    window.location="lista_solicitudes.html"
+                })
             })
-        
-
-
-            
-
-            
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });   
         })
 
 
@@ -210,9 +110,6 @@
     </script>
 
 
-<section class="container">
-    <button class="main_buttons" id="login_google">Login con google</button>
-</section>
 
 
 </body>

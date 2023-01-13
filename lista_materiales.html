@@ -80,6 +80,7 @@
         import {getDatabase,set, get, update, remove, ref, child}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         const usuario = sessionStorage.getItem("usuario")
+    
   
         var material1 = document.getElementById("material1");
         var material2 = document.getElementById("material2");
@@ -213,7 +214,7 @@
             const ferreteria_pruductos =[producto1,producto2,producto3,producto4,producto5,producto6,producto7,producto8,producto9,producto10]
             const ferreteria_precios = [precio1.value,precio2.value, precio3.value, precio4.value, precio5.value, precio6.value, precio7.value, precio8.value, precio9.value, precio10.value]
             sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
-                        sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
+            sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
 
             alert("Datos actualizados correctamente")
 

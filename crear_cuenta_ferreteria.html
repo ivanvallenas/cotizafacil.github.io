@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+
+
+    
+
+    <title>Cotiza Fácil</title>
+    <div class="container">
+        <img alt="Logo" height="150px" width="400px" src="https://dsm01pap006files.storage.live.com/y4mmr8UT99THHcPhRhQ3lYV38uyDihrtmYHo63HU4xUikKIUjHvFaNqIA4345Kzy9KrIZE2GwjMheDS0F0u7du25azNUdvfIrI3Y5YLvOFw5BhCAyfOjJZ18iIBe1fzVfVo8bpg1uPrXqZQs5iROe5o8mt_NejYbi2jRU3Cz2fybBSIE9qz3mdNjXtu1B3Ik91i?width=800&height=244&cropmode=none">
+    </div>
+</head>
+
+
+<body>
+
+    <section class="container">
+
+    
+        <container class="container_form">
+            <h1 class="Title">Crear una cuenta</h1>
+
+            <input placeholder="Nombre de tu ferreteria" type="text" id="nombre_ferreteria">
+
+            <input placeholder="Correo" id="email" type="email">
+  
+            <input placeholder="Contraseña" id="password" type="password">
+
+        
+
+            <button id="registrar_usuario">Registrar</button>          
+        </container>
+
+    </section>
+
+
+    <script type="module">
+        import {app} from "./js/firebase.js"; 
+        import {db} from "./js/firebase.js"; 
+        import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,signInWithPopup, getRedirectResult, getAdditionalUserInfo } 
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import {getDatabase,set, get, update, remove, ref, child}
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+        const auth = getAuth();
+
+        registrar_usuario.addEventListener('click',(e)=>{
+            var nombre_ferreteria = document.getElementById("nombre_ferreteria").value;            
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+
+                const user = userCredential.user;
+                const usuario = user.uid
+                sessionStorage.setItem("usuario",usuario)
+                console.log(usuario)
+
+
+                set(ref(db, "ferreterias/"+usuario),{
+                        uid: usuario,
+                        nombre: nombre_ferreteria,
+                        direccion: "Colocar dirección del negocio",
+                        
+                        material1: "Elegir material",
+                        material2: "Elegir material",
+                        material3: "Elegir material",
+                        material4: "Elegir material",
+                        material5: "Elegir material",
+                        material6: "Elegir material",
+                        material7: "Elegir material",
+                        material8: "Elegir material",
+                        material9: "Elegir material",
+                        material10: "Elegir material",
+
+                        marca1: "Elegir marca",
+                        marca2: "Elegir marca",
+                        marca3: "Elegir marca",
+                        marca4: "Elegir marca",
+                        marca5: "Elegir marca",
+                        marca6: "Elegir marca",
+                        marca7: "Elegir marca",
+                        marca8: "Elegir marca",
+                        marca9: "Elegir marca",
+                        marca10: "Elegir marca",
+
+                        precio1: 0,
+                        precio2: 0,
+                        precio3: 0,
+                        precio4: 0,
+                        precio5: 0,
+                        precio6: 0,
+                        precio7: 0,
+                        precio8: 0,
+                        precio9: 0,
+                        precio10: 0,
+                    })
+                    .then(()=>{
+                        window.location="lista_materiales.html"
+                    })
+               
+
+
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });   
+        })
+
+
+
+
+        
+
+    </script>
+
+</body>
+</html>

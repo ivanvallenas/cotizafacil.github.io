@@ -8,6 +8,55 @@
 </head>
 <body>
 
+    <div id="root"></div>
+
+  
+    <script src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+
+    <script type="module">
+
+          function MyComponent() {
+        
+            const firebaseConfig = {
+            apiKey: "AIzaSyAYYZG2pOQV_F82AkuU0SuCy06uscG83B4",
+            authDomain: "cotizafacilv1.firebaseapp.com",
+            databaseURL: "https://cotizafacilv1-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "cotizafacilv1",
+            storageBucket: "cotizafacilv1.appspot.com",
+            messagingSenderId: "715378274746",
+            appId: "1:715378274746:web:08e783bbc2c5901edaed83"
+            };
+        
+         
+            const [count, setCount] = React.useState(0);
+        
+            function login (){
+                console.log("lilllll")
+            }
+        
+            React.useEffect(() => {
+        
+            }, []);
+        
+            return (
+              <div>
+                <button onClick={() => login()}> login con google</button>
+              </div>
+            );
+          }
+        
+          
+        </script>
+        
+
+
+
+
+
 
     
 </body>

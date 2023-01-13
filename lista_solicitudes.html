@@ -51,6 +51,7 @@
         //Define a varible that makes reference to the div where all the quotes request are going to apear
         var btncon = document.getElementById("botones")
         const usuario = sessionStorage.getItem("usuario")
+        const nombre = sessionStorage.getItem("nombre")
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
@@ -277,11 +278,6 @@
                 button_cotizar.addEventListener("click",function(){
 
                     set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
-                    precio1: p1.value,
-                    precio2: p2.value,
-                    precio3: p3.value,
-                    precio4: p4.value,
-                    precio5: p5.value,
                     })
 
                     
@@ -309,6 +305,8 @@
                     material3: m3.innerHTML,
                     material4: m4.innerHTML,
                     material5: m5.innerHTML,
+
+                    nombre: nombre,
 
 
                     
