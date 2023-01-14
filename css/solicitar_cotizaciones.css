@@ -71,6 +71,12 @@
 
 }
 
+.item3{
+    display: inline-block;;
+    margin: 5px;
+}
+
+
 
 .quantity_box{
     background-color: white;
