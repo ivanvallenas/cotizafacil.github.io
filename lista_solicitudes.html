@@ -33,7 +33,6 @@
     </section>
 
    
-
     <script type="module">
 
        
@@ -119,6 +118,28 @@
                         
                 var content = document.createElement("div")
                 content.className="content"
+                var material_marca1 = document.createElement("div")
+                material_marca1.className="item2"
+                var material_marca2 = document.createElement("div")
+                material_marca2.className="item2"
+                var material_marca3 = document.createElement("div")
+                material_marca3.className="item2"
+                var material_marca4 = document.createElement("div")
+                material_marca4.className="item2"
+                var material_marca5 = document.createElement("div")
+                material_marca5.className="item2"
+
+                var div_precio1 = document.createElement("div")
+                div_precio1.className="item"
+                var div_precio2 = document.createElement("div")
+                div_precio2.className="item"
+                var div_precio3 = document.createElement("div")
+                div_precio3.className="item"
+                var div_precio4 = document.createElement("div")
+                div_precio4.className="item"
+                var div_precio5 = document.createElement("div")
+                div_precio5.className="item"
+
 
                 var tabla = document.createElement("div")
                 tabla.className="table"
@@ -126,16 +147,9 @@
                 var titulo1 = document.createElement("div")
                 titulo1.className="titulo_columna"
                 var titulo1_t = document.createElement("p")
-                titulo1_t.innerHTML="Material"
+                titulo1_t.innerHTML="Material y marca"
                 titulo1.appendChild(titulo1_t)
                 tabla.appendChild(titulo1)
-
-                var titulo2 = document.createElement("div")
-                titulo2.className="titulo_columna"
-                var titulo2_t = document.createElement("p")
-                titulo2_t.innerHTML="Marca"
-                titulo2.appendChild(titulo2_t)
-                tabla.appendChild(titulo2)
         
                 var titulo3 = document.createElement("div")
                 titulo3.className="titulo_columna"
@@ -153,14 +167,14 @@
 
                         
                 var m1 = document.createElement("div")
-                m1.className="item"
                 m1.innerHTML=childSnapshot.val().material1
-                tabla.appendChild(m1)
+                material_marca1.appendChild(m1)
 
                 var ma1 = document.createElement("div")
-                ma1.className="item"
                 ma1.innerHTML=childSnapshot.val().marca1
-                tabla.appendChild(ma1)
+                material_marca1.appendChild(ma1)
+
+                tabla.appendChild(material_marca1)
 
                 var ca1 = document.createElement("div")
                 ca1.className="item"
@@ -170,18 +184,20 @@
                 var p1 = document.createElement("input")
                 p1.className="quantity_box"
                 p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
-                tabla.appendChild(p1)
+                div_precio1.appendChild(p1)
+                tabla.appendChild(div_precio1)
+
 
 
                 var m2 = document.createElement("div")
-                m2.className="item"
                 m2.innerHTML=childSnapshot.val().material2
-                tabla.appendChild(m2)
+                material_marca2.appendChild(m2)
 
                 var ma2 = document.createElement("div")
-                ma2.className="item"
                 ma2.innerHTML=childSnapshot.val().marca2
-                tabla.appendChild(ma2)
+                material_marca2.appendChild(ma2)
+
+                tabla.appendChild(material_marca2)
 
                 var ca2 = document.createElement("div")
                 ca2.className="item"
@@ -191,19 +207,20 @@
                 var p2 = document.createElement("input")
                 p2.className="quantity_box"
                 p2.value=valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
-                tabla.appendChild(p2)
+                div_precio2.appendChild(p2)
+                tabla.appendChild(div_precio2)
 
 
 
                 var m3 = document.createElement("div")
-                m3.className="item"
                 m3.innerHTML=childSnapshot.val().material3
-                tabla.appendChild(m3)
+                material_marca3.appendChild(m3)
 
                 var ma3 = document.createElement("div")
-                ma3.className="item"
                 ma3.innerHTML=childSnapshot.val().marca3
-                tabla.appendChild(ma3)
+                material_marca3.appendChild(ma3)
+
+                tabla.appendChild(material_marca3)
 
                 var ca3 = document.createElement("div")
                 ca3.className="item"
@@ -213,19 +230,20 @@
                 var p3 = document.createElement("input")
                 p3.className="quantity_box"
                 p3.value=valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
-                tabla.appendChild(p3)
+                div_precio3.appendChild(p3)
+                tabla.appendChild(div_precio3)
 
 
 
                 var m4 = document.createElement("div")
-                m4.className="item"
                 m4.innerHTML=childSnapshot.val().material4
-                tabla.appendChild(m4)
+                material_marca4.appendChild(m4)
 
                 var ma4 = document.createElement("div")
-                ma4.className="item"
                 ma4.innerHTML=childSnapshot.val().marca4
-                tabla.appendChild(ma4)
+                material_marca4.appendChild(ma4)
+
+                tabla.appendChild(material_marca4)
 
                 var ca4 = document.createElement("div")
                 ca4.className="item"
@@ -235,18 +253,20 @@
                 var p4 = document.createElement("input")
                 p4.className="quantity_box"
                 p4.value=valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
-                tabla.appendChild(p4)
+                div_precio4.appendChild(p4)
+                tabla.appendChild(div_precio4)
+
 
 
                 var m5 = document.createElement("div")
-                m5.className="item"
                 m5.innerHTML=childSnapshot.val().material5
-                tabla.appendChild(m5)
+                material_marca5.appendChild(m5)
 
                 var ma5 = document.createElement("div")
-                ma5.className="item"
                 ma5.innerHTML=childSnapshot.val().marca5
-                tabla.appendChild(ma5)
+                material_marca5.appendChild(ma5)
+
+                tabla.appendChild(material_marca5)
 
                 var ca5 = document.createElement("div")
                 ca5.className="item"
@@ -256,7 +276,8 @@
                 var p5 = document.createElement("input")
                 p5.className="quantity_box"
                 p5.value=valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
-                tabla.appendChild(p5)
+                div_precio5.appendChild(p5)
+                tabla.appendChild(div_precio5)
 
 
 

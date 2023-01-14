@@ -114,10 +114,8 @@ a {
     border: solid black 2px;
     width: 95%;
     justify-content: center;
-
-
     border-radius: 10px;
-    grid-template-columns:auto auto 60px 60px;
+    grid-template-columns:auto 60px 60px;
 }
 
 .main_buttons2{
@@ -140,3 +138,9 @@ a {
     background: hsl(250, 46%, 81%);
 }
 
+.item2{
+    display: inline-block;
+    text-align: left;
+    margin: 5px;
+
+}
