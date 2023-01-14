@@ -52,23 +52,7 @@
 
         let ferreteria_precios = []
         ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
-
-        
-        function valor_de_material(material){
-            var precio
-            for(var i=0; i<ferreteria_pruductos.length;i++){
-                if(ferreteria_pruductos[i]==material){
-                    precio=ferreteria_precios[i];
-                    break;
-
-                }
-                else{
-                    precio=0
-                }
-            }
-            return(precio);
-        }
-       
+      
         
         //function to show all the quotes and refresh when a change in the db apears
         onValue(parte, (snapshot) => {
@@ -94,9 +78,12 @@
                 empresa.innerHTML=childSnapshot.val().nombre
 
                 pedido.className="item"
+                pedido.innerHTML=childSnapshot.val().pedido
 
                 precio.className="item"
-                precio.innerHTML=childSnapshot.val().marca1
+                precio.innerHTML=childSnapshot.val().precio_total
+
+
                         
 
                 cbt.appendChild(empresa)
@@ -256,18 +243,15 @@
                 p5.innerHTML=childSnapshot.val().precio5
                 tabla.appendChild(p5)
 
-
-
-
-
-
-
-
-
-
-
-
                 content.appendChild(tabla)
+
+                var telefono = document.createElement("div")
+                telefono.className="item3"
+                telefono.innerHTML="Teléfono: "+childSnapshot.val().telefono
+                content.appendChild(telefono)
+
+
+
 
                 var button_cotizar = document.createElement("button")
                 button_cotizar.className="main_buttons2"
@@ -281,7 +265,6 @@
 
                 btncon.appendChild(content)
 
-                precio.innerHTML=(parseInt(p1.innerHTML)+parseInt(p2.innerHTML)+parseInt(p3.innerHTML)+parseInt(p4.innerHTML)+parseInt(p5.innerHTML))+" Bs"
 
 
 

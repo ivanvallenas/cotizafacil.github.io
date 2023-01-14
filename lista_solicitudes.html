@@ -51,6 +51,9 @@
         var btncon = document.getElementById("botones")
         const usuario = sessionStorage.getItem("usuario")
         const nombre = sessionStorage.getItem("nombre")
+        const telefono = sessionStorage.getItem("telefono")
+
+        console.log(telefono)
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
@@ -68,13 +71,32 @@
                 if(ferreteria_pruductos[i]==material){
                     precio=ferreteria_precios[i];
                     break;
-
                 }
                 else{
                     precio=0
                 }
             }
             return(precio);
+        }
+
+
+        function pedido_completo(m1,p1,m2,p2,m3,p3,m4,p4,m5,p5){
+            let p = [p1,p2,p3,p4,p5]
+            let m = [m1,m2,m3,m4,m5]
+            var materiales_no_disponibles = 0
+            var pedido = "Completo"
+
+            for (var i=0; i<p.length; i++) {
+                if(m[i]!= "Inicial" && p[i]==0 ){
+                    materiales_no_disponibles = materiales_no_disponibles+1
+                }
+            }
+
+            if(materiales_no_disponibles>0){
+                pedido="Incompleto"
+            }
+
+            return(pedido)
         }
        
         
@@ -88,9 +110,6 @@
                 if (childSnapshot.child(usuario).exists()) {
 
                 }else{ 
-    
-                
-                
                 
                 var empresa = document.createElement("div")
                 var cbt = document.createElement("div")
@@ -103,12 +122,9 @@
 
                 empresa.className="item"
                 empresa.innerHTML=childSnapshot.key
-
                 pedido.className="item"
-
                 precio.className="item"
-                precio.innerHTML=childSnapshot.val().marca1
-                        
+    
 
                 cbt.appendChild(empresa)
                 cbt.appendChild(pedido)
@@ -279,16 +295,8 @@
                 div_precio5.appendChild(p5)
                 tabla.appendChild(div_precio5)
 
-
-
-
-
-
-
-
-
-
-
+                precio.innerHTML=(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
+                pedido.innerHTML= pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
 
                 content.appendChild(tabla)
 
@@ -330,17 +338,9 @@
                     material5: m5.innerHTML,
 
                     nombre: nombre,
-
-
-                    
-
-
-                    
-
-
-
-
-
+                    telefono: telefono,
+                    pedido: pedido.innerHTML,
+                    precio_total: precio.innerHTML,
 
                     })
 
@@ -352,12 +352,6 @@
 
 
                 btncon.appendChild(content)
-
-                precio.innerHTML=(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
-
-
-
-
 
 
             }});

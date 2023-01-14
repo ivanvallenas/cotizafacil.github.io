@@ -20,10 +20,17 @@
 
         </div>
 
+        <div class="container2">
+          <h1>Nombre de tu ferretería</h1>
+          <input class="main_inputs" type="text" id="nombre_ferreteria">
+          <h1>Teléfono</h1>
+          <input class="main_inputs" type="text" id="telefono">
+        </div>
+
 
         <section class="container">
             <h1>Lista de materiales</h1>
-          
+
             <div class="table">
               <div class="titulo_columna"><p>Material y marca</p></div>
               <div class="titulo_columna"><p>Precio unitario</p></div>
@@ -90,8 +97,9 @@
               <div class="item"><input id="precio10" class="quantity_box" type="number"></div>
 
             </div>
-            <button class="main_buttons" id="btn_actualizar_datos"> Actualizar precios base</button>
+           
           </section>
+          <button class="main_buttons" id="btn_actualizar_datos"> Actualizar Datos</button>
     </section>   
 
     <script type="module">
@@ -100,7 +108,9 @@
         import {getDatabase,set, get, update, remove, ref, child}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         const usuario = sessionStorage.getItem("usuario")
-    
+
+        var nombre_ferreteria = document.getElementById("nombre_ferreteria")
+        var telefono = document.getElementById("telefono")   
   
         var material1 = document.getElementById("material1");
         var material2 = document.getElementById("material2");
@@ -140,6 +150,9 @@
         
         get(ref(db, "ferreterias/"+usuario))
         .then((snapshot)=>{
+            nombre_ferreteria.value=snapshot.val().nombre;
+            telefono.value=snapshot.val().telefono;
+
             precio1.value=snapshot.val().precio1;
             precio2.value=snapshot.val().precio2;
             precio3.value=snapshot.val().precio3;

@@ -67,6 +67,7 @@
                 .then((snapshot)=>{
 
                     const nombre = snapshot.val().nombre;
+                    const telefono = snapshot.val().telefono;
 
                     const precio1 = snapshot.val().precio1;
                     const precio2 = snapshot.val().precio2;
@@ -94,6 +95,7 @@
                     sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
                     sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
                     sessionStorage.setItem("nombre",nombre)
+                    sessionStorage.setItem("telefono",telefono)
 
                     window.location="lista_solicitudes.html"
                 })
