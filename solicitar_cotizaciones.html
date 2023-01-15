@@ -60,7 +60,14 @@
     
   <section class="container">
       <h1> Dirección de la obra</h1>
-      <input class="main_inputs" type="text" id="direccion_obra" placeholder="Calle...">
+      <div class="container">
+        <select id="pais"><option value='Bolivia'>Bolivia</option></select>
+        <select id="departamento"><option value='La paz'>La paz</option></select>
+        <select id="provincia"><option value='Ingavi'>Ingavi</option><option value='Pedro Domingo Murillo'>Pedro Domingo Murillo</option></select>
+        <select id="municipio"><option value='Viacha'>Viacha</option><option value='El Alto'>El Alto</option></select></div>
+        <input class="main_inputs" type="text" id="calle" placeholder="Calle...">
+      </div>
+
   </section>
 
   <div style="height: 15px"></div>
@@ -84,10 +91,13 @@
 
 
     var btn_enviar_solicitud = document.getElementById("btn_enviar_solicitud");
-    var codigo_solicitud = Math.floor(Math.random()*10000);
-    sessionStorage.setItem("cod_solicitud", codigo_solicitud);
     var fecha_limite = document.getElementById("fecha_limite");
-    var direccion_obra = document.getElementById("direccion_obra");
+    var pais = document.getElementById("pais");
+    var departamento = document.getElementById("departamento");
+    var provincia = document.getElementById("provincia");
+    var municipio = document.getElementById("municipio");
+
+    var calle = document.getElementById("calle");
   
 
     var material1 = document.getElementById("material1");
@@ -110,9 +120,17 @@
 
 
     function InsertData() {
+
+      var codigo_solicitud = Math.floor(Math.random()*10000);
+      localStorage.setItem("codigo_solicitud", codigo_solicitud);
+      
         set(ref(db, "Solicitudes/"+codigo_solicitud),{
             codigo_solicitud: codigo_solicitud,
-            direccion_obra: direccion_obra.value,
+            pais: pais.value,
+            departamento: departamento.value,
+            provincia: provincia.value,
+            municipio: municipio.value,
+            calle: calle.value,
             fecha_limite: fecha_limite.value,
 
             cantidad1: cantidad1.value,

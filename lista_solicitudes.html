@@ -108,14 +108,13 @@
             snapshot.forEach((childSnapshot) => {
             
                 if (childSnapshot.child(usuario).exists()) {
-
                 }else{ 
                 
                 var empresa = document.createElement("div")
                 var cbt = document.createElement("div")
                 var precio = document.createElement("div")
                 var pedido = document.createElement("div")
-                var ppp = childSnapshot.val().marca1
+                var direccion_cliente = childSnapshot.val().calle+", "+childSnapshot.val().municipio
                 console.log(childSnapshot.val().material1+childSnapshot.val().marca1)
 
                 cbt.className="collapsible"
@@ -180,60 +179,86 @@
                 titulo4_t.innerHTML="Precio"
                 titulo4.appendChild(titulo4_t)
                 tabla.appendChild(titulo4)
-
+                
+                var pol = childSnapshot.val().material1
+                console.log(pol+" locoooo")
                         
+                if(childSnapshot.val().material1!=" "){
                 var m1 = document.createElement("div")
                 m1.innerHTML=childSnapshot.val().material1
                 material_marca1.appendChild(m1)
+                var vm1 = childSnapshot.val().material1
 
                 var ma1 = document.createElement("div")
                 ma1.innerHTML=childSnapshot.val().marca1
                 material_marca1.appendChild(ma1)
+                var vma1 = childSnapshot.val().marca1
 
                 tabla.appendChild(material_marca1)
 
                 var ca1 = document.createElement("div")
                 ca1.className="item"
                 ca1.innerHTML=childSnapshot.val().cantidad1
+                var vca1 = childSnapshot.val().cantidad1
                 tabla.appendChild(ca1)
 
                 var p1 = document.createElement("input")
                 p1.className="quantity_box"
                 p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
                 div_precio1.appendChild(p1)
+                var vp1 = valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
                 tabla.appendChild(div_precio1)
 
+                }else{
+                    var vm1 = childSnapshot.val().material1
+                    var vma1 = childSnapshot.val().marca1
+                    var vca1 = childSnapshot.val().cantidad1
+                    var vp1 = valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
+                }
 
 
+                if(childSnapshot.val().material2!=" "){
                 var m2 = document.createElement("div")
                 m2.innerHTML=childSnapshot.val().material2
                 material_marca2.appendChild(m2)
+                var vm2 = childSnapshot.val().material2
 
                 var ma2 = document.createElement("div")
                 ma2.innerHTML=childSnapshot.val().marca2
                 material_marca2.appendChild(ma2)
+                var vma2 = childSnapshot.val().marca2
+
 
                 tabla.appendChild(material_marca2)
 
                 var ca2 = document.createElement("div")
                 ca2.className="item"
                 ca2.innerHTML=childSnapshot.val().cantidad2
+                var vca2 = childSnapshot.val().cantidad2
                 tabla.appendChild(ca2)
 
                 var p2 = document.createElement("input")
                 p2.className="quantity_box"
                 p2.value=valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
                 div_precio2.appendChild(p2)
+                var vp2 = valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
                 tabla.appendChild(div_precio2)
-
-
-
+                }else{
+                    var vm2 = childSnapshot.val().material2
+                    var vma2 = childSnapshot.val().marca2
+                    var vca2 = childSnapshot.val().cantidad2
+                    var vp2 = valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
+                }
+                
+                if(childSnapshot.val().material3!=" "){
                 var m3 = document.createElement("div")
                 m3.innerHTML=childSnapshot.val().material3
+                var vm3 = childSnapshot.val().material3
                 material_marca3.appendChild(m3)
 
                 var ma3 = document.createElement("div")
                 ma3.innerHTML=childSnapshot.val().marca3
+                var vma3 = childSnapshot.val().marca3
                 material_marca3.appendChild(ma3)
 
                 tabla.appendChild(material_marca3)
@@ -241,22 +266,32 @@
                 var ca3 = document.createElement("div")
                 ca3.className="item"
                 ca3.innerHTML=childSnapshot.val().cantidad3
+                var vca3 = childSnapshot.val().cantidad3
                 tabla.appendChild(ca3)
 
                 var p3 = document.createElement("input")
                 p3.className="quantity_box"
                 p3.value=valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
                 div_precio3.appendChild(p3)
+                var vp3 = valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
                 tabla.appendChild(div_precio3)
+                } else{
+                    var vm3 = childSnapshot.val().material3
+                    var vma3 = childSnapshot.val().marca3
+                    var vca3 = childSnapshot.val().cantidad3
+                    var vp3 = valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
+                }
 
 
-
+                if(childSnapshot.val().material4!=" "){
                 var m4 = document.createElement("div")
                 m4.innerHTML=childSnapshot.val().material4
+                var vm4 = childSnapshot.val().material4
                 material_marca4.appendChild(m4)
 
                 var ma4 = document.createElement("div")
                 ma4.innerHTML=childSnapshot.val().marca4
+                var vma4 = childSnapshot.val().marca4
                 material_marca4.appendChild(ma4)
 
                 tabla.appendChild(material_marca4)
@@ -264,41 +299,66 @@
                 var ca4 = document.createElement("div")
                 ca4.className="item"
                 ca4.innerHTML=childSnapshot.val().cantidad4
+                var vca4 = childSnapshot.val().cantidad4
                 tabla.appendChild(ca4)
 
                 var p4 = document.createElement("input")
                 p4.className="quantity_box"
                 p4.value=valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
                 div_precio4.appendChild(p4)
+                var vp4 = valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
                 tabla.appendChild(div_precio4)
+                }else{
+                    var vm4 = childSnapshot.val().material4
+                    var vma4 = childSnapshot.val().marca4
+                    var vca4 = childSnapshot.val().cantidad4
+                    var vp4 = valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
+                }
 
 
-
+                if(childSnapshot.val().material5!=" "){
                 var m5 = document.createElement("div")
                 m5.innerHTML=childSnapshot.val().material5
+                var vm5 = childSnapshot.val().material5
                 material_marca5.appendChild(m5)
 
                 var ma5 = document.createElement("div")
                 ma5.innerHTML=childSnapshot.val().marca5
+                var vma5 = childSnapshot.val().marca5
                 material_marca5.appendChild(ma5)
+                
 
                 tabla.appendChild(material_marca5)
 
                 var ca5 = document.createElement("div")
                 ca5.className="item"
                 ca5.innerHTML=childSnapshot.val().cantidad5
+                var vca5 = childSnapshot.val().cantidad5
                 tabla.appendChild(ca5)
 
                 var p5 = document.createElement("input")
                 p5.className="quantity_box"
                 p5.value=valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
                 div_precio5.appendChild(p5)
+                var vp5 = valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
                 tabla.appendChild(div_precio5)
+                }else{
+                    var vm5 = childSnapshot.val().material5
+                    var vma5 = childSnapshot.val().marca5
+                    var vca5 = childSnapshot.val().cantidad5
+                    var vp5 = valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
+                }
 
-                precio.innerHTML=(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
-                pedido.innerHTML= pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
+                precio.innerHTML=(Math.floor(vp1)+Math.floor(vp2)+Math.floor(vp3)+Math.floor(vp4)+Math.floor(vp5))+" Bs"
+                pedido.innerHTML= pedido_completo(vm1, vp1, vm2, vp2, vm3, vp3, vm4, vp4, vm5, vp5)
 
                 content.appendChild(tabla)
+
+                var direccion_cliente = document.createElement("div")
+                direccion_cliente.className="item4"
+                direccion_cliente.innerHTML= "Dirección: " + childSnapshot.val().calle+", "+childSnapshot.val().municipio
+                content.appendChild(direccion_cliente)
+
 
                 var button_cotizar = document.createElement("button")
                 button_cotizar.className="main_buttons2"
@@ -308,34 +368,32 @@
 
                     set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
                     precio1: p1.value,
-
                     })
 
-                    
                     set(ref(db, "Solicitudes/"+childSnapshot.val().codigo_solicitud+"/Cotizaciones/"+usuario),{
-                    precio1: p1.value,
-                    precio2: p2.value,
-                    precio3: p3.value,
-                    precio4: p4.value,
-                    precio5: p5.value,
+                    precio1: vp1,
+                    precio2: vp2,
+                    precio3: vp3,
+                    precio4: vp4,
+                    precio5: vp5,
 
-                    marca1: ma1.innerHTML,
-                    marca2: ma2.innerHTML,
-                    marca3: ma3.innerHTML,
-                    marca4: ma4.innerHTML,
-                    marca5: ma5.innerHTML,
+                    marca1: vma1,
+                    marca2: vma2,
+                    marca3: vma3,
+                    marca4: vma4,
+                    marca5: vma5,
 
-                    cantidad1: ca1.innerHTML,
-                    cantidad2: ca2.innerHTML,
-                    cantidad3: ca3.innerHTML,
-                    cantidad4: ca4.innerHTML,
-                    cantidad5: ca5.innerHTML,
+                    cantidad1: vca1,
+                    cantidad2: vca2,
+                    cantidad3: vca3,
+                    cantidad4: vca4,
+                    cantidad5: vca5,
 
-                    material1: m1.innerHTML,
-                    material2: m2.innerHTML,
-                    material3: m3.innerHTML,
-                    material4: m4.innerHTML,
-                    material5: m5.innerHTML,
+                    material1: vm1,
+                    material2: vm2,
+                    material3: vm3,
+                    material4: vm4,
+                    material5: vm5,
 
                     nombre: nombre,
                     telefono: telefono,
@@ -343,12 +401,20 @@
                     precio_total: precio.innerHTML,
 
                     })
-
-
-
                     alert("Cotización enviada")
-
                 })
+
+                var button_cotizar = document.createElement("button")
+                button_cotizar.className="main_buttons2"
+                button_cotizar.innerHTML="ELIMINAR"
+                content.appendChild(button_cotizar)
+                button_cotizar.addEventListener("click",function(){
+                    set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
+                    precio1: p1.value,
+                    })
+                    alert("Solicitud eliminada de la lista")
+                })
+
 
 
                 btncon.appendChild(content)

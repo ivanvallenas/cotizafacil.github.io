@@ -30,6 +30,19 @@
     </section>
 
     <script type="module">
+
+        console.log(localStorage.getItem("codigo_solicitud"))
+
+        var input_codigo_solicitud = document.getElementById("codigo_solicitud")
+
+        if(localStorage.getItem("codigo_solicitud")!=undefined){
+            input_codigo_solicitud.value=localStorage.getItem("codigo_solicitud")
+        }
+
+
+
+
+
         //Import the database and the principal functions
         import {db} from "./js/firebase.js";    
         import {getDatabase,query, set, get, update, remove, ref, child,onValue}
