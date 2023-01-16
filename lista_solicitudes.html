@@ -35,15 +35,26 @@
    
     <script type="module">
 
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        let day = now.getDate();
+        const fecha_actual = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`
+        
+        console.log("pruebassssssss")
+
        
 
         //Import the database and the principal functions
         import {db} from "./js/firebase.js";   
-        import {getDatabase,query, set, get, update, remove, ref, child,onValue}
+        import {getDatabase,query, set, get, update, remove, ref, child,onValue,startAt, endAt, orderByChild}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         //Get only the requests of quotes from the database  
-        const parte = query(ref(db,'Solicitudes'))
+
+
+       // orderByChild("fecha"),startAt(4)
   
+        const parte = query(ref(db,'Solicitudes'),orderByChild("fecha_limite"), startAt(fecha_actual))
 
 
 
@@ -477,6 +488,11 @@
                 direccion_cliente.className="item4"
                 direccion_cliente.innerHTML= "Dirección: " + childSnapshot.val().calle+", "+childSnapshot.val().municipio
                 content.appendChild(direccion_cliente)
+
+                var fecha_limite_cotizar = document.createElement("div")
+                fecha_limite_cotizar.className="item4"
+                fecha_limite_cotizar.innerHTML= "Fecha límite: " + childSnapshot.val().fecha_limite
+                content.appendChild(fecha_limite_cotizar)
 
 
                 var button_cotizar = document.createElement("button")
