@@ -42,6 +42,13 @@
 
 
     <script type="module">
+    
+        if(localStorage.getItem("email")!=undefined){
+            document.getElementById("email").value = localStorage.getItem("email")
+            document.getElementById("password").value=localStorage.getItem("password")
+        }
+
+
         import {app} from "./js/firebase.js"; 
         import {db} from "./js/firebase.js"; 
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,signInWithPopup, getRedirectResult, getAdditionalUserInfo } 
@@ -50,7 +57,8 @@
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         const auth = getAuth();
 
-        registrar_usuario.addEventListener('click',(e)=>{          
+        registrar_usuario.addEventListener('click',(e)=>{  
+            
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
@@ -68,6 +76,7 @@
 
                     const nombre = snapshot.val().nombre;
                     const telefono = snapshot.val().telefono;
+                    const direccion = snapshot.val().direccion;
 
                     const precio1 = snapshot.val().precio1;
                     const precio2 = snapshot.val().precio2;
@@ -96,6 +105,7 @@
                     sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
                     sessionStorage.setItem("nombre",nombre)
                     sessionStorage.setItem("telefono",telefono)
+                    sessionStorage.setItem("direccion",direccion)
 
                     window.location="lista_solicitudes.html"
                 })

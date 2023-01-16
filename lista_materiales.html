@@ -25,6 +25,8 @@
           <input class="main_inputs" type="text" id="nombre_ferreteria">
           <h1>Teléfono</h1>
           <input class="main_inputs" type="text" id="telefono">
+          <h1>Dirección</h1>
+          <input class="main_inputs" type="text" id="direccion">
         </div>
 
 
@@ -110,7 +112,9 @@
         const usuario = sessionStorage.getItem("usuario")
 
         var nombre_ferreteria = document.getElementById("nombre_ferreteria")
-        var telefono = document.getElementById("telefono")   
+        var telefono = document.getElementById("telefono")
+        var direccion = document.getElementById("direccion")
+          
   
         var material1 = document.getElementById("material1");
         var material2 = document.getElementById("material2");
@@ -152,6 +156,7 @@
         .then((snapshot)=>{
             nombre_ferreteria.value=snapshot.val().nombre;
             telefono.value=snapshot.val().telefono;
+            direccion.value=snapshot.val().direccion;
 
             precio1.value=snapshot.val().precio1;
             precio2.value=snapshot.val().precio2;
@@ -198,6 +203,11 @@
         btn_actualizar_datos.addEventListener('click', (e)=>{
 
             update(ref(db, "ferreterias/"+usuario),{
+
+                nombre: nombre_ferreteria.value,
+                direccion: direccion.value,
+                telefono: telefono.value,
+
                 material1: material1.value,
                 material2: material2.value,
                 material3: material3.value,
@@ -248,6 +258,9 @@
             const ferreteria_precios = [precio1.value,precio2.value, precio3.value, precio4.value, precio5.value, precio6.value, precio7.value, precio8.value, precio9.value, precio10.value]
             sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
             sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
+            sessionStorage.setItem("nombre",nombre_ferreteria.value)
+            sessionStorage.setItem("telefono",telefono.value)
+            sessionStorage.setItem("direccion",direccion.value)
 
             alert("Datos actualizados correctamente")
 

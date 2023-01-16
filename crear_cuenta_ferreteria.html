@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="css/main_elements.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/crear_cuenta_ferreteria.css">
+
 
 
     
@@ -26,11 +28,15 @@
         <container class="container_form">
             <h1 class="Title">Crear una cuenta</h1>
 
-            <input placeholder="Nombre de tu ferreteria" type="text" id="nombre_ferreteria">
+            <input class="item_form" placeholder="Nombre de tu ferreteria" type="text" id="nombre_ferreteria">
 
-            <input placeholder="Correo" id="email" type="email">
+            <input class="item_form" placeholder="Dirección" type="text" id="direccion">
+
+            <input class="item_form" placeholder="Telefono" type="text" id="telefono">
+
+            <input class="item_form" placeholder="Correo" id="email" type="email">
   
-            <input placeholder="Contraseña" id="password" type="password">
+            <input class="item_form" placeholder="Nueva Contraseña" id="password" type="password">
 
         
 
@@ -50,7 +56,9 @@
         const auth = getAuth();
 
         registrar_usuario.addEventListener('click',(e)=>{
-            var nombre_ferreteria = document.getElementById("nombre_ferreteria").value;            
+            var nombre_ferreteria = document.getElementById("nombre_ferreteria").value;
+            var direccion = document.getElementById("direccion").value;
+            var telefono = document.getElementById("telefono").value;   
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
 
@@ -61,14 +69,19 @@
                 const usuario = user.uid
                 sessionStorage.setItem("usuario",usuario)
                 sessionStorage.setItem("nombre",nombre_ferreteria)
-                console.log(usuario)
+                sessionStorage.setItem("telefono",telefono)
+                sessionStorage.setItem("direccion",direccion)
 
+                localStorage.setItem("email",email)
+                localStorage.setItem("password",password)
+
+                console.log(usuario)
 
                 set(ref(db, "ferreterias/"+usuario),{
                         uid: usuario,
                         nombre: nombre_ferreteria,
-                        direccion: "Colocar dirección del negocio",
-                        telfono: 0,
+                        direccion: direccion,
+                        telefono: telefono,
                         Entregas: "si",
                         
                         material1: "Elegir material",
@@ -108,10 +121,6 @@
 
                         window.location="lista_materiales.html"
                     })
-               
-
-
-
             })
             .catch((error) => {
                 const errorCode = error.code;
