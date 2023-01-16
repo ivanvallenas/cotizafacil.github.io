@@ -261,14 +261,17 @@
                 direccion.innerHTML="Dirección: "+childSnapshot.val().direccion
                 content.appendChild(direccion)
 
-
+                var fecha_validez_cotizacion = document.createElement("div")
+                fecha_validez_cotizacion.className="item3"
+                fecha_validez_cotizacion.innerHTML="Oferta válida hasta: "+childSnapshot.val().fecha_validez_cotizacion
+                content.appendChild(fecha_validez_cotizacion)
 
 
 
                 var button_cotizar = document.createElement("button")
                 button_cotizar.className="main_buttons2"
                 button_cotizar.innerHTML="Descargar cotización"
-                content.appendChild(button_cotizar)
+                //content.appendChild(button_cotizar)
                 button_cotizar.addEventListener("click",function(){
 
 

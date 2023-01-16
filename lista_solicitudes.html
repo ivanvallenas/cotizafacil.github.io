@@ -15,8 +15,8 @@
 
         <div class="container2">
             <div class="container2" >
-                <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'"" style="background-color:rgb(106, 106, 126)">Cotizar</button>
-                <button id="lista_cotizaciones_realizadas" class="main_buttons"  onclick="window.location='lista_cotizaciones.html'"">Tus Ofertas</button>
+                <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'"" style="background-color:hsl(24, 72%, 52%)">Cotizar</button>
+                <!--<button id="lista_cotizaciones_realizadas" class="main_buttons"  onclick="window.location='lista_cotizaciones.html'"">Tus Ofertas</button>-->
                 <button id="lista_materiales" class="main_buttons"  onclick="window.location='lista_materiales.html'"">Tus Materiales</button>
     
             </div>
@@ -484,15 +484,23 @@
 
                 content.appendChild(tabla)
 
-                var direccion_cliente = document.createElement("div")
-                direccion_cliente.className="item4"
-                direccion_cliente.innerHTML= "Dirección: " + childSnapshot.val().calle+", "+childSnapshot.val().municipio
-                content.appendChild(direccion_cliente)
-
                 var fecha_limite_cotizar = document.createElement("div")
                 fecha_limite_cotizar.className="item4"
-                fecha_limite_cotizar.innerHTML= "Fecha límite: " + childSnapshot.val().fecha_limite
+                fecha_limite_cotizar.innerHTML= "La oferta es válida hasta: "
                 content.appendChild(fecha_limite_cotizar)
+                var fecha_validez_cotizacion = document.createElement("input")
+                fecha_validez_cotizacion.className="main_inputs"
+                fecha_validez_cotizacion.type="date"
+                content.appendChild(fecha_validez_cotizacion)
+                
+                
+                
+                var direccion_cliente = document.createElement("div")
+                direccion_cliente.className="item4"
+                direccion_cliente.innerHTML= "Dirección del cliente: " + childSnapshot.val().calle+", "+childSnapshot.val().municipio
+                content.appendChild(direccion_cliente)
+
+
 
 
                 var button_cotizar = document.createElement("button")
@@ -547,6 +555,7 @@
                     direccion: direccion,
                     pedido: pedido.innerHTML,
                     precio_total: precio.innerHTML,
+                    fecha_validez_cotizacion: fecha_validez_cotizacion.value
 
                     
 

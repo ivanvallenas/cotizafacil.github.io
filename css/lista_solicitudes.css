@@ -135,7 +135,7 @@ a {
     background-color: white;
     width: 200px;
     height: 50px;
-    border: 2px solid rgb(4, 44, 247);
+    border: 2px solid black;
     color:black;
     font-family: 'Roboto', sans-serif;
     padding: 5px;
@@ -148,7 +148,7 @@ a {
     border-radius: 12px;
 }
 .main_buttons2:hover {
-    background: hsl(250, 46%, 81%);
+    background: hsl(36, 91%, 66%);
 }
 
 .item2{

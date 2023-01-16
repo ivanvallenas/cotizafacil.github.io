@@ -1,0 +1,15 @@
+.introduccion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;;
+    font-size: 25px;
+    color: rgb(87, 84, 84);
+
+    width: 80%;
+    max-width: 500px;
+}
