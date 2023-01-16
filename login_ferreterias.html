@@ -65,9 +65,13 @@
             signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
 
+
+
                 const user = userCredential.user;
                 const usuario = user.uid
                 sessionStorage.setItem("usuario",usuario)
+                localStorage.setItem("email",email)
+                localStorage.setItem("password",password)
                 console.log(usuario)
 
 
