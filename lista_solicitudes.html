@@ -62,6 +62,7 @@
         var btncon = document.getElementById("botones")
         const usuario = sessionStorage.getItem("usuario")
         const nombre = sessionStorage.getItem("nombre")
+        const prefijo_pais = sessionStorage.getItem("prefijo_pais")
         const telefono = sessionStorage.getItem("telefono")
         const direccion = sessionStorage.getItem("direccion")
 
@@ -552,6 +553,7 @@
 
                     nombre: nombre,
                     telefono: telefono,
+                    telefono_completo:prefijo_pais+telefono,
                     direccion: direccion,
                     pedido: pedido.innerHTML,
                     precio_total: precio.innerHTML,

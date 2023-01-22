@@ -266,18 +266,16 @@
                 fecha_validez_cotizacion.innerHTML="Oferta válida hasta: "+childSnapshot.val().fecha_validez_cotizacion
                 content.appendChild(fecha_validez_cotizacion)
 
+                //var link_wa = String("https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a"+"1)"+m1.innerHTML+"%20"+ma1.innerHTML+"%20"+"Cantidad:"+ca1.innerHTML+"%20"+"Precio total:"+p1.innerHTML+"%0a"+"2)"+m2.innerHTML+"%20"+ma2.innerHTML+"%20"+"Cantidad:"+ca2.innerHTML+"%20"+"Precio total:"+p2.innerHTML+"%0a"+"3)"+m3.innerHTML+"%20"+ma3.innerHTML+"%20"+"Cantidad:"+ca3.innerHTML+"%20"+"Precio total:"+p3.innerHTML+"%0a"+"4)"+m4.innerHTML+"%20"+ma4.innerHTML+"%20"+"Cantidad:"+ca4.innerHTML+"%20"+"Precio total:"+p4.innerHTML+"%0a"+"5)"+m5.innerHTML+"%20"+ma5.innerHTML+"%20"+"Cantidad:"+ca5.innerHTML+"%20"+"Precio total:"+p5.innerHTML+"%0a")
+
+                var link_wa = String("https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a%0a"+m1.innerHTML+"%0a"+ma1.innerHTML+"%0a"+"Cantidad: "+ca1.innerHTML+"%0a"+"Precio total: "+p1.innerHTML+"%0a"+"%0a"+m2.innerHTML+"%0a"+ma2.innerHTML+"%0a"+"Cantidad: "+ca2.innerHTML+"%0a"+"Precio total: "+p2.innerHTML+"%0a"+"%0a"+m3.innerHTML+"%0a"+ma3.innerHTML+"%0a"+"Cantidad: "+ca3.innerHTML+"%0a"+"Precio total: "+p3.innerHTML+"%0a"+"%0a"+m4.innerHTML+"%0a"+ma4.innerHTML+"%0a"+"Cantidad: "+ca4.innerHTML+"%0a"+"Precio total: "+p4.innerHTML+"%0a"+"%0a"+m5.innerHTML+"%0a"+ma5.innerHTML+"%0a"+"Cantidad: "+ca5.innerHTML+"%0a"+"Precio total: "+p5.innerHTML+"%0a")
 
 
-                var button_cotizar = document.createElement("button")
-                button_cotizar.className="main_buttons2"
-                button_cotizar.innerHTML="Descargar cotización"
-                //content.appendChild(button_cotizar)
-                button_cotizar.addEventListener("click",function(){
-
-
-                })
-
-
+                var button_wa = document.createElement("a")
+                button_wa.className="button_wa"
+                button_wa.href=link_wa
+                button_wa.innerHTML="Enviar mensaje por WhatsApp"
+                content.appendChild(button_wa)
                 btncon.appendChild(content)
 
 

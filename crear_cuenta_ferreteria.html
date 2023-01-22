@@ -32,7 +32,12 @@
 
             <input class="item_form" placeholder="Dirección" type="text" id="direccion">
 
-            <input class="item_form" placeholder="Telefono" type="text" id="telefono">
+            <div>
+                <select id="prefijo_pais"><option value="591">BOL+591</option><option value="51">PER+51</option></select>
+                <input class="item_form" placeholder="Teléfono" type="text" id="telefono">
+            </div>
+
+
 
             <input class="item_form" placeholder="Correo" id="email" type="email">
   
@@ -58,6 +63,7 @@
         registrar_usuario.addEventListener('click',(e)=>{
             var nombre_ferreteria = document.getElementById("nombre_ferreteria").value;
             var direccion = document.getElementById("direccion").value;
+            var prefijo_pais = document.getElementById("prefijo_pais").value; 
             var telefono = document.getElementById("telefono").value;   
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
@@ -69,6 +75,7 @@
                 const usuario = user.uid
                 sessionStorage.setItem("usuario",usuario)
                 sessionStorage.setItem("nombre",nombre_ferreteria)
+                sessionStorage.setItem("prefijo_pais",prefijo_pais)
                 sessionStorage.setItem("telefono",telefono)
                 sessionStorage.setItem("direccion",direccion)
 
@@ -81,6 +88,7 @@
                         uid: usuario,
                         nombre: nombre_ferreteria,
                         direccion: direccion,
+                        prefijo_pais: prefijo_pais,
                         telefono: telefono,
                         Entregas: "si",
                         
