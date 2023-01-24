@@ -70,12 +70,20 @@
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
+        console.log(JSON.parse(sessionStorage.getItem("ferreteria_materiales")))
+        console.log(JSON.parse(sessionStorage.getItem("ferreteria_marcas")))
 
         let ferreteria_pruductos = []
         ferreteria_pruductos =JSON.parse(sessionStorage.getItem("ferreteria_pruductos"))
 
         let ferreteria_precios = []
         ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
+
+        let ferreteria_materiales = []
+        ferreteria_materiales =JSON.parse(sessionStorage.getItem("ferreteria_materiales"))
+
+        let ferreteria_marcas = []
+        ferreteria_marcas =JSON.parse(sessionStorage.getItem("ferreteria_marcas"))
 
         
         function valor_de_material(material){
@@ -90,6 +98,35 @@
                 }
             }
             return(precio);
+        }
+
+
+        function crear_array_marcas(material){
+            let marcas = []
+            for(var i=0; i<ferreteria_materiales.length;i++){
+                if(ferreteria_materiales[i]==material){
+                    if(ferreteria_marcas[i]!="Cualquier marca"){
+                        marcas.push(ferreteria_marcas[i])
+                    }
+                }
+            }
+            marcas.push("Cualquier marca")
+            return(marcas)
+        }
+
+        function crear_select(material){
+
+            var marcas = crear_array_marcas(material)
+
+            var select = document.createElement("select");
+            for (var i = 0; i < marcas.length; i++) {
+                var option = document.createElement("option");
+                option.value = marcas[i];
+                option.text = marcas[i];
+                select.appendChild(option);
+            }
+
+            return select;
         }
 
 
@@ -111,7 +148,15 @@
 
             return(pedido)
         }
-       
+
+        function valor_marca(elemento_marca){
+            if(elemento_marca.tagName=="DIV"){
+                return(elemento_marca.innerHTML)
+            }else{
+                return(elemento_marca.value)
+            }
+        }
+
         
         //function to show all the quotes and refresh when a change in the db apears
         onValue(parte, (snapshot) => {
@@ -204,12 +249,19 @@
                 material_marca1.appendChild(m1)
                 var vm1 = childSnapshot.val().material1
 
+                if(childSnapshot.val().marca1!="Cualquier marca"){
                 var ma1 = document.createElement("div")
                 ma1.innerHTML=childSnapshot.val().marca1
                 material_marca1.appendChild(ma1)
                 var vma1 = childSnapshot.val().marca1
-
+                tabla.appendChild(material_marca1)}
+                else{
+                var ma1 = crear_select(childSnapshot.val().material1)
+                ma1.value = crear_array_marcas(childSnapshot.val().material1)[0]
+                material_marca1.appendChild(ma1)
+                var vma1 = childSnapshot.val().marca1
                 tabla.appendChild(material_marca1)
+                }
 
                 var ca1 = document.createElement("div")
                 ca1.className="item"
@@ -219,9 +271,11 @@
 
                 var p1 = document.createElement("input")
                 p1.className="quantity_box"
-                p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
+                console.log("wakakaak")
+                console.log(childSnapshot.val().material1+ma1.value)
+                p1.value=valor_de_material(childSnapshot.val().material1+ma1.value)*childSnapshot.val().cantidad1
                 div_precio1.appendChild(p1)
-                var vp1 = valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
+                var vp1 = valor_de_material(childSnapshot.val().material1+ma1.value)*childSnapshot.val().cantidad1
                 tabla.appendChild(div_precio1)
 
                 }else{
@@ -509,11 +563,14 @@
                 button_cotizar.innerHTML="COTIZAR"
                 content.appendChild(button_cotizar)
 
-                console.log(typeof(direccion)+direccion)
-                
                 button_cotizar.addEventListener("click",function(){
 
-                    
+                    vma1 = valor_marca(ma1)
+                    vma2 = valor_marca(ma2)
+                    vma3 = valor_marca(ma3)
+                    vma4 = valor_marca(ma4)
+                    vma5 = valor_marca(ma5)
+
 
                     precio.innerHTML=(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
                     pedido.innerHTML= pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
