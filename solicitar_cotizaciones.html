@@ -12,7 +12,7 @@
   <section class="container">
     <h1>Lista de materiales</h1>
   
-    <div class="table">
+    <div class="table" id="tabla_materiales">
       <div class="titulo_columna"><p>Material y marca</p></div>
       <div class="titulo_columna"><p>Cantidad</p></div>
 
@@ -47,14 +47,9 @@
         <div><select id="marca5"><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
       </div>
       <div class="item"><input id="cantidad5" class="quantity_box" type="number"></div>
-
-    
-
-
-      
-
-
     </div>
+    <button class="main_buttons" id="btn_añadir_material">Añadir material</button>
+
   </section>
 
 
@@ -89,7 +84,8 @@
     import {getDatabase,set, get, update, remove, ref, child}
     from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
-
+    var btn_añadir_material = document.getElementById("btn_añadir_material");
+    var tabla_materiales = document.getElementById("tabla_materiales");
     var btn_enviar_solicitud = document.getElementById("btn_enviar_solicitud");
     var fecha_limite = document.getElementById("fecha_limite");
     var pais = document.getElementById("pais");
@@ -98,7 +94,12 @@
     var municipio = document.getElementById("municipio");
     var calle = document.getElementById("calle");
     var error_solicitud = document.getElementById("error_solicitud")
-  
+
+    let lista_materiales = ['Elegir material','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)']
+    let lista_materiales_valores = [' ','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)']
+    let lista_marcas = ['Cualquier marca','Acelormittal', 'Acergal', 'Acero las lomas', 'Aceros Arequipa', 'Adhere forte', 'Calamina condor ', 'Campero', 'Cemento camba', 'Cemento ecebol', 'Cemento viacha', 'Cemento yura', 'Ceramica avaroa', 'Ceramica blanca', 'Clavos corinsa', 'Coboce', 'Dismat', 'Estuco vichaya', 'Incerpatzi', 'Incerpaz', 'Pinguino', 'Stick mix', 'Tigre']
+    let lista_marcas_valores = ['Cualquier marca','Acelormittal', 'Acergal', 'Acero las lomas', 'Aceros Arequipa', 'Adhere forte', 'Calamina condor ', 'Campero', 'Cemento camba', 'Cemento ecebol', 'Cemento viacha', 'Cemento yura', 'Ceramica avaroa', 'Ceramica blanca', 'Clavos corinsa', 'Coboce', 'Dismat', 'Estuco vichaya', 'Incerpatzi', 'Incerpaz', 'Pinguino', 'Stick mix', 'Tigre']
+
 
     var material1 = document.getElementById("material1");
     var material2 = document.getElementById("material2");
@@ -124,6 +125,47 @@
       }else{
         return "completa"
       }
+    }
+
+    function crear_select(array, array_valores){
+      var select = document.createElement("select");
+      for (var i = 0; i < array.length; i++) {
+          var option = document.createElement("option");
+          option.value = array_valores[i];
+          option.text = array[i];
+          select.appendChild(option);
+      }
+      return select;
+    }
+
+
+    function crear_linea_material(materiales, materiales_valores,marcas,marcas_valores, tabla){
+
+      var div_material_marca = document.createElement("div")
+      div_material_marca.className="item2"
+
+      var div_material = document.createElement("div")
+      var select_material = crear_select(materiales,materiales_valores)
+      select_material.className="material"
+      div_material.appendChild(select_material)
+      div_material_marca.appendChild(div_material)
+
+      var div_marca = document.createElement("div")
+      var select_marca = crear_select(marcas,marcas_valores)
+      select_marca.className = "marca"
+      div_marca.appendChild(select_marca)
+      div_material_marca.appendChild(div_marca)
+
+      tabla.appendChild(div_material_marca)
+
+      var div_cantidad = document.createElement("div")
+      div_cantidad.className = "item"
+      var cantidad = document.createElement("input")
+      cantidad.className = "quantity_box"
+      cantidad.type = "number"
+      div_cantidad.appendChild(cantidad)
+      tabla.appendChild(div_cantidad)
+
     }
 
     console.log(fecha_limite.textContent)
@@ -168,6 +210,25 @@
         });
     }
 
+    btn_añadir_material.addEventListener('click', (e)=>{
+      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
+      var coll = document.getElementsByClassName("material");
+
+      for(var i=0;i<coll.length;i++){
+
+        set(ref(db, "Solicitudes/425/aprueba"+(i+1)),coll[i].value)
+        
+
+      }
+
+      if(coll.length>2){
+        console.log(coll[0].value)
+      }
+    
+    
+    })
+
+
 
     btn_enviar_solicitud.addEventListener('click', (e)=>{
 
@@ -180,6 +241,14 @@
       }
 
     });
+
+
+
+
+
+
+
+
 
 
   </script>

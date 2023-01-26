@@ -165,7 +165,17 @@
             btncon.replaceChildren()
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
+
+                if (childSnapshot.child("prueba").exists()) {
+                    childSnapshot.child("prueba").forEach((child_materiales) => {
+                        console.log(child_materiales.val().marca)
+                        console.log(child_materiales.val().material)
+                    })
+                    
+
+                }
             
+                
                 if (childSnapshot.child(usuario).exists()) {
                 }else{ 
                 
