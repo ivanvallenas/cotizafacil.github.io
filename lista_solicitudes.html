@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cotiza Fácil</title>
     <link rel="stylesheet" type="text/css" href="css/lista_solicitudes.css">
     <link rel="stylesheet" type="text/css" href="css/main_elements.css">
@@ -254,8 +255,8 @@
                 ma1.innerHTML=childSnapshot.val().marca1
                 material_marca1.appendChild(ma1)
                 var vma1 = childSnapshot.val().marca1
-                tabla.appendChild(material_marca1)}
-                else{
+                tabla.appendChild(material_marca1)
+                }else{
                 var ma1 = crear_select(childSnapshot.val().material1)
                 ma1.value = crear_array_marcas(childSnapshot.val().material1)[0]
                 material_marca1.appendChild(ma1)
@@ -285,10 +286,9 @@
                 var vm1 = childSnapshot.val().material1
 
                 var ma1 = document.createElement("div")
-                ma1.innerHTML=childSnapshot.val().marca1
+                ma1.innerHTML=" "
                 material_marca1.appendChild(ma1)
-                var vma1 = childSnapshot.val().marca1
-
+                var vma1 = " "
                 tabla.appendChild(material_marca1)
 
                 var ca1 = document.createElement("div")
@@ -314,13 +314,19 @@
                 material_marca2.appendChild(m2)
                 var vm2 = childSnapshot.val().material2
 
+                if(childSnapshot.val().marca2!="Cualquier marca"){
                 var ma2 = document.createElement("div")
                 ma2.innerHTML=childSnapshot.val().marca2
                 material_marca2.appendChild(ma2)
                 var vma2 = childSnapshot.val().marca2
-
-
                 tabla.appendChild(material_marca2)
+                }else{
+                var ma2 = crear_select(childSnapshot.val().material2)
+                ma2.value = crear_array_marcas(childSnapshot.val().material2)[0]
+                material_marca2.appendChild(ma2)
+                var vma2 = childSnapshot.val().marca2
+                tabla.appendChild(material_marca2)
+                }
 
                 var ca2 = document.createElement("div")
                 ca2.className="item"
@@ -341,11 +347,9 @@
                 var vm2 = childSnapshot.val().material2
 
                 var ma2 = document.createElement("div")
-                ma2.innerHTML=childSnapshot.val().marca2
+                ma2.innerHTML=" "
                 material_marca2.appendChild(ma2)
-                var vma2 = childSnapshot.val().marca2
-
-
+                var vma2 = " "
                 tabla.appendChild(material_marca2)
 
                 var ca2 = document.createElement("div")
@@ -372,12 +376,19 @@
                 var vm3 = childSnapshot.val().material3
                 material_marca3.appendChild(m3)
 
+                if(childSnapshot.val().marca3!="Cualquier marca"){
                 var ma3 = document.createElement("div")
                 ma3.innerHTML=childSnapshot.val().marca3
-                var vma3 = childSnapshot.val().marca3
                 material_marca3.appendChild(ma3)
-
+                var vma3 = childSnapshot.val().marca3
                 tabla.appendChild(material_marca3)
+                }else{
+                var ma3 = crear_select(childSnapshot.val().material3)
+                ma3.value = crear_array_marcas(childSnapshot.val().material3)[0]
+                material_marca3.appendChild(ma3)
+                var vma3 = childSnapshot.val().marca3
+                tabla.appendChild(material_marca3)
+                }
 
                 var ca3 = document.createElement("div")
                 ca3.className="item"
@@ -398,10 +409,9 @@
                 material_marca3.appendChild(m3)
 
                 var ma3 = document.createElement("div")
-                ma3.innerHTML=childSnapshot.val().marca3
-                var vma3 = childSnapshot.val().marca3
+                ma3.innerHTML=" "
+                var vma3 = " "
                 material_marca3.appendChild(ma3)
-
                 tabla.appendChild(material_marca3)
 
                 var ca3 = document.createElement("div")
@@ -426,12 +436,19 @@
                 var vm4 = childSnapshot.val().material4
                 material_marca4.appendChild(m4)
 
+                if(childSnapshot.val().marca4!="Cualquier marca"){
                 var ma4 = document.createElement("div")
                 ma4.innerHTML=childSnapshot.val().marca4
-                var vma4 = childSnapshot.val().marca4
                 material_marca4.appendChild(ma4)
-
+                var vma4 = childSnapshot.val().marca4
                 tabla.appendChild(material_marca4)
+                }else{
+                var ma4 = crear_select(childSnapshot.val().material4)
+                ma4.value = crear_array_marcas(childSnapshot.val().material4)[0]
+                material_marca4.appendChild(ma4)
+                var vma4 = childSnapshot.val().marca4
+                tabla.appendChild(material_marca4)
+                }
 
                 var ca4 = document.createElement("div")
                 ca4.className="item"
@@ -453,10 +470,9 @@
                 material_marca4.appendChild(m4)
 
                 var ma4 = document.createElement("div")
-                ma4.innerHTML=childSnapshot.val().marca4
-                var vma4 = childSnapshot.val().marca4
+                ma4.innerHTML=" "
+                var vma4 = " "
                 material_marca4.appendChild(ma4)
-
                 tabla.appendChild(material_marca4)
 
                 var ca4 = document.createElement("div")
@@ -482,13 +498,19 @@
                 var vm5 = childSnapshot.val().material5
                 material_marca5.appendChild(m5)
 
+                if(childSnapshot.val().marca5!="Cualquier marca"){
                 var ma5 = document.createElement("div")
                 ma5.innerHTML=childSnapshot.val().marca5
-                var vma5 = childSnapshot.val().marca5
                 material_marca5.appendChild(ma5)
-                
-
+                var vma5 = childSnapshot.val().marca5
                 tabla.appendChild(material_marca5)
+                }else{
+                var ma5 = crear_select(childSnapshot.val().material5)
+                ma5.value = crear_array_marcas(childSnapshot.val().material5)[0]
+                material_marca5.appendChild(ma5)
+                var vma5 = childSnapshot.val().marca5
+                tabla.appendChild(material_marca5)
+                }
 
                 var ca5 = document.createElement("div")
                 ca5.className="item"
@@ -509,11 +531,9 @@
                 material_marca5.appendChild(m5)
 
                 var ma5 = document.createElement("div")
-                ma5.innerHTML=childSnapshot.val().marca5
-                var vma5 = childSnapshot.val().marca5
+                ma5.innerHTML=" "
+                var vma5 = " "
                 material_marca5.appendChild(ma5)
-                
-
                 tabla.appendChild(material_marca5)
 
                 var ca5 = document.createElement("div")
@@ -555,15 +575,20 @@
                 direccion_cliente.innerHTML= "Dirección del cliente: " + childSnapshot.val().calle+", "+childSnapshot.val().municipio
                 content.appendChild(direccion_cliente)
 
-
-
-
+                var error_cotizar = document.createElement("div")
+                error_cotizar.className="error"
+                content.appendChild(error_cotizar)
+            
                 var button_cotizar = document.createElement("button")
                 button_cotizar.className="main_buttons2"
                 button_cotizar.innerHTML="COTIZAR"
                 content.appendChild(button_cotizar)
 
+
                 button_cotizar.addEventListener("click",function(){
+
+                    if(fecha_validez_cotizacion.value!=""){
+                                            
 
                     vma1 = valor_marca(ma1)
                     vma2 = valor_marca(ma2)
@@ -620,6 +645,9 @@
 
                     })
                     alert("Cotización enviada")
+                    }else{
+                        error_cotizar.innerHTML="Falta fecha limite de validez"
+                    }
                 })
 
                 var button_cotizar = document.createElement("button")

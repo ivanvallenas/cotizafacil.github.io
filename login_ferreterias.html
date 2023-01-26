@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/main_elements.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -26,12 +27,15 @@
         <container class="container_form">
             <h1 class="Title">Iniciar sesion</h1>
 
-            <input placeholder="Correo" id="email" type="email">
-  
+            <input placeholder="Correo" id="email" type="email"> 
             <input placeholder="Contraseña" id="password" type="password">
+
+            <div id="error_login" class="error"></div>
 
 
             <button id="registrar_usuario">Ingresar</button>
+
+        
             
             <a href="https://ivanvallenas.github.io/cotizafacil.github.io/crear_cuenta_ferreteria.html">Crear una cuenta</a>
             
@@ -47,6 +51,8 @@
             document.getElementById("email").value = localStorage.getItem("email")
             document.getElementById("password").value=localStorage.getItem("password")
         }
+
+       const error_login = document.getElementById("error_login")
 
 
         import {app} from "./js/firebase.js"; 
@@ -145,8 +151,20 @@
                 })
             })
             .catch((error) => {
+
+
+                error_login.innerHTML="Usuario o contraseña incorrecto"
+
                 const errorCode = error.code;
                 const errorMessage = error.message;
+
+
+
+
+
+
+
+
                 // ..
             });   
         })
