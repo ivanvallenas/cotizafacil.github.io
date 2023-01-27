@@ -41,10 +41,7 @@
         let month = now.getMonth() + 1;
         let day = now.getDate();
         const fecha_actual = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`
-        
-        console.log("pruebassssssss")
-
-       
+              
 
         //Import the database and the principal functions
         import {db} from "./js/firebase.js";   
@@ -66,8 +63,6 @@
         const prefijo_pais = sessionStorage.getItem("prefijo_pais")
         const telefono = sessionStorage.getItem("telefono")
         const direccion = sessionStorage.getItem("direccion")
-
-        console.log(direccion)
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
@@ -166,15 +161,6 @@
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
 
-                if (childSnapshot.child("prueba").exists()) {
-                    childSnapshot.child("prueba").forEach((child_materiales) => {
-                        console.log(child_materiales.val().marca)
-                        console.log(child_materiales.val().material)
-                    })
-                    
-
-                }
-            
                 
                 if (childSnapshot.child(usuario).exists()) {
                 }else{ 
@@ -184,6 +170,7 @@
                 var precio = document.createElement("div")
                 var pedido = document.createElement("div")
                 var direccion_cliente = childSnapshot.val().calle+", "+childSnapshot.val().municipio
+                var codigo_solicitud = childSnapshot.val().codigo_solicitud
                 console.log(childSnapshot.val().material1+childSnapshot.val().marca1)
 
                 cbt.className="collapsible"
@@ -213,6 +200,7 @@
                 var material_marca5 = document.createElement("div")
                 material_marca5.className="item2"
 
+
                 var div_precio1 = document.createElement("div")
                 div_precio1.className="item"
                 var div_precio2 = document.createElement("div")
@@ -223,6 +211,7 @@
                 div_precio4.className="item"
                 var div_precio5 = document.createElement("div")
                 div_precio5.className="item"
+
 
 
                 var tabla = document.createElement("div")
@@ -251,6 +240,96 @@
                 
                 var pol = childSnapshot.val().material1
                 console.log(pol+" locoooo")
+
+                if (childSnapshot.child("materiales").exists()) {
+                    childSnapshot.child("materiales").forEach((child_materiales) => {
+
+                        var material_marca = document.createElement("div")
+                        material_marca.className="item2"
+
+                        var div_precio = document.createElement("div")
+                        div_precio.className="item"
+
+                        if(child_materiales.val().material!=" "){
+                        var m = document.createElement("div")
+                        m.innerHTML=child_materiales.val().material
+                        material_marca.appendChild(m)
+                        var vm = child_materiales.val().material
+
+                        if(child_materiales.val().marca!="Cualquier marca"){
+                        var ma = document.createElement("div")
+                        ma.innerHTML=child_materiales.val().marca
+                        material_marca.appendChild(ma)
+                        var vma = child_materiales.val().marca
+                        tabla.appendChild(material_marca)
+                        }else{
+                        var ma = crear_select(child_materiales.val().material)
+                        ma.value = crear_array_marcas(child_materiales.val().material)[0]
+                        material_marca.appendChild(ma)
+                        var vma = child_materiales.val().marca
+                        tabla.appendChild(material_marca)
+                        }
+
+                        var ca = document.createElement("div")
+                        ca.className="item"
+                        ca.innerHTML=child_materiales.val().cantidad
+                        var vca = child_materiales.val().cantidad
+                        tabla.appendChild(ca)
+
+                        var p = document.createElement("input")
+                        var class_ppp = String("quantity_box"+" "+codigo_solicitud+"precio")
+                        p.className = class_ppp
+                        p.value=valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
+                        div_precio.appendChild(p)
+                        var vp = valor_de_material(child_materiales.val().material+ma.value)*child_materiales.val().cantidad
+                        tabla.appendChild(div_precio)
+
+                        }else{
+                        var m = document.createElement("div")
+                        m.innerHTML=child_materiales.val().material
+                        material_marca.appendChild(m)
+                        var vm = child_materiales.val().material
+
+                        var ma = document.createElement("div")
+                        ma.innerHTML=" "
+                        material_marca.appendChild(ma)
+                        var vma = " "
+                        tabla.appendChild(material_marca)
+
+                        var ca = document.createElement("div")
+                        ca.className="item"
+                        ca.innerHTML=child_materiales.val().cantidad
+                        var vca = child_materiales.val().cantidad
+                        tabla.appendChild(ca)
+
+                        var p = document.createElement("input")
+                        p.className="quantity_box2"
+                        p.value=valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
+                        div_precio.appendChild(p)
+                        var vp = valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
+                        tabla.appendChild(div_precio)
+
+                        }
+
+
+
+                        //console.log("marca"+child_materiales.val().marca)
+                        //console.log("lolllllll"+child_materiales.val().material)
+                        //console.log("lolllllll"+child_materiales.val().cantidad)
+                    })
+                    
+
+                }else{
+            
+
+
+
+
+
+
+
+
+
                 
                 //MATERIAL1 ###########
                         
@@ -559,12 +638,13 @@
                 tabla.appendChild(div_precio5)
         
                 }
+            }
 
                 //precio.innerHTML=(Math.floor(vp1)+Math.floor(vp2)+Math.floor(vp3)+Math.floor(vp4)+Math.floor(vp5))+" Bs"
                 //pedido.innerHTML= pedido_completo(vm1, vp1, vm2, vp2, vm3, vp3, vm4, vp4, vm5, vp5)
 
-                precio.innerHTML=(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
-                pedido.innerHTML= pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
+                precio.innerHTML=2000//(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
+                pedido.innerHTML="incompl" //pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
 
 
                 content.appendChild(tabla)
