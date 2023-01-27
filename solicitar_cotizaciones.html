@@ -135,7 +135,6 @@
       var conjunto_marcas = document.getElementsByClassName("marca");
       var conjunto_cantidades = document.getElementsByClassName("quantity_box");
       var num_materiales = conjunto_materiales.length-1
-      console.log(num_materiales)
 
       for(var i=0;i<conjunto_materiales.length-1;i++){
         set(ref(db, "Solicitudes/"+codigo_solicitud+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].value)

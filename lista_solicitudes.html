@@ -42,19 +42,14 @@
         let day = now.getDate();
         const fecha_actual = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`
               
-
         //Import the database and the principal functions
         import {db} from "./js/firebase.js";   
         import {getDatabase,query, set, get, update, remove, ref, child,onValue,startAt, endAt, orderByChild}
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         //Get only the requests of quotes from the database  
-
-
        // orderByChild("fecha"),startAt(4)
   
         const parte = query(ref(db,'Solicitudes'),orderByChild("fecha_limite"), startAt(fecha_actual))
-
-
 
         //Define a varible that makes reference to the div where all the quotes request are going to apear
         var btncon = document.getElementById("botones")
@@ -111,9 +106,7 @@
         }
 
         function crear_select(material){
-
             var marcas = crear_array_marcas(material)
-
             var select = document.createElement("select");
             for (var i = 0; i < marcas.length; i++) {
                 var option = document.createElement("option");
@@ -121,28 +114,38 @@
                 option.text = marcas[i];
                 select.appendChild(option);
             }
-
             return select;
         }
 
 
-        function pedido_completo(m1,p1,m2,p2,m3,p3,m4,p4,m5,p5){
-            let p = [p1,p2,p3,p4,p5]
-            let m = [m1,m2,m3,m4,m5]
+        function pedido_completo(p){
             var materiales_no_disponibles = 0
             var pedido = "Completo"
-
             for (var i=0; i<p.length; i++) {
-                if(m[i]!= " " && p[i]==0 ){
+                if(p[i].value==0 ){
                     materiales_no_disponibles = materiales_no_disponibles+1
                 }
             }
-
             if(materiales_no_disponibles>0){
                 pedido="Incompleto"
             }
-
             return(pedido)
+        }
+
+        function pedido_completo_simple(contador1,contador2){
+            if(contador1==contador2){
+                return("Completo")
+            }else{
+                return("Incompleto")
+            }
+        }
+
+        function suma_precio_total(precios){
+            var precio_total_final = 0
+            for(var i=0;i<precios.length;i++){
+                precio_total_final = precio_total_final + Math.floor(precios[i].value)
+            }
+            return(precio_total_final)
         }
 
         function valor_marca(elemento_marca){
@@ -189,31 +192,7 @@
                         
                 var content = document.createElement("div")
                 content.className="content"
-                var material_marca1 = document.createElement("div")
-                material_marca1.className="item2"
-                var material_marca2 = document.createElement("div")
-                material_marca2.className="item2"
-                var material_marca3 = document.createElement("div")
-                material_marca3.className="item2"
-                var material_marca4 = document.createElement("div")
-                material_marca4.className="item2"
-                var material_marca5 = document.createElement("div")
-                material_marca5.className="item2"
-
-
-                var div_precio1 = document.createElement("div")
-                div_precio1.className="item"
-                var div_precio2 = document.createElement("div")
-                div_precio2.className="item"
-                var div_precio3 = document.createElement("div")
-                div_precio3.className="item"
-                var div_precio4 = document.createElement("div")
-                div_precio4.className="item"
-                var div_precio5 = document.createElement("div")
-                div_precio5.className="item"
-
-
-
+    
                 var tabla = document.createElement("div")
                 tabla.className="table"
 
@@ -238,12 +217,14 @@
                 titulo4.appendChild(titulo4_t)
                 tabla.appendChild(titulo4)
                 
-                var pol = childSnapshot.val().material1
-                console.log(pol+" locoooo")
-
-                if (childSnapshot.child("materiales").exists()) {
-                    childSnapshot.child("materiales").forEach((child_materiales) => {
-
+                
+                var precio_acumulado = 0
+                var contador_materiales_con_precio = 0
+                var contador_materiales_solicitados = 0
+           
+                childSnapshot.child("materiales").forEach((child_materiales) => {
+                        
+                    
                         var material_marca = document.createElement("div")
                         material_marca.className="item2"
 
@@ -251,401 +232,44 @@
                         div_precio.className="item"
 
                         if(child_materiales.val().material!=" "){
+                        contador_materiales_solicitados = contador_materiales_solicitados+1
+
                         var m = document.createElement("div")
                         m.innerHTML=child_materiales.val().material
+                        m.className=codigo_solicitud+"material"
                         material_marca.appendChild(m)
-                        var vm = child_materiales.val().material
 
                         if(child_materiales.val().marca!="Cualquier marca"){
                         var ma = document.createElement("div")
                         ma.innerHTML=child_materiales.val().marca
+                        ma.className = codigo_solicitud+"marca"
                         material_marca.appendChild(ma)
-                        var vma = child_materiales.val().marca
                         tabla.appendChild(material_marca)
                         }else{
                         var ma = crear_select(child_materiales.val().material)
                         ma.value = crear_array_marcas(child_materiales.val().material)[0]
+                        ma.className = codigo_solicitud+"marca"
                         material_marca.appendChild(ma)
-                        var vma = child_materiales.val().marca
                         tabla.appendChild(material_marca)
                         }
 
                         var ca = document.createElement("div")
-                        ca.className="item"
+                        ca.className="item"+" "+codigo_solicitud+"cantidad"
                         ca.innerHTML=child_materiales.val().cantidad
-                        var vca = child_materiales.val().cantidad
                         tabla.appendChild(ca)
 
                         var p = document.createElement("input")
-                        var class_ppp = String("quantity_box"+" "+codigo_solicitud+"precio")
-                        p.className = class_ppp
+                        p.className = String("quantity_box"+" "+codigo_solicitud+"precio")
                         p.value=valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
+                        if(p.value>0){contador_materiales_con_precio = contador_materiales_con_precio+1}
                         div_precio.appendChild(p)
-                        var vp = valor_de_material(child_materiales.val().material+ma.value)*child_materiales.val().cantidad
                         tabla.appendChild(div_precio)
-
-                        }else{
-                        var m = document.createElement("div")
-                        m.innerHTML=child_materiales.val().material
-                        material_marca.appendChild(m)
-                        var vm = child_materiales.val().material
-
-                        var ma = document.createElement("div")
-                        ma.innerHTML=" "
-                        material_marca.appendChild(ma)
-                        var vma = " "
-                        tabla.appendChild(material_marca)
-
-                        var ca = document.createElement("div")
-                        ca.className="item"
-                        ca.innerHTML=child_materiales.val().cantidad
-                        var vca = child_materiales.val().cantidad
-                        tabla.appendChild(ca)
-
-                        var p = document.createElement("input")
-                        p.className="quantity_box2"
-                        p.value=valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
-                        div_precio.appendChild(p)
-                        var vp = valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
-                        tabla.appendChild(div_precio)
-
-                        }
-
-
-
-                        //console.log("marca"+child_materiales.val().marca)
-                        //console.log("lolllllll"+child_materiales.val().material)
-                        //console.log("lolllllll"+child_materiales.val().cantidad)
-                    })
+                        precio_acumulado = precio_acumulado+Math.floor(p.value)
+                    }
+                })
                     
-
-                }else{
-            
-
-
-
-
-
-
-
-
-
-                
-                //MATERIAL1 ###########
-                        
-                if(childSnapshot.val().material1!=" "){
-                var m1 = document.createElement("div")
-                m1.innerHTML=childSnapshot.val().material1
-                material_marca1.appendChild(m1)
-                var vm1 = childSnapshot.val().material1
-
-                if(childSnapshot.val().marca1!="Cualquier marca"){
-                var ma1 = document.createElement("div")
-                ma1.innerHTML=childSnapshot.val().marca1
-                material_marca1.appendChild(ma1)
-                var vma1 = childSnapshot.val().marca1
-                tabla.appendChild(material_marca1)
-                }else{
-                var ma1 = crear_select(childSnapshot.val().material1)
-                ma1.value = crear_array_marcas(childSnapshot.val().material1)[0]
-                material_marca1.appendChild(ma1)
-                var vma1 = childSnapshot.val().marca1
-                tabla.appendChild(material_marca1)
-                }
-
-                var ca1 = document.createElement("div")
-                ca1.className="item"
-                ca1.innerHTML=childSnapshot.val().cantidad1
-                var vca1 = childSnapshot.val().cantidad1
-                tabla.appendChild(ca1)
-
-                var p1 = document.createElement("input")
-                p1.className="quantity_box"
-                console.log("wakakaak")
-                console.log(childSnapshot.val().material1+ma1.value)
-                p1.value=valor_de_material(childSnapshot.val().material1+ma1.value)*childSnapshot.val().cantidad1
-                div_precio1.appendChild(p1)
-                var vp1 = valor_de_material(childSnapshot.val().material1+ma1.value)*childSnapshot.val().cantidad1
-                tabla.appendChild(div_precio1)
-
-                }else{
-                    var m1 = document.createElement("div")
-                m1.innerHTML=childSnapshot.val().material1
-                material_marca1.appendChild(m1)
-                var vm1 = childSnapshot.val().material1
-
-                var ma1 = document.createElement("div")
-                ma1.innerHTML=" "
-                material_marca1.appendChild(ma1)
-                var vma1 = " "
-                tabla.appendChild(material_marca1)
-
-                var ca1 = document.createElement("div")
-                ca1.className="item"
-                ca1.innerHTML=childSnapshot.val().cantidad1
-                var vca1 = childSnapshot.val().cantidad1
-                tabla.appendChild(ca1)
-
-                var p1 = document.createElement("input")
-                p1.className="quantity_box2"
-                p1.value=valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
-                div_precio1.appendChild(p1)
-                var vp1 = valor_de_material(childSnapshot.val().material1+childSnapshot.val().marca1)*childSnapshot.val().cantidad1
-                tabla.appendChild(div_precio1)
-
-                }
-
-                //MATERIAL 2 ########
-
-                if(childSnapshot.val().material2!=" "){
-                var m2 = document.createElement("div")
-                m2.innerHTML=childSnapshot.val().material2
-                material_marca2.appendChild(m2)
-                var vm2 = childSnapshot.val().material2
-
-                if(childSnapshot.val().marca2!="Cualquier marca"){
-                var ma2 = document.createElement("div")
-                ma2.innerHTML=childSnapshot.val().marca2
-                material_marca2.appendChild(ma2)
-                var vma2 = childSnapshot.val().marca2
-                tabla.appendChild(material_marca2)
-                }else{
-                var ma2 = crear_select(childSnapshot.val().material2)
-                ma2.value = crear_array_marcas(childSnapshot.val().material2)[0]
-                material_marca2.appendChild(ma2)
-                var vma2 = childSnapshot.val().marca2
-                tabla.appendChild(material_marca2)
-                }
-
-                var ca2 = document.createElement("div")
-                ca2.className="item"
-                ca2.innerHTML=childSnapshot.val().cantidad2
-                var vca2 = childSnapshot.val().cantidad2
-                tabla.appendChild(ca2)
-
-                var p2 = document.createElement("input")
-                p2.className="quantity_box"
-                p2.value=valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
-                div_precio2.appendChild(p2)
-                var vp2 = p2.value
-                tabla.appendChild(div_precio2)
-                }else{
-                var m2 = document.createElement("div")
-                m2.innerHTML=childSnapshot.val().material2
-                material_marca2.appendChild(m2)
-                var vm2 = childSnapshot.val().material2
-
-                var ma2 = document.createElement("div")
-                ma2.innerHTML=" "
-                material_marca2.appendChild(ma2)
-                var vma2 = " "
-                tabla.appendChild(material_marca2)
-
-                var ca2 = document.createElement("div")
-                ca2.className="item"
-                ca2.innerHTML=childSnapshot.val().cantidad2
-                var vca2 = childSnapshot.val().cantidad2
-                tabla.appendChild(ca2)
-
-                var p2 = document.createElement("input")
-                p2.className="quantity_box2"
-                p2.value=valor_de_material(childSnapshot.val().material2+childSnapshot.val().marca2)*childSnapshot.val().cantidad2
-                div_precio2.appendChild(p2)
-                var vp2 = p2.value
-                tabla.appendChild(div_precio2)
- 
-                
-                }
-
-                //MATERIAL 3 ######
-                
-                if(childSnapshot.val().material3!=" "){
-                var m3 = document.createElement("div")
-                m3.innerHTML=childSnapshot.val().material3
-                var vm3 = childSnapshot.val().material3
-                material_marca3.appendChild(m3)
-
-                if(childSnapshot.val().marca3!="Cualquier marca"){
-                var ma3 = document.createElement("div")
-                ma3.innerHTML=childSnapshot.val().marca3
-                material_marca3.appendChild(ma3)
-                var vma3 = childSnapshot.val().marca3
-                tabla.appendChild(material_marca3)
-                }else{
-                var ma3 = crear_select(childSnapshot.val().material3)
-                ma3.value = crear_array_marcas(childSnapshot.val().material3)[0]
-                material_marca3.appendChild(ma3)
-                var vma3 = childSnapshot.val().marca3
-                tabla.appendChild(material_marca3)
-                }
-
-                var ca3 = document.createElement("div")
-                ca3.className="item"
-                ca3.innerHTML=childSnapshot.val().cantidad3
-                var vca3 = childSnapshot.val().cantidad3
-                tabla.appendChild(ca3)
-
-                var p3 = document.createElement("input")
-                p3.className="quantity_box"
-                p3.value=valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
-                div_precio3.appendChild(p3)
-                var vp3 = valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
-                tabla.appendChild(div_precio3)
-                } else{
-                var m3 = document.createElement("div")
-                m3.innerHTML=childSnapshot.val().material3
-                var vm3 = childSnapshot.val().material3
-                material_marca3.appendChild(m3)
-
-                var ma3 = document.createElement("div")
-                ma3.innerHTML=" "
-                var vma3 = " "
-                material_marca3.appendChild(ma3)
-                tabla.appendChild(material_marca3)
-
-                var ca3 = document.createElement("div")
-                ca3.className="item"
-                ca3.innerHTML=childSnapshot.val().cantidad3
-                var vca3 = childSnapshot.val().cantidad3
-                tabla.appendChild(ca3)
-
-                var p3 = document.createElement("input")
-                p3.className="quantity_box2"
-                p3.value=valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
-                div_precio3.appendChild(p3)
-                var vp3 = valor_de_material(childSnapshot.val().material3+childSnapshot.val().marca3)*childSnapshot.val().cantidad3
-                tabla.appendChild(div_precio3)
- 
-                }
-
-                // MATERIAL 4 #####
-                if(childSnapshot.val().material4!=" "){
-                var m4 = document.createElement("div")
-                m4.innerHTML=childSnapshot.val().material4
-                var vm4 = childSnapshot.val().material4
-                material_marca4.appendChild(m4)
-
-                if(childSnapshot.val().marca4!="Cualquier marca"){
-                var ma4 = document.createElement("div")
-                ma4.innerHTML=childSnapshot.val().marca4
-                material_marca4.appendChild(ma4)
-                var vma4 = childSnapshot.val().marca4
-                tabla.appendChild(material_marca4)
-                }else{
-                var ma4 = crear_select(childSnapshot.val().material4)
-                ma4.value = crear_array_marcas(childSnapshot.val().material4)[0]
-                material_marca4.appendChild(ma4)
-                var vma4 = childSnapshot.val().marca4
-                tabla.appendChild(material_marca4)
-                }
-
-                var ca4 = document.createElement("div")
-                ca4.className="item"
-                ca4.innerHTML=childSnapshot.val().cantidad4
-                var vca4 = childSnapshot.val().cantidad4
-                tabla.appendChild(ca4)
-
-                var p4 = document.createElement("input")
-                p4.className="quantity_box"
-                p4.value=valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
-                div_precio4.appendChild(p4)
-                var vp4 = valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
-                tabla.appendChild(div_precio4)
-                }else{
-
-                var m4 = document.createElement("div")
-                m4.innerHTML=childSnapshot.val().material4
-                var vm4 = childSnapshot.val().material4
-                material_marca4.appendChild(m4)
-
-                var ma4 = document.createElement("div")
-                ma4.innerHTML=" "
-                var vma4 = " "
-                material_marca4.appendChild(ma4)
-                tabla.appendChild(material_marca4)
-
-                var ca4 = document.createElement("div")
-                ca4.className="item"
-                ca4.innerHTML=childSnapshot.val().cantidad4
-                var vca4 = childSnapshot.val().cantidad4
-                tabla.appendChild(ca4)
-
-                var p4 = document.createElement("input")
-                p4.className="quantity_box2"
-                p4.value=valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
-                div_precio4.appendChild(p4)
-                var vp4 = valor_de_material(childSnapshot.val().material4+childSnapshot.val().marca4)*childSnapshot.val().cantidad4
-                tabla.appendChild(div_precio4)
-                   
-                }
-                
-                //MATERIAL 5 #######
-                
-                if(childSnapshot.val().material5!=" "){
-                var m5 = document.createElement("div")
-                m5.innerHTML=childSnapshot.val().material5
-                var vm5 = childSnapshot.val().material5
-                material_marca5.appendChild(m5)
-
-                if(childSnapshot.val().marca5!="Cualquier marca"){
-                var ma5 = document.createElement("div")
-                ma5.innerHTML=childSnapshot.val().marca5
-                material_marca5.appendChild(ma5)
-                var vma5 = childSnapshot.val().marca5
-                tabla.appendChild(material_marca5)
-                }else{
-                var ma5 = crear_select(childSnapshot.val().material5)
-                ma5.value = crear_array_marcas(childSnapshot.val().material5)[0]
-                material_marca5.appendChild(ma5)
-                var vma5 = childSnapshot.val().marca5
-                tabla.appendChild(material_marca5)
-                }
-
-                var ca5 = document.createElement("div")
-                ca5.className="item"
-                ca5.innerHTML=childSnapshot.val().cantidad5
-                var vca5 = childSnapshot.val().cantidad5
-                tabla.appendChild(ca5)
-
-                var p5 = document.createElement("input")
-                p5.className="quantity_box"
-                p5.value=valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
-                div_precio5.appendChild(p5)
-                tabla.appendChild(div_precio5)
-                }else{
-
-                var m5 = document.createElement("div")
-                m5.innerHTML=childSnapshot.val().material5
-                var vm5 = childSnapshot.val().material5
-                material_marca5.appendChild(m5)
-
-                var ma5 = document.createElement("div")
-                ma5.innerHTML=" "
-                var vma5 = " "
-                material_marca5.appendChild(ma5)
-                tabla.appendChild(material_marca5)
-
-                var ca5 = document.createElement("div")
-                ca5.className="item"
-                ca5.innerHTML=childSnapshot.val().cantidad5
-                var vca5 = childSnapshot.val().cantidad5
-                tabla.appendChild(ca5)
-
-                var p5 = document.createElement("input")
-                p5.className="quantity_box2"
-                p5.value=valor_de_material(childSnapshot.val().material5+childSnapshot.val().marca5)*childSnapshot.val().cantidad5
-                div_precio5.appendChild(p5)
-                tabla.appendChild(div_precio5)
-        
-                }
-            }
-
-                //precio.innerHTML=(Math.floor(vp1)+Math.floor(vp2)+Math.floor(vp3)+Math.floor(vp4)+Math.floor(vp5))+" Bs"
-                //pedido.innerHTML= pedido_completo(vm1, vp1, vm2, vp2, vm3, vp3, vm4, vp4, vm5, vp5)
-
-                precio.innerHTML=2000//(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
-                pedido.innerHTML="incompl" //pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
-
+                precio.innerHTML=precio_acumulado+" Bs"
+                pedido.innerHTML=pedido_completo_simple(contador_materiales_con_precio,contador_materiales_solicitados)
 
                 content.appendChild(tabla)
 
@@ -653,12 +277,11 @@
                 fecha_limite_cotizar.className="item4"
                 fecha_limite_cotizar.innerHTML= "La oferta es válida hasta: "
                 content.appendChild(fecha_limite_cotizar)
+
                 var fecha_validez_cotizacion = document.createElement("input")
                 fecha_validez_cotizacion.className="main_inputs"
                 fecha_validez_cotizacion.type="date"
                 content.appendChild(fecha_validez_cotizacion)
-                
-                
                 
                 var direccion_cliente = document.createElement("div")
                 direccion_cliente.className="item4"
@@ -674,86 +297,70 @@
                 button_cotizar.innerHTML="COTIZAR"
                 content.appendChild(button_cotizar)
 
+                var button_eliminar = document.createElement("button")
+                button_eliminar.className="main_buttons2"
+                button_eliminar.innerHTML="ELIMINAR"
+                content.appendChild(button_eliminar)
+
+
+                btncon.appendChild(content)
+
 
                 button_cotizar.addEventListener("click",function(){
 
                     if(fecha_validez_cotizacion.value!=""){
-                                            
 
-                    vma1 = valor_marca(ma1)
-                    vma2 = valor_marca(ma2)
-                    vma3 = valor_marca(ma3)
-                    vma4 = valor_marca(ma4)
-                    vma5 = valor_marca(ma5)
+                        var conjunto_materiales = document.getElementsByClassName(codigo_solicitud+"material")
+                        var conjunto_marcas = document.getElementsByClassName(codigo_solicitud+"marca")
+                        var conjunto_cantidades = document.getElementsByClassName(codigo_solicitud+"cantidad")
+                        var conjunto_precios = document.getElementsByClassName(codigo_solicitud+"precio")
+                        var pedido_final = pedido_completo(conjunto_precios)
+                        var precio_total_final = suma_precio_total(conjunto_precios)
+                        var num_materiales = conjunto_materiales.length
 
-                    
-                    precio.innerHTML=(Math.floor(p1.value)+Math.floor(p2.value)+Math.floor(p3.value)+Math.floor(p4.value)+Math.floor(p5.value))+" Bs"
-                    pedido.innerHTML= pedido_completo(m1.innerHTML, p1.value, m2.innerHTML, p2.value, m3.innerHTML, p3.value, m4.innerHTML, p4.value, m5.innerHTML, p5.value)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario),{
+                        nombre: nombre,
+                        telefono: telefono,
+                        telefono_completo:prefijo_pais+telefono,
+                        direccion: direccion,
+                        pedido: pedido_final,
+                        precio_total: precio_total_final,
+                        fecha_validez_cotizacion: fecha_validez_cotizacion.value,
+                        })
 
 
+                       for(var i=0;i<conjunto_materiales.length-1;i++){
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/precio"),conjunto_precios[i].value)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/cantidad"),conjunto_cantidades[i].innerHTML)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].innerHTML)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/marca"),valor_marca(conjunto_marcas[i]))
+                       }
 
-                    set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
-                    precio1: p1.value,
-                    })
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/precio"),conjunto_precios[num_materiales-1].value)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/cantidad"),conjunto_cantidades[num_materiales-1].innerHTML)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/material"),conjunto_materiales[num_materiales-1].innerHTML)
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/marca"),valor_marca(conjunto_marcas[num_materiales-1]))
+                      
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/"+usuario),{
+                        precio1: "",
+                        })
+                        
 
-                    set(ref(db, "Solicitudes/"+childSnapshot.val().codigo_solicitud+"/Cotizaciones/"+usuario),{
 
-
-                    precio1: p1.value,
-                    precio2: p2.value,
-                    precio3: p3.value,
-                    precio4: p4.value,
-                    precio5: p5.value,
-
-                    marca1: vma1,
-                    marca2: vma2,
-                    marca3: vma3,
-                    marca4: vma4,
-                    marca5: vma5,
-
-                    cantidad1: vca1,
-                    cantidad2: vca2,
-                    cantidad3: vca3,
-                    cantidad4: vca4,
-                    cantidad5: vca5,
-
-                    material1: vm1,
-                    material2: vm2,
-                    material3: vm3,
-                    material4: vm4,
-                    material5: vm5,
-
-                    nombre: nombre,
-                    telefono: telefono,
-                    telefono_completo:prefijo_pais+telefono,
-                    direccion: direccion,
-                    pedido: pedido.innerHTML,
-                    precio_total: precio.innerHTML,
-                    fecha_validez_cotizacion: fecha_validez_cotizacion.value
-
-                    
-
-                    })
-                    alert("Cotización enviada")
                     }else{
                         error_cotizar.innerHTML="Falta fecha limite de validez"
                     }
+
+
                 })
 
-                var button_cotizar = document.createElement("button")
-                button_cotizar.className="main_buttons2"
-                button_cotizar.innerHTML="ELIMINAR"
-                content.appendChild(button_cotizar)
-                button_cotizar.addEventListener("click",function(){
+
+                button_eliminar.addEventListener("click",function(){
                     set(ref(db, "Solicitudes/"+ childSnapshot.val().codigo_solicitud+"/"+usuario),{
-                    precio1: p1.value,
+                    precio1: ""
                     })
                     alert("Solicitud eliminada de la lista")
                 })
-
-
-
-                btncon.appendChild(content)
 
 
             }});
@@ -774,14 +381,8 @@
                     console.log(pp)
                 });
             }    
-            
-
-            
-
 
         },)
     </script>
-    
-
 </body>
 </html>
