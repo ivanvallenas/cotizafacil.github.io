@@ -64,11 +64,6 @@
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
             
-
-    
-                
-                
-                
                 var empresa = document.createElement("div")
                 var cbt = document.createElement("div")
                 var precio = document.createElement("div")
@@ -96,23 +91,7 @@
 
 
                 var content = document.createElement("div")
-                content.className="content"
-                var material_marca1 = document.createElement("div")
-                material_marca1.className="item2"
-                var material_marca2 = document.createElement("div")
-                material_marca2.className="item2"
-                var material_marca3 = document.createElement("div")
-                material_marca3.className="item2"
-                var material_marca4 = document.createElement("div")
-                material_marca4.className="item2"
-                var material_marca5 = document.createElement("div")
-                material_marca5.className="item2"
-                
-
-                
-                        
-                var content = document.createElement("div")
-                content.className="content"
+                content.className="content"                
 
                 var tabla = document.createElement("div")
                 tabla.className="table"
@@ -138,119 +117,33 @@
                 titulo4.appendChild(titulo4_t)
                 tabla.appendChild(titulo4)
 
-                        
-                var m1 = document.createElement("div")
-                m1.innerHTML=childSnapshot.val().material1
-                material_marca1.appendChild(m1)
 
-                var ma1 = document.createElement("div")
-                ma1.innerHTML=childSnapshot.val().marca1
-                material_marca1.appendChild(ma1)
+                childSnapshot.child("materiales").forEach((child_materiales) => {
 
-                tabla.appendChild(material_marca1)
+                        var material_marca = document.createElement("div")
+                        material_marca.className="item2"
 
-                var ca1 = document.createElement("div")
-                ca1.className="item"
-                ca1.innerHTML=childSnapshot.val().cantidad1
-                tabla.appendChild(ca1)
+                        var m = document.createElement("div")
+                        m.innerHTML=child_materiales.val().material
+                        m.className=codigo_solicitud+"material"
+                        material_marca.appendChild(m)
 
+                        var ma = document.createElement("div")
+                        ma.innerHTML=child_materiales.val().marca
+                        ma.className = codigo_solicitud+"marca"
+                        material_marca.appendChild(ma)
+                        tabla.appendChild(material_marca)
 
+                        var ca = document.createElement("div")
+                        ca.className="item"+" "+codigo_solicitud+"cantidad"
+                        ca.innerHTML=child_materiales.val().cantidad
+                        tabla.appendChild(ca)
 
-                var p1 = document.createElement("div")
-                p1.className="item"
-                if(childSnapshot.val().material1==" "){ p1.className="item5" }
-                p1.innerHTML=childSnapshot.val().precio1
-                tabla.appendChild(p1)
-
-
-                var m2 = document.createElement("div")
-                m2.innerHTML=childSnapshot.val().material2
-                material_marca2.appendChild(m2)
-
-                var ma2 = document.createElement("div")
-                ma2.innerHTML=childSnapshot.val().marca2
-                material_marca2.appendChild(ma2)
-
-                tabla.appendChild(material_marca2)
-
-                var ca2 = document.createElement("div")
-                ca2.className="item"
-                ca2.innerHTML=childSnapshot.val().cantidad2
-                tabla.appendChild(ca2)
-
-                var p2 = document.createElement("div")
-                p2.className="item"
-                if(childSnapshot.val().material2==" "){ p2.className="item5" }
-                p2.innerHTML=childSnapshot.val().precio2
-                tabla.appendChild(p2)
-
-
-
-                var m3 = document.createElement("div")
-                m3.innerHTML=childSnapshot.val().material3
-                material_marca3.appendChild(m3)
-
-                var ma3 = document.createElement("div")
-                ma3.innerHTML=childSnapshot.val().marca3
-                material_marca3.appendChild(ma3)
-
-                tabla.appendChild(material_marca3)
-
-                var ca3 = document.createElement("div")
-                ca3.className="item"
-                ca3.innerHTML=childSnapshot.val().cantidad3
-                tabla.appendChild(ca3)
-
-                var p3 = document.createElement("div")
-                p3.className="item"
-                if(childSnapshot.val().material3==" "){ p3.className="item5" }
-                p3.innerHTML=childSnapshot.val().precio3
-                tabla.appendChild(p3)
-
-
-
-                var m4 = document.createElement("div")
-                m4.innerHTML=childSnapshot.val().material4
-                material_marca4.appendChild(m4)
-
-                var ma4 = document.createElement("div")
-                ma4.innerHTML=childSnapshot.val().marca4
-                material_marca4.appendChild(ma4)
-
-                tabla.appendChild(material_marca4)
-
-                var ca4 = document.createElement("div")
-                ca4.className="item"
-                ca4.innerHTML=childSnapshot.val().cantidad4
-                tabla.appendChild(ca4)
-
-                var p4 = document.createElement("div")
-                p4.className="item"
-                if(childSnapshot.val().material4==" "){ p4.className="item5" }
-                p4.innerHTML=childSnapshot.val().precio4
-                tabla.appendChild(p4)
-
-
-                var m5 = document.createElement("div")
-                m5.innerHTML=childSnapshot.val().material5
-                material_marca5.appendChild(m5)
-
-                var ma5 = document.createElement("div")
-                ma5.innerHTML=childSnapshot.val().marca5
-                material_marca5.appendChild(ma5)
-
-                tabla.appendChild(material_marca5)
-
-                var ca5 = document.createElement("div")
-                ca5.className="item"
-                ca5.innerHTML=childSnapshot.val().cantidad5
-                tabla.appendChild(ca5)
-
-                var p5 = document.createElement("div")
-                p5.className="item"
-                if(childSnapshot.val().material5==" "){ p5.className="item5" }
-                p5.innerHTML=childSnapshot.val().precio5
-                tabla.appendChild(p5)
+                        var p = document.createElement("div")
+                        p.className = "item"+" "+codigo_solicitud+"precio"
+                        p.innerHTML=child_materiales.val().precio
+                        tabla.appendChild(p)
+                })
 
                 content.appendChild(tabla)
 
@@ -268,26 +161,48 @@
                 fecha_validez_cotizacion.className="item3"
                 fecha_validez_cotizacion.innerHTML="Oferta válida hasta: "+childSnapshot.val().fecha_validez_cotizacion
                 content.appendChild(fecha_validez_cotizacion)
+                
 
-                //var link_wa = String("https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a"+"1)"+m1.innerHTML+"%20"+ma1.innerHTML+"%20"+"Cantidad:"+ca1.innerHTML+"%20"+"Precio total:"+p1.innerHTML+"%0a"+"2)"+m2.innerHTML+"%20"+ma2.innerHTML+"%20"+"Cantidad:"+ca2.innerHTML+"%20"+"Precio total:"+p2.innerHTML+"%0a"+"3)"+m3.innerHTML+"%20"+ma3.innerHTML+"%20"+"Cantidad:"+ca3.innerHTML+"%20"+"Precio total:"+p3.innerHTML+"%0a"+"4)"+m4.innerHTML+"%20"+ma4.innerHTML+"%20"+"Cantidad:"+ca4.innerHTML+"%20"+"Precio total:"+p4.innerHTML+"%0a"+"5)"+m5.innerHTML+"%20"+ma5.innerHTML+"%20"+"Cantidad:"+ca5.innerHTML+"%20"+"Precio total:"+p5.innerHTML+"%0a")
 
-                var link_wa = String("https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a%0a"+m1.innerHTML+"%0a"+ma1.innerHTML+"%0a"+"Cantidad: "+ca1.innerHTML+"%0a"+"Precio total: "+p1.innerHTML+"%0a"+"%0a"+m2.innerHTML+"%0a"+ma2.innerHTML+"%0a"+"Cantidad: "+ca2.innerHTML+"%0a"+"Precio total: "+p2.innerHTML+"%0a"+"%0a"+m3.innerHTML+"%0a"+ma3.innerHTML+"%0a"+"Cantidad: "+ca3.innerHTML+"%0a"+"Precio total: "+p3.innerHTML+"%0a"+"%0a"+m4.innerHTML+"%0a"+ma4.innerHTML+"%0a"+"Cantidad: "+ca4.innerHTML+"%0a"+"Precio total: "+p4.innerHTML+"%0a"+"%0a"+m5.innerHTML+"%0a"+ma5.innerHTML+"%0a"+"Cantidad: "+ca5.innerHTML+"%0a"+"Precio total: "+p5.innerHTML+"%0a")
 
 
                 var button_wa = document.createElement("a")
                 button_wa.className="button_wa"
-                button_wa.href=link_wa
+                //button_wa.href="lollllll"
                 button_wa.innerHTML="Enviar mensaje por WhatsApp"
                 content.appendChild(button_wa)
+
+
+                button_wa.addEventListener("click",function(){
+                    var link_wa = "https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a"
+                    var conjunto_materiales = document.getElementsByClassName(codigo_solicitud+"material")
+                    var conjunto_marcas = document.getElementsByClassName(codigo_solicitud+"marca")
+                    var conjunto_cantidades = document.getElementsByClassName(codigo_solicitud+"cantidad")
+                    var conjunto_precios = document.getElementsByClassName(codigo_solicitud+"precio")
+                    const precios_values = Array.from(conjunto_precios).map(input => input.innerHTML)
+
+                    for(var i=0;i<conjunto_materiales.lenght;i++){
+                        console.log("lilllll")                        
+                    }
+
+                    button_wa.href = link_wa
+                    console.log(link_wa)
+
+                })
+
                 btncon.appendChild(content)
 
-
-
-
-
-
-
             });
+
+
+
+            
+            
+            
+            
+            
+            
+            
             //This code is for only show the elements with class "content" when the elements with class "collapsible" are clicked
             var coll = document.getElementsByClassName("collapsible");
             var i;
@@ -305,14 +220,8 @@
                     console.log(pp)
                 });
             }    
-            
-
-            
-
-
         },)
-    </script>
-    
 
+    </script>
 </body>
 </html>

@@ -158,6 +158,9 @@
 
         
         //function to show all the quotes and refresh when a change in the db apears
+
+        //get(ref(db,'Solicitudes')).then((snapshot)=>{
+
         onValue(parte, (snapshot) => {
             //first we delete everything inside the div
             btncon.replaceChildren()
@@ -174,7 +177,7 @@
                 var pedido = document.createElement("div")
                 var direccion_cliente = childSnapshot.val().calle+", "+childSnapshot.val().municipio
                 var codigo_solicitud = childSnapshot.val().codigo_solicitud
-                console.log(childSnapshot.val().material1+childSnapshot.val().marca1)
+
 
                 cbt.className="collapsible"
 
@@ -259,7 +262,7 @@
                         tabla.appendChild(ca)
 
                         var p = document.createElement("input")
-                        p.className = String("quantity_box"+" "+codigo_solicitud+"precio")
+                        p.className = "quantity_box"+" "+codigo_solicitud+"precio"
                         p.value=valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
                         if(p.value>0){contador_materiales_con_precio = contador_materiales_con_precio+1}
                         div_precio.appendChild(p)
@@ -308,12 +311,14 @@
 
                 button_cotizar.addEventListener("click",function(){
 
+
                     if(fecha_validez_cotizacion.value!=""){
 
                         var conjunto_materiales = document.getElementsByClassName(codigo_solicitud+"material")
                         var conjunto_marcas = document.getElementsByClassName(codigo_solicitud+"marca")
                         var conjunto_cantidades = document.getElementsByClassName(codigo_solicitud+"cantidad")
                         var conjunto_precios = document.getElementsByClassName(codigo_solicitud+"precio")
+                        const precios_values = Array.from(conjunto_precios).map(input => input.value);
                         var pedido_final = pedido_completo(conjunto_precios)
                         var precio_total_final = suma_precio_total(conjunto_precios)
                         var num_materiales = conjunto_materiales.length
@@ -328,29 +333,21 @@
                         fecha_validez_cotizacion: fecha_validez_cotizacion.value,
                         })
 
-
-                       for(var i=0;i<conjunto_materiales.length-1;i++){
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/precio"),conjunto_precios[i].value)
+                       for(var i=0;i<num_materiales;i++){
+                        console.log(precios_values[i])
+                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/precio"),precios_values[i])
                         set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/cantidad"),conjunto_cantidades[i].innerHTML)
                         set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].innerHTML)
                         set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/marca"),valor_marca(conjunto_marcas[i]))
                        }
-
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/precio"),conjunto_precios[num_materiales-1].value)
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/cantidad"),conjunto_cantidades[num_materiales-1].innerHTML)
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/material"),conjunto_materiales[num_materiales-1].innerHTML)
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+num_materiales+"/marca"),valor_marca(conjunto_marcas[num_materiales-1]))
                       
                         set(ref(db, "Solicitudes/"+codigo_solicitud+"/"+usuario),{
                         precio1: "",
                         })
-                        
-
 
                     }else{
                         error_cotizar.innerHTML="Falta fecha limite de validez"
                     }
-
 
                 })
 
@@ -382,7 +379,7 @@
                 });
             }    
 
-        },)
+        })
     </script>
 </body>
 </html>
