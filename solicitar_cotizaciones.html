@@ -99,17 +99,25 @@
       div_cantidad.className = "item"
       var cantidad = document.createElement("input")
       cantidad.className = "quantity_box"
+      cantidad.value = 0
       cantidad.type = "number"
       div_cantidad.appendChild(cantidad)
       tabla.appendChild(div_cantidad)
     }
 
-    for(var i=0;i<5;i++){
+    for(var i=0;i<3;i++){
       crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
     }
 
     function informacion_completa(){
+      var conjunto_cantidades = document.getElementsByClassName("quantity_box")
+      var cantidades_values = Array.from(conjunto_cantidades).map(input => input.value)
+      let numero_cantidades_0 = 0;
+      for(let i = 0; i < cantidades_values.length; i++) {if(cantidades_values[i] == 0) {numero_cantidades_0++}}
+
       if(fecha_limite.value=="" || calle.value==""){
+        return "incompleta"
+      }else if(numero_cantidades_0>0){
         return "incompleta"
       }else{
         return "completa"
