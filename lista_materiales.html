@@ -60,7 +60,11 @@
     ferreteria_marcas =JSON.parse(sessionStorage.getItem("ferreteria_marcas"))
 
 
-    console.log(sessionStorage.getItem('telefono'))
+    console.log(ferreteria_materiales)
+    console.log(ferreteria_marcas)
+    console.log(ferreteria_precios)
+
+
 
     var nombre_ferreteria = document.getElementById("nombre_ferreteria")
     var telefono = document.getElementById("telefono")
@@ -70,8 +74,8 @@
     telefono.value = sessionStorage.getItem("telefono")
     direccion.value = sessionStorage.getItem("direccion")
 
-    let lista_materiales = ['Elegir material','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)','Elegir material.']
-    let lista_materiales_valores = [' ','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)','Elegir material.']
+    let lista_materiales = ['Elegir material','Elegir material.','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)']
+    let lista_materiales_valores = [' ','Elegir material.','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)']
     let lista_marcas = ['Cualquier marca','Acelormittal', 'Acergal', 'Acero las lomas', 'Aceros Arequipa', 'Adhere forte', 'Calamina condor ', 'Campero', 'Cemento camba', 'Cemento ecebol', 'Cemento viacha', 'Cemento yura', 'Ceramica avaroa', 'Ceramica blanca', 'Clavos corinsa', 'Coboce', 'Dismat', 'Estuco vichaya', 'Incerpatzi', 'Incerpaz', 'Pinguino', 'Stick mix', 'Tigre']
     let lista_marcas_valores = ['Cualquier marca','Acelormittal', 'Acergal', 'Acero las lomas', 'Aceros Arequipa', 'Adhere forte', 'Calamina condor ', 'Campero', 'Cemento camba', 'Cemento ecebol', 'Cemento viacha', 'Cemento yura', 'Ceramica avaroa', 'Ceramica blanca', 'Clavos corinsa', 'Coboce', 'Dismat', 'Estuco vichaya', 'Incerpatzi', 'Incerpaz', 'Pinguino', 'Stick mix', 'Tigre']
 
