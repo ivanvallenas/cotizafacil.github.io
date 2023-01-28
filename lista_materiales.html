@@ -112,6 +112,16 @@
         from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
         const usuario = sessionStorage.getItem("usuario")
 
+        let ferreteria_pruductos = []
+        ferreteria_pruductos =JSON.parse(sessionStorage.getItem("ferreteria_pruductos"))
+        let ferreteria_precios = []
+        ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
+        let ferreteria_materiales = []
+        ferreteria_materiales =JSON.parse(sessionStorage.getItem("ferreteria_materiales"))
+        let ferreteria_marcas = []
+        ferreteria_marcas =JSON.parse(sessionStorage.getItem("ferreteria_marcas"))
+
+
         var nombre_ferreteria = document.getElementById("nombre_ferreteria")
         var telefono = document.getElementById("telefono")
         var direccion = document.getElementById("direccion")

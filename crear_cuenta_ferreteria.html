@@ -92,58 +92,43 @@
                         prefijo_pais: prefijo_pais,
                         telefono: telefono,
                         Entregas: "si",
-                        
-                        material1: "Elegir material",
-                        material2: "Elegir material",
-                        material3: "Elegir material",
-                        material4: "Elegir material",
-                        material5: "Elegir material",
-                        material6: "Elegir material",
-                        material7: "Elegir material",
-                        material8: "Elegir material",
-                        material9: "Elegir material",
-                        material10: "Elegir material",
+                })
 
-                        marca1: "Elegir marca",
-                        marca2: "Elegir marca",
-                        marca3: "Elegir marca",
-                        marca4: "Elegir marca",
-                        marca5: "Elegir marca",
-                        marca6: "Elegir marca",
-                        marca7: "Elegir marca",
-                        marca8: "Elegir marca",
-                        marca9: "Elegir marca",
-                        marca10: "Elegir marca",
+                let ferreteria_materiales = []
+                let ferreteria_marcas = []
+                let ferreteria_pruductos = []
+                let ferreteria_precios = []
+                const num_materiales = 10
 
-                        precio1: 0,
-                        precio2: 0,
-                        precio3: 0,
-                        precio4: 0,
-                        precio5: 0,
-                        precio6: 0,
-                        precio7: 0,
-                        precio8: 0,
-                        precio9: 0,
-                        precio10: 0,
-                    })
-                    .then(()=>{
+                for(var i=0;i<num_materiales-1;i++){
+                    set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/material"),"Elegir material")
+                    set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/marca"),"Elegir marca")
+                    set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/precio"),0)
+                    ferreteria_materiales.push("Elegir material")
+                    ferreteria_marcas.push("Elegir marca")
+                    ferreteria_pruductos.push("Elegir materialElegir marca")
+                    ferreteria_precios.push(0)
+                }
 
-                        window.location="lista_materiales.html"
-                    })
+                set(ref(db, "ferreterias/"+usuario+"/materiales/material"+num_materiales+"/material"),"Elegir material")
+                set(ref(db, "ferreterias/"+usuario+"/materiales/material"+num_materiales+"/marca"),"Elegir marca")
+                ferreteria_materiales.push("Elegir material")
+                ferreteria_marcas.push("Elegir marca")
+                ferreteria_pruductos.push("Elegir materialElegir marca")
+                ferreteria_precios.push(0)
+                sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
+                sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
+                sessionStorage.setItem("ferreteria_materiales",JSON.stringify(ferreteria_materiales))
+                sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas))
+                set(ref(db, "ferreterias/"+usuario+"/materiales/material"+num_materiales+"/precio"),0).then(() => {window.location.href = "lista_materiales.html"})
+
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                // ..
             });   
         })
-
-
-
-
-        
-
+        console.log(sessionStorage.getItem("ferreteria_marcas"))
     </script>
-
 </body>
 </html>
