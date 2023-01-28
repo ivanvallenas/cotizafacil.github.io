@@ -12,278 +12,164 @@
 </head>
 <body>
 
-    <section class="container2">
+  <section class="container2">
 
-        <div id="btns_de_listas" class="container2" >
+    <div id="btns_de_listas" class="container2" >
             <button id="lista_solicitudes" class="main_buttons" onclick="window.location='lista_solicitudes.html'""  >Cotizar</button>
             <!--<button id="lista_cotizaciones_realizadas" class="main_buttons"  onclick="window.location='lista_cotizaciones.html'"">Tus Ofertas</button>-->
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='lista_materiales.html'"" style="background-color:hsl(24, 72%, 52%)">Tus Materiales</button>
+    </div>
 
-        </div>
-
-        <div class="container2">
+    <div class="container2">
           <h1>Nombre de tu ferretería</h1>
           <input class="main_inputs" type="text" id="nombre_ferreteria">
           <h1>Teléfono</h1>
           <input class="main_inputs" type="text" id="telefono">
           <h1>Dirección</h1>
           <input class="main_inputs" type="text" id="direccion">
-        </div>
+    </div>
 
 
-        <section class="container">
-            <h1>Lista de materiales</h1>
+    <section class="container">
+          <h1>Lista de materiales</h1>
 
-            <div class="table">
-              <div class="titulo_columna"><p>Material y marca</p></div>
-              <div class="titulo_columna"><p>Precio unitario</p></div>
-              
-              <div class="item2">
-                <div><select id="material1"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca1"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio1" class="quantity_box" type="number"></div>
+          <div class="table" id="tabla_materiales">
+            <div class="titulo_columna"><p>Material y marca</p></div>
+            <div class="titulo_columna"><p>Precio unitario</p></div>
+          </div>
+      
+    <button class="main_buttons" id="btn_anadir_material"> Añadir material</button>
+    </section>
+    <button class="main_buttons" id="btn_actualizar_datos"> Actualizar Datos</button>
+  </section>   
 
-              <div class="item2">        
-                <div><select id="material2"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca2"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio2" class="quantity_box" type="number"></div>
-              
-              <div class="item2">
-                <div><select id="material3"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca3"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio3" class="quantity_box" type="number"></div>
-        
+  <script type="module">
 
-              <div class="item2">
-                <div><select id="material4"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca4"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio4" class="quantity_box" type="number"></div>
+    import {db} from "./js/firebase.js";
+    import {getDatabase,set, get, update, remove, ref, child}
+    from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+    const usuario = sessionStorage.getItem("usuario")
 
-              <div class="item2">
-                <div><select id="material5"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca5"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio5" class="quantity_box" type="number"></div>
-                
-              <div class="item2">
-                <div><select id="material6"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca6"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio6" class="quantity_box" type="number"></div>
-              
-              <div class="item2">
-                <div><select id="material7"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca7"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio7" class="quantity_box" type="number"></div>
-
-              <div class="item2">
-                <div><select id="material8"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca8"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio8" class="quantity_box" type="number"></div>
-
-              <div class="item2">
-                <div><select id="material9"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca9"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio9" class="quantity_box" type="number"></div>
-
-              <div class="item2">
-                <div><select id="material10"><option value='Inicial'>Elegir material</option><option value='Alambre de amarre -  (kg)'>Alambre de amarre -  (kg)</option><option value='Arena - fina (m3)'>Arena - fina (m3)</option><option value='Arena corriente -  (m3)'>Arena corriente -  (m3)</option><option value='Calamina ondu - N.28 1m *2m (unid)'>Calamina ondu - N.28 1m *2m (unid)</option><option value='Calamina plana - Plana N.28 2*1 (unid)'>Calamina plana - Plana N.28 2*1 (unid)</option><option value='Cemento -  (unid)'>Cemento -  (unid)</option><option value='Cemento blanco -  (unid)'>Cemento blanco -  (unid)</option><option value='Cemento cola -  (unid)'>Cemento cola -  (unid)</option><option value='Clavo - 2 pulg (kg)'>Clavo - 2 pulg (kg)</option><option value='Clavo - 3 pulg (kg)'>Clavo - 3 pulg (kg)</option><option value='Clavo - 4 pulg (kg)'>Clavo - 4 pulg (kg)</option><option value='Clavo calamina -  (kg)'>Clavo calamina -  (kg)</option><option value='Estuco -  (unid)'>Estuco -  (unid)</option><option value='Fierro - 1/4 pulg (unid)'>Fierro - 1/4 pulg (unid)</option><option value='Fierro - 1/8 pulg (unid)'>Fierro - 1/8 pulg (unid)</option><option value='Fierro de media -  (unid)'>Fierro de media -  (unid)</option><option value='Ladrillo - 18 huecos (unid)'>Ladrillo - 18 huecos (unid)</option><option value='Ladrillo  - 6 huecos (unid)'>Ladrillo  - 6 huecos (unid)</option><option value='Piedra - manzano (m3)'>Piedra - manzano (m3)</option><option value='Piedra - chancada (m3)'>Piedra - chancada (m3)</option><option value='Tubo  - berman 1 pulg (unid)'>Tubo  - berman 1 pulg (unid)</option><option value='Tubo  - berman 3/4 pulg (unid)'>Tubo  - berman 3/4 pulg (unid)</option><option value='Tubo  - De cemento 8 pulg (unid)'>Tubo  - De cemento 8 pulg (unid)</option><option value='Tubo  - PVC 3 pulg (unid)'>Tubo  - PVC 3 pulg (unid)</option><option value='Tubo  - PVC 4 pulg (unid)'>Tubo  - PVC 4 pulg (unid)</option><option value='Tubo  - PVC 5 pulg (unid)'>Tubo  - PVC 5 pulg (unid)</option></select></div>
-                <div><select id="marca10"><option value='Inicial'>Elegir marca</option><option value='Cualquier marca'>Cualquier marca</option><option value='Acero las lomas'>Acero las lomas</option><option value='Aceros Arequipa'>Aceros Arequipa</option><option value='Adhere forte'>Adhere forte</option><option value='Calamina condor '>Calamina condor </option><option value='Campero'>Campero</option><option value='Cemento camba'>Cemento camba</option><option value='Cemento ecebol'>Cemento ecebol</option><option value='Cemento viacha'>Cemento viacha</option><option value='Cemento yura'>Cemento yura</option><option value='Ceramica avaroa'>Ceramica avaroa</option><option value='Ceramica blanca'>Ceramica blanca</option><option value='Clavos corinsa'>Clavos corinsa</option><option value='Coboce'>Coboce</option><option value='Dismat'>Dismat</option><option value='Estuco vichaya'>Estuco vichaya</option><option value='Incerpatzi'>Incerpatzi</option><option value='Incerpaz'>Incerpaz</option><option value='Pinguino'>Pinguino</option><option value='Stick mix'>Stick mix</option><option value='Tigre'>Tigre</option></select></div>
-              </div>
-              <div class="item"><input id="precio10" class="quantity_box" type="number"></div>
-
-            </div>
-           
-          </section>
-          <button class="main_buttons" id="btn_actualizar_datos"> Actualizar Datos</button>
-    </section>   
-
-    <script type="module">
-
-        import {db} from "./js/firebase.js";
-        import {getDatabase,set, get, update, remove, ref, child}
-        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
-        const usuario = sessionStorage.getItem("usuario")
-
-        let ferreteria_pruductos = []
-        ferreteria_pruductos =JSON.parse(sessionStorage.getItem("ferreteria_pruductos"))
-        let ferreteria_precios = []
-        ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
-        let ferreteria_materiales = []
-        ferreteria_materiales =JSON.parse(sessionStorage.getItem("ferreteria_materiales"))
-        let ferreteria_marcas = []
-        ferreteria_marcas =JSON.parse(sessionStorage.getItem("ferreteria_marcas"))
+    let ferreteria_pruductos = []
+    ferreteria_pruductos =JSON.parse(sessionStorage.getItem("ferreteria_pruductos"))
+    let ferreteria_precios = []
+    ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
+    let ferreteria_materiales = []
+    ferreteria_materiales =JSON.parse(sessionStorage.getItem("ferreteria_materiales"))
+    let ferreteria_marcas = []
+    ferreteria_marcas =JSON.parse(sessionStorage.getItem("ferreteria_marcas"))
 
 
-        var nombre_ferreteria = document.getElementById("nombre_ferreteria")
-        var telefono = document.getElementById("telefono")
-        var direccion = document.getElementById("direccion")
-          
-  
-        var material1 = document.getElementById("material1");
-        var material2 = document.getElementById("material2");
-        var material3 = document.getElementById("material3");
-        var material4 = document.getElementById("material4");
-        var material5 = document.getElementById("material5");
-        var material6 = document.getElementById("material6");
-        var material7 = document.getElementById("material7");
-        var material8 = document.getElementById("material8");
-        var material9 = document.getElementById("material9");
-        var material10 = document.getElementById("material10");
+    console.log(sessionStorage.getItem('telefono'))
+
+    var nombre_ferreteria = document.getElementById("nombre_ferreteria")
+    var telefono = document.getElementById("telefono")
+    var direccion = document.getElementById("direccion")
+
+    nombre_ferreteria.value = sessionStorage.getItem("nombre_ferreteria")
+    telefono.value = sessionStorage.getItem("telefono")
+    direccion.value = sessionStorage.getItem("direccion")
+
+    let lista_materiales = ['Elegir material','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)','Elegir material.']
+    let lista_materiales_valores = [' ','Alambre de amarre -  (kg)', 'Arena - fina (m3)', 'Arena corriente -  (m3)', 'Calamina ondu - N.28 1m *2m (unid)', 'Calamina plana - Plana N.28 2*1 (unid)', 'Cemento blanco -  (unid)', 'Cemento cola -  (unid)', 'Clavo - 2 pulg (kg)', 'Clavo - 3 pulg (kg)', 'Clavo - 4 pulg (kg)', 'Clavo calamina -  (kg)', 'Estuco -  (unid)', 'Fierro - 1/4 pulg (unid)', 'Fierro - 1/8 pulg (unid)', 'Fierro de media -  (unid)', 'Ladrillo - 18 huecos (unid)', 'Ladrillo  - 6 huecos (unid)', 'Piedra - manzano (m3)', 'Piedra - chancada (m3)', 'Tubo  - berman 1 pulg (unid)', 'Tubo  - berman 3/4 pulg (unid)', 'Tubo  - De cemento 8 pulg (unid)', 'Tubo  - PVC 3 pulg (unid)', 'Tubo  - PVC 4 pulg (unid)', 'Tubo  - PVC 5 pulg (unid)','Elegir material.']
+    let lista_marcas = ['Cualquier marca','Acelormittal', 'Acergal', 'Acero las lomas', 'Aceros Arequipa', 'Adhere forte', 'Calamina condor ', 'Campero', 'Cemento camba', 'Cemento ecebol', 'Cemento viacha', 'Cemento yura', 'Ceramica avaroa', 'Ceramica blanca', 'Clavos corinsa', 'Coboce', 'Dismat', 'Estuco vichaya', 'Incerpatzi', 'Incerpaz', 'Pinguino', 'Stick mix', 'Tigre']
+    let lista_marcas_valores = ['Cualquier marca','Acelormittal', 'Acergal', 'Acero las lomas', 'Aceros Arequipa', 'Adhere forte', 'Calamina condor ', 'Campero', 'Cemento camba', 'Cemento ecebol', 'Cemento viacha', 'Cemento yura', 'Ceramica avaroa', 'Ceramica blanca', 'Clavos corinsa', 'Coboce', 'Dismat', 'Estuco vichaya', 'Incerpatzi', 'Incerpaz', 'Pinguino', 'Stick mix', 'Tigre']
+
+    function crear_select(array, array_valores){
+      var select = document.createElement("select");
+      for (var i = 0; i < array.length; i++) {
+          var option = document.createElement("option");
+          option.value = array_valores[i];
+          option.text = array[i];
+          select.appendChild(option);
+      }
+      return select;
+    }
+
+    function crear_linea_material(materiales, materiales_valores,marcas,marcas_valores, tabla,i,material_extra){
+
+      var div_material_marca = document.createElement("div")
+      div_material_marca.className="item2"
+
+      var div_material = document.createElement("div")
+      var select_material = crear_select(materiales,materiales_valores)
+      if(material_extra==false){select_material.value=ferreteria_materiales[i]}else{select_material.value="Elegir material."}
+      select_material.className="material"
+      div_material.appendChild(select_material)
+      div_material_marca.appendChild(div_material)
+
+      var div_marca = document.createElement("div")
+      var select_marca = crear_select(marcas,marcas_valores)
+      if(material_extra==false){select_marca.value=ferreteria_marcas[i]}else{select_marca.value="Cualquier marca"}
+      select_marca.className = "marca"
+      div_marca.appendChild(select_marca)
+      div_material_marca.appendChild(div_marca)
+
+      tabla.appendChild(div_material_marca)
+
+      var div_cantidad = document.createElement("div")
+      div_cantidad.className = "item"
+      var cantidad = document.createElement("input")
+      if(material_extra==false){cantidad.value=ferreteria_precios[i]}else{cantidad.value=0}
+      cantidad.className = "quantity_box precio"
+      cantidad.type = "number"
+      div_cantidad.appendChild(cantidad)
+      tabla.appendChild(div_cantidad)
+    }
+
+    for(var i=0;i<ferreteria_materiales.length;i++){
+      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales,i,false)
+    }
+
+    btn_anadir_material.addEventListener('click', (e)=>{
+      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales,i,true)
+    })
+
+    btn_actualizar_datos.addEventListener('click', (e)=>{
+
+      var conjunto_materiales = document.getElementsByClassName("material")
+      var conjunto_marcas = document.getElementsByClassName("marca")
+      var conjunto_precios = document.getElementsByClassName("precio")
+
+      update(ref(db, "ferreterias/"+usuario),{
+        nombre: nombre_ferreteria.value,
+        direccion: direccion.value,
+        telefono: telefono.value,
+      })
+
+
+      for(var i=0;i<conjunto_materiales.length;i++){
+        set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].value )
+        set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/marca"),conjunto_marcas[i].value )
+        set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/precio"),conjunto_precios[i].value )
+      }
+
+      let fm = []
+      let fma = []
+      let fpro = []
+      let fpre = []
+
+      for(var i=0;i<conjunto_materiales.length;i++){
+        fm.push(conjunto_materiales[i].value)
+        fma.push(conjunto_marcas[i].value)
+        fpro.push(conjunto_materiales[i].value+conjunto_marcas[i].value)
+        fpre.push(conjunto_precios[i].value)
+      }
+
+      sessionStorage.setItem("nombre_ferreteria",nombre_ferreteria.value)
+      sessionStorage.setItem("direccion",direccion.value)
+      sessionStorage.setItem("telefono",telefono.value)
+      sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(fpro))
+      sessionStorage.setItem("ferreteria_precios",JSON.stringify(fpre))
+      sessionStorage.setItem("ferreteria_materiales",JSON.stringify(fm))
+      sessionStorage.setItem("ferreteria_marcas",JSON.stringify(fma))
     
-        var marca1 = document.getElementById("marca1");
-        var marca2 = document.getElementById("marca2");
-        var marca3 = document.getElementById("marca3");
-        var marca4 = document.getElementById("marca4");
-        var marca5 = document.getElementById("marca5");
-        var marca6 = document.getElementById("marca6");
-        var marca7 = document.getElementById("marca7");
-        var marca8 = document.getElementById("marca8");
-        var marca9 = document.getElementById("marca9");
-        var marca10 = document.getElementById("marca10");
-    
-        var precio1 = document.getElementById("precio1");
-        var precio2 = document.getElementById("precio2");
-        var precio3 = document.getElementById("precio3");
-        var precio4 = document.getElementById("precio4");
-        var precio5 = document.getElementById("precio5");
-        var precio6 = document.getElementById("precio6");
-        var precio7 = document.getElementById("precio7");
-        var precio8 = document.getElementById("precio8");
-        var precio9 = document.getElementById("precio9");
-        var precio10 = document.getElementById("precio10");
+      alert("Datos actualizados correctamente")
 
-
-
-        
-        get(ref(db, "ferreterias/"+usuario))
-        .then((snapshot)=>{
-            nombre_ferreteria.value=snapshot.val().nombre;
-            telefono.value=snapshot.val().telefono;
-            direccion.value=snapshot.val().direccion;
-
-            precio1.value=snapshot.val().precio1;
-            precio2.value=snapshot.val().precio2;
-            precio3.value=snapshot.val().precio3;
-            precio4.value=snapshot.val().precio4;
-            precio5.value=snapshot.val().precio5;
-            precio6.value=snapshot.val().precio6;
-            precio7.value=snapshot.val().precio7;
-            precio8.value=snapshot.val().precio8;
-            precio9.value=snapshot.val().precio9;
-            precio10.value=snapshot.val().precio10;
-
-            material1.value=snapshot.val().material1;
-            material2.value=snapshot.val().material2;
-            material3.value=snapshot.val().material3;
-            material4.value=snapshot.val().material4;
-            material5.value=snapshot.val().material5;
-            material6.value=snapshot.val().material6;
-            material7.value=snapshot.val().material7;
-            material8.value=snapshot.val().material8;
-            material9.value=snapshot.val().material9;
-            material10.value=snapshot.val().material10;
-
-            marca1.value=snapshot.val().marca1;
-            marca2.value=snapshot.val().marca2;
-            marca3.value=snapshot.val().marca3;
-            marca4.value=snapshot.val().marca4;
-            marca5.value=snapshot.val().marca5;
-            marca6.value=snapshot.val().marca6;
-            marca7.value=snapshot.val().marca7;
-            marca8.value=snapshot.val().marca8;
-            marca9.value=snapshot.val().marca9;
-            marca10.value=snapshot.val().marca10;
-
-
-
-
-
-
-
-        })
-
-        
-        btn_actualizar_datos.addEventListener('click', (e)=>{
-
-            update(ref(db, "ferreterias/"+usuario),{
-
-                nombre: nombre_ferreteria.value,
-                direccion: direccion.value,
-                telefono: telefono.value,
-
-                material1: material1.value,
-                material2: material2.value,
-                material3: material3.value,
-                material4: material4.value,
-                material5: material5.value,
-                material6: material6.value,
-                material7: material7.value,
-                material8: material8.value,
-                material9: material9.value,
-                material10: material10.value,
-
-                marca1: marca1.value,
-                marca2: marca2.value,
-                marca3: marca3.value,
-                marca4: marca4.value,
-                marca5: marca5.value,
-                marca6: marca6.value,
-                marca7: marca7.value,
-                marca8: marca8.value,
-                marca9: marca9.value,
-                marca10: marca10.value,
-            
-                precio1: precio1.value,
-                precio2: precio2.value,
-                precio3: precio3.value,
-                precio4: precio4.value,
-                precio5: precio5.value,
-                precio6: precio6.value,
-                precio7: precio7.value,
-                precio8: precio8.value,
-                precio9: precio9.value,
-                precio10: precio10.value
-            })
-
-            var producto1 = material1.value+marca1.value
-            var producto2 = material2.value+marca2.value
-            var producto3 = material3.value+marca3.value
-            var producto4 = material4.value+marca4.value
-            var producto5 = material5.value+marca5.value
-            var producto6 = material6.value+marca6.value
-            var producto7 = material7.value+marca7.value
-            var producto8 = material8.value+marca8.value
-            var producto9 = material9.value+marca9.value
-            var producto10 = material10.value+marca10.value
-
-            const ferreteria_pruductos =[producto1,producto2,producto3,producto4,producto5,producto6,producto7,producto8,producto9,producto10]
-            const ferreteria_precios = [precio1.value,precio2.value, precio3.value, precio4.value, precio5.value, precio6.value, precio7.value, precio8.value, precio9.value, precio10.value]
-            const ferreteria_materiales = [material1.value,material2.value,material3.value,material4.value,material5.value,material6.value,material7.value,material8.value,material9.value,material10.value]
-            const ferreteria_marcas = [marca1.value,marca2.value,marca3.value,marca4.value,marca5.value,marca6.value,marca7.value,marca8.value,marca9.value,marca10.value,]
-
-
-            sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
-            sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
-            sessionStorage.setItem("ferreteria_materiales",JSON.stringify(ferreteria_materiales))
-            sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas))
-            sessionStorage.setItem("nombre",nombre_ferreteria.value)
-            sessionStorage.setItem("telefono",telefono.value)
-            sessionStorage.setItem("direccion",direccion.value)
-
-            alert("Datos actualizados correctamente")
-
-        });
+    });
     
     
-      </script>
+  </script>
     
 
 

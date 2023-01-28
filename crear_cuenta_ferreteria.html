@@ -98,7 +98,7 @@
                 let ferreteria_marcas = []
                 let ferreteria_pruductos = []
                 let ferreteria_precios = []
-                const num_materiales = 10
+                const num_materiales = 5
 
                 for(var i=0;i<num_materiales-1;i++){
                     set(ref(db, "ferreterias/"+usuario+"/materiales/material"+(i+1)+"/material"),"Elegir material")
@@ -116,6 +116,9 @@
                 ferreteria_marcas.push("Elegir marca")
                 ferreteria_pruductos.push("Elegir materialElegir marca")
                 ferreteria_precios.push(0)
+                sessionStorage.setItem("nombre_ferreteria",nombre_ferreteria)
+                sessionStorage.setItem("direccion",direccion)
+                sessionStorage.setItem("telefono",telefono)
                 sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
                 sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
                 sessionStorage.setItem("ferreteria_materiales",JSON.stringify(ferreteria_materiales))
@@ -128,7 +131,6 @@
                 const errorMessage = error.message;
             });   
         })
-        console.log(sessionStorage.getItem("ferreteria_marcas"))
     </script>
 </body>
 </html>
