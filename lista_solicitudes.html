@@ -263,7 +263,9 @@
 
                         var p = document.createElement("input")
                         p.className = "quantity_box"+" "+codigo_solicitud+"precio"
-                        p.value=valor_de_material(child_materiales.val().material+child_materiales.val().marca)*child_materiales.val().cantidad
+                        p.value=valor_de_material(child_materiales.val().material+valor_marca(ma))*child_materiales.val().cantidad
+                        console.log(child_materiales.val().material+child_materiales.val().marca)
+                        console.log(ferreteria_pruductos[0])
                         if(p.value>0){contador_materiales_con_precio = contador_materiales_con_precio+1}
                         div_precio.appendChild(p)
                         tabla.appendChild(div_precio)
