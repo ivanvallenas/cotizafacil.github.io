@@ -118,6 +118,7 @@
                 tabla.appendChild(titulo4)
 
 
+                var nombre = (childSnapshot.val().nombre).replace(/ /g,'')
                 childSnapshot.child("materiales").forEach((child_materiales) => {
 
                         var material_marca = document.createElement("div")
@@ -125,22 +126,22 @@
 
                         var m = document.createElement("div")
                         m.innerHTML=child_materiales.val().material
-                        m.className=codigo_solicitud+"material"
+                        m.className=nombre+"material"
                         material_marca.appendChild(m)
 
                         var ma = document.createElement("div")
                         ma.innerHTML=child_materiales.val().marca
-                        ma.className = codigo_solicitud+"marca"
+                        ma.className = nombre+"marca"
                         material_marca.appendChild(ma)
                         tabla.appendChild(material_marca)
 
                         var ca = document.createElement("div")
-                        ca.className="item"+" "+codigo_solicitud+"cantidad"
+                        ca.className="item"+" "+nombre+"cantidad"
                         ca.innerHTML=child_materiales.val().cantidad
                         tabla.appendChild(ca)
 
                         var p = document.createElement("div")
-                        p.className = "item"+" "+codigo_solicitud+"precio"
+                        p.className = "item"+" "+nombre+"precio"
                         p.innerHTML=child_materiales.val().precio
                         tabla.appendChild(p)
                 })
@@ -163,9 +164,6 @@
                 content.appendChild(fecha_validez_cotizacion)
                 
 
-
-
-
                 var button_wa = document.createElement("a")
                 button_wa.className="button_wa"
                 //button_wa.href="lollllll"
@@ -174,20 +172,19 @@
 
 
                 button_wa.addEventListener("click",function(){
-                    var link_wa = "https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a"
-                    var conjunto_materiales = document.getElementsByClassName(codigo_solicitud+"material")
-                    var conjunto_marcas = document.getElementsByClassName(codigo_solicitud+"marca")
-                    var conjunto_cantidades = document.getElementsByClassName(codigo_solicitud+"cantidad")
-                    var conjunto_precios = document.getElementsByClassName(codigo_solicitud+"precio")
+                    var conjunto_materiales = document.getElementsByClassName(nombre+"material")
+                    var conjunto_marcas = document.getElementsByClassName(nombre+"marca")
+                    var conjunto_cantidades = document.getElementsByClassName(nombre+"cantidad")
+                    var conjunto_precios = document.getElementsByClassName(nombre+"precio")
                     const precios_values = Array.from(conjunto_precios).map(input => input.innerHTML)
-
-                    for(var i=0;i<conjunto_materiales.lenght;i++){
-                        console.log("lilllll")                        
-                    }
-
-                    button_wa.href = link_wa
+                    var link_wa = "https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a"
                     console.log(link_wa)
-
+                    for(var i=0;i<conjunto_materiales.length;i++){
+                        var text = "Material: "+conjunto_materiales[i].innerHTML+"%0a"+"Marca: "+conjunto_marcas[i].innerHTML+"%0a"+"Cantidad: "+conjunto_cantidades[i].innerHTML+"%0a"+"Precio total: "+precios_values[i]+"%0a"+"%0a"
+                        link_wa= link_wa + text                      
+                    }
+                    
+                    button_wa.href = link_wa
                 })
 
                 btncon.appendChild(content)
