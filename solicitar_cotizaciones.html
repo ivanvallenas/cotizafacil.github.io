@@ -29,6 +29,11 @@
         <select id="municipio"><option value='Viacha'>Viacha</option><option value='El Alto'>El Alto</option></select></div>
         <input class="main_inputs" type="text" id="calle" placeholder="Calle...">
       </div>
+      <h1 style="margin-top: 10px;">Ubicación en google maps</h1>
+      <h3>(hacer doble click en el mapa)</h3>
+      <body onload="initMap()">
+        <div id="map" style="height: 300px; width: 400px; border-radius: 20px;"></div>
+      </body>
 
   </section>
    
@@ -41,6 +46,8 @@
       <div id="error_solicitud" class="error"></div>
       <button class="main_buttons" id="btn_enviar_solicitud"> Enviar solicitud</button>
   </section>
+  
+
 
 
   <script type="module">
@@ -168,5 +175,43 @@
     });
 
   </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8VJ6XG330LXrk099DdcQ8J-tx11vO3BM"></script>
+<script>
+  var map;
+  var marker;
+  var markerCoords;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -16.657622699209597, lng: -68.29686080988427},
+      zoom: 15,
+      streetViewControl: false,
+      mapTypeControl:false,
+
+    });
+
+    map.addListener('click', function(e) {
+      placeMarkerAndPanTo(e.latLng, map);
+    });
+  }
+
+  function placeMarkerAndPanTo(latLng, map) {
+    if(marker) {
+      marker.setMap(null);
+    }
+
+    marker = new google.maps.Marker({
+      position: latLng,
+      map: map
+    });
+
+    map.panTo(latLng);
+    markerCoords = latLng;
+
+    console.log(markerCoords.lat() + " " + markerCoords.lng())
+  }
+</script>
+
 </body>
 </html>
