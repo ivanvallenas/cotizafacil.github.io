@@ -118,7 +118,7 @@
                 tabla.appendChild(titulo4)
 
 
-                var nombre = (childSnapshot.val().nombre).replace(/ /g,'')
+                var nombre = String(childSnapshot.val().nombre).replace(/ /g,'')
                 childSnapshot.child("materiales").forEach((child_materiales) => {
 
                         var material_marca = document.createElement("div")
