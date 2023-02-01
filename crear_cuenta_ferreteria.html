@@ -31,22 +31,27 @@
 
             <input class="item_form" placeholder="Nombre de tu ferreteria" type="text" id="nombre_ferreteria">
 
-            <input class="item_form" placeholder="Dirección" type="text" id="direccion">
-
             <div>
                 <select id="prefijo_pais"><option value="591">BOL+591</option><option value="51">PER+51</option></select>
                 <input class="item_form" placeholder="Teléfono" type="text" id="telefono">
             </div>
 
-
-
             <input class="item_form" placeholder="Correo" id="email" type="email">
   
             <input class="item_form" placeholder="Nueva Contraseña" id="password" type="password">
 
+            <input class="item_form" placeholder="Dirección" type="text" id="direccion">
+
+            <h5>Ubicación de la tienda en google maps</h5>
+            <h5>(Hacer doble click en el mapa)</h5>
+
+            <body onload="initMap()">
+                <div id="map" style="height: 300px; width: 400px; border-radius: 20px;"></div>
+            </body>
+
         
 
-            <button id="registrar_usuario">Registrar</button>          
+            <button id="registrar_usuario" style="margin-top: 20px;">Registrar</button>          
         </container>
 
     </section>
@@ -92,6 +97,9 @@
                         prefijo_pais: prefijo_pais,
                         telefono: telefono,
                         Entregas: "si",
+                        coordenada_lat: sessionStorage.getItem("ferreteria_coordenada_lat"),
+                        coordenada_lng: sessionStorage.getItem("ferreteria_coordenada_lng")
+
                 })
 
                 let ferreteria_materiales = []
@@ -132,5 +140,42 @@
             });   
         })
     </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8VJ6XG330LXrk099DdcQ8J-tx11vO3BM"></script>
+<script>
+  var map;
+  var marker;
+  var markerCoords;
+
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -16.657622699209597, lng: -68.29686080988427},
+      zoom: 15,
+      streetViewControl: false,
+      mapTypeControl:false,
+
+    });
+
+    map.addListener('click', function(e) {
+      placeMarkerAndPanTo(e.latLng, map);
+    });
+  }
+
+  function placeMarkerAndPanTo(latLng, map) {
+    if(marker) {
+      marker.setMap(null);
+    }
+
+    marker = new google.maps.Marker({
+      position: latLng,
+      map: map
+    });
+
+    map.panTo(latLng);
+    markerCoords = latLng;
+    sessionStorage.setItem("ferreteria_coordenada_lat",markerCoords.lat())
+    sessionStorage.setItem("ferreteria_coordenada_lng",markerCoords.lng())
+  }
+</script>
 </body>
 </html>

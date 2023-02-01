@@ -58,6 +58,10 @@
         const prefijo_pais = sessionStorage.getItem("prefijo_pais")
         const telefono = sessionStorage.getItem("telefono")
         const direccion = sessionStorage.getItem("direccion")
+        const ferreteria_coordenada_lat = sessionStorage.getItem("ferreteria_coordenada_lat")
+        const ferreteria_coordenada_lng = sessionStorage.getItem("ferreteria_coordenada_lng")
+
+
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
@@ -193,6 +197,10 @@
                 var codigo_solicitud = childSnapshot.val().codigo_solicitud
                 var coordenada_lat = String(childSnapshot.val().coordenada_lat)
                 var coordenada_lng = String(childSnapshot.val().coordenada_lng)
+                console.log(childSnapshot.val().codigo_solicitud)
+                console.log(childSnapshot.val().coordenada_lat)
+                console.log(childSnapshot.val().coordenada_lng)
+
 
 
                 cbt.className="collapsible"
@@ -305,7 +313,6 @@
                 content.appendChild(fecha_validez_cotizacion)
 
                 var map_link =String("https://www.google.com/maps/search/?api=1&query="+childSnapshot.val().coordenada_lat+","+childSnapshot.val().coordenada_lng)
-                console.log(map_link)
                 
                 var direccion_cliente = document.createElement("a")
                 direccion_cliente.className="item4"
@@ -313,6 +320,22 @@
                 direccion_cliente.href = map_link
                 direccion_cliente.target = "_blank"
                 content.appendChild(direccion_cliente)
+
+                var mapa_link2 = String("https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d70677.944531112817!2d"+childSnapshot.val().coordenada_lng+"!3d"+childSnapshot.val().coordenada_lat+"!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTbCsDM5JzI2LjAiUyA2OMKwMTgnMDQuNSJX!5e0!3m2!1ses-419!2sit")
+                console.log(mapa_link2)
+                console.log(childSnapshot.val().coordenada_lat)
+                console.log(childSnapshot.val().coordenada_lng)
+
+               // var mapa = document.createElement("iframe")
+               // mapa.src = mapa_link2
+                //mapa.width="95%" 
+                //mapa.height="350" 
+                //mapa.allowfullscreen="" 
+                //mapa.loading="lazy" 
+                //mapa.referrerpolicy="no-referrer-when-downgrade"
+                //content.appendChild(mapa)
+
+
 
                 var error_cotizar = document.createElement("div")
                 error_cotizar.className="error"
@@ -364,7 +387,8 @@
                         pedido: pedido_final,
                         precio_total: precio_total_final,
                         fecha_validez_cotizacion: fecha_validez_cotizacion.value,
-                        })
+                        coordenada_lat: ferreteria_coordenada_lat,
+                        coordenada_lng: ferreteria_coordenada_lng                        })
 
                        for(var i=0;i<num_materiales;i++){
                         console.log(precios_values[i])

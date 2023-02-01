@@ -63,6 +63,10 @@
             btncon.replaceChildren()
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
+
+                var coordenada_lat = childSnapshot.val().coordenada_lat
+                var coordenada_lng = childSnapshot.val().coordenada_lng
+
             
                 var empresa = document.createElement("div")
                 var cbt = document.createElement("div")
@@ -153,9 +157,13 @@
                 telefono.innerHTML="Teléfono: "+childSnapshot.val().telefono
                 content.appendChild(telefono)
 
-                var direccion = document.createElement("div")
+                var map_link =String("https://www.google.com/maps/search/?api=1&query="+childSnapshot.val().coordenada_lat+","+childSnapshot.val().coordenada_lng)
+
+                var direccion = document.createElement("a")
                 direccion.className="item3"
                 direccion.innerHTML="Dirección: "+childSnapshot.val().direccion
+                direccion.href = map_link
+                direccion.target = "_blank"
                 content.appendChild(direccion)
 
                 var fecha_validez_cotizacion = document.createElement("div")
@@ -183,7 +191,7 @@
                         var text = "Material: "+conjunto_materiales[i].innerHTML+"%0a"+"Marca: "+conjunto_marcas[i].innerHTML+"%0a"+"Cantidad: "+conjunto_cantidades[i].innerHTML+"%0a"+"Precio total: "+precios_values[i]+"%0a"+"%0a"
                         link_wa= link_wa + text                      
                     }
-                    
+                    link_wa = link_wa+"Direccion:"+map_link
                     button_wa.href = link_wa
                 })
 

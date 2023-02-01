@@ -88,6 +88,9 @@
                     const nombre = snapshot.val().nombre;
                     const telefono = snapshot.val().telefono;
                     const direccion = snapshot.val().direccion;
+                    const ferreteria_coordenada_lat = snapshot.val().coordenada_lat;
+                    const ferreteria_coordenada_lng = snapshot.val().coordenada_lng;
+
 
                     const ferreteria_pruductos =[]
                     const ferreteria_precios = []
@@ -105,6 +108,9 @@
                     sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
                     sessionStorage.setItem("ferreteria_materiales",JSON.stringify(ferreteria_materiales))
                     sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas))
+
+                    sessionStorage.setItem("ferreteria_coordenada_lat",ferreteria_coordenada_lat)
+                    sessionStorage.setItem("ferreteria_coordenada_lng",ferreteria_coordenada_lng)
 
                     sessionStorage.setItem("nombre_ferreteria",nombre)
                     sessionStorage.setItem("telefono",telefono)
