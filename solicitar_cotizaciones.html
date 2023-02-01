@@ -22,13 +22,7 @@
 
   <section class="container">
       <h1> Dirección de la obra</h1>
-      <div class="container">
-        <select id="pais"><option value='Bolivia'>Bolivia</option></select>
-        <select id="departamento"><option value='La paz'>La paz</option></select>
-        <select id="provincia"><option value='Ingavi'>Ingavi</option><option value='Pedro Domingo Murillo'>Pedro Domingo Murillo</option></select>
-        <select id="municipio"><option value='Viacha'>Viacha</option><option value='El Alto'>El Alto</option></select></div>
-        <input class="main_inputs" type="text" id="calle" placeholder="Calle...">
-      </div>
+      <input class="main_inputs" type="text" id="calle" placeholder="Calle...">
       <h1 style="margin-top: 10px;">Ubicación en google maps</h1>
       <h3>(hacer doble click en el mapa)</h3>
       <body onload="initMap()">
@@ -60,10 +54,10 @@
     var tabla_materiales = document.getElementById("tabla_materiales");
     var btn_enviar_solicitud = document.getElementById("btn_enviar_solicitud");
     var fecha_limite = document.getElementById("fecha_limite");
-    var pais = document.getElementById("pais");
-    var departamento = document.getElementById("departamento");
-    var provincia = document.getElementById("provincia");
-    var municipio = document.getElementById("municipio");
+    //var pais = document.getElementById("pais");
+    //var departamento = document.getElementById("departamento");
+    //var provincia = document.getElementById("provincia");
+    //var municipio = document.getElementById("municipio");
     var calle = document.getElementById("calle");
     var error_solicitud = document.getElementById("error_solicitud")
 
@@ -112,7 +106,7 @@
       tabla.appendChild(div_cantidad)
     }
 
-    for(var i=0;i<3;i++){
+    for(var i=0;i<2;i++){
       crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
     }
 
@@ -136,15 +130,19 @@
       var codigo_solicitud = Math.floor(Math.random()*10000);
       localStorage.setItem("codigo_solicitud", codigo_solicitud);
 
-        set(ref(db, "Solicitudes/"+codigo_solicitud),{
+      set(ref(db, "Solicitudes/"+codigo_solicitud),{
             codigo_solicitud: codigo_solicitud,
-            pais: pais.value,
-            departamento: departamento.value,
-            provincia: provincia.value,
-            municipio: municipio.value,
+            pais: "",//pais.value,
+            departamento: "",//departamento.value,
+            provincia: "", //provincia.value,
+            municipio: "",//municipio.value,
             calle: calle.value,
             fecha_limite: fecha_limite.value,
+            
         })
+
+      set(ref(db, "Solicitudes/"+codigo_solicitud+"/coordenada_lat"),sessionStorage.getItem("coordenada_lat"))
+      set(ref(db, "Solicitudes/"+codigo_solicitud+"/coordenada_lng"),sessionStorage.getItem("coordenada_lng"))
 
       var conjunto_materiales = document.getElementsByClassName("material");
       var conjunto_marcas = document.getElementsByClassName("marca");
@@ -169,6 +167,10 @@
     btn_enviar_solicitud.addEventListener('click', (e)=>{
       if(informacion_completa()=="completa"){
         InsertData()
+        set(ref(db, "Solicitudes/"+codigo_solicitud+"/coordenada_lat"),markerCoords.lat())
+        set(ref(db, "Solicitudes/"+codigo_solicitud+"/coordenada_lat"),markerCoords.lng())
+
+
       }else{
         error_solicitud.innerHTML="Faltan datos por rellenar"
       }
@@ -208,8 +210,11 @@
 
     map.panTo(latLng);
     markerCoords = latLng;
-
     console.log(markerCoords.lat() + " " + markerCoords.lng())
+    sessionStorage.setItem("coordenada_lat",markerCoords.lat())
+    sessionStorage.setItem("coordenada_lng",markerCoords.lng())
+    console.log(sessionStorage.getItem("coordenada_lat"))
+
   }
 </script>
 

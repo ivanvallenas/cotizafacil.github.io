@@ -33,7 +33,7 @@
         <div id="botones" class="container2"></div>
     </section>
 
-   
+
     <script type="module">
 
         let now = new Date();
@@ -156,6 +156,20 @@
             }
         }
 
+        var map;
+        var marker;
+        var markerCoords;
+
+        function initMap(mapa_codigo) {
+            map = new google.maps.Map(document.getElementById(mapa_codigo), {
+            center: {lat: coordenada_lat, lng: coordenada_lng},
+            zoom: 15,
+            streetViewControl: false,
+            mapTypeControl:false,
+        });}
+
+
+
         
         //function to show all the quotes and refresh when a change in the db apears
 
@@ -177,6 +191,8 @@
                 var pedido = document.createElement("div")
                 var direccion_cliente = childSnapshot.val().calle+", "+childSnapshot.val().municipio
                 var codigo_solicitud = childSnapshot.val().codigo_solicitud
+                var coordenada_lat = String(childSnapshot.val().coordenada_lat)
+                var coordenada_lng = String(childSnapshot.val().coordenada_lng)
 
 
                 cbt.className="collapsible"
@@ -287,15 +303,30 @@
                 fecha_validez_cotizacion.className="main_inputs"
                 fecha_validez_cotizacion.type="date"
                 content.appendChild(fecha_validez_cotizacion)
+
+                var map_link =String("https://www.google.com/maps/search/?api=1&query="+childSnapshot.val().coordenada_lat+","+childSnapshot.val().coordenada_lng)
+                console.log(map_link)
                 
-                var direccion_cliente = document.createElement("div")
+                var direccion_cliente = document.createElement("a")
                 direccion_cliente.className="item4"
-                direccion_cliente.innerHTML= "Dirección del cliente: " + childSnapshot.val().calle+", "+childSnapshot.val().municipio
+                direccion_cliente.innerHTML= "Dirección: " + childSnapshot.val().calle
+                direccion_cliente.href = map_link
+                direccion_cliente.target = "_blank"
                 content.appendChild(direccion_cliente)
 
                 var error_cotizar = document.createElement("div")
                 error_cotizar.className="error"
                 content.appendChild(error_cotizar)
+
+                var mapa_direccion_body = document.createElement("body")
+                var mapa_direccion_div = document.createElement("div")
+                mapa_direccion_div.id=codigo_solicitud+"mapa"
+                //mapa_direccion_div.innerHTML = "Holaaa"
+                mapa_direccion_div.height="300px"
+                mapa_direccion_div.widtht="400px"
+                mapa_direccion_body.onload="initMap("+codigo_solicitud+"map)"
+                mapa_direccion_body.appendChild(mapa_direccion_div)
+                content.appendChild(mapa_direccion_body)
             
                 var button_cotizar = document.createElement("button")
                 button_cotizar.className="main_buttons2"
@@ -383,5 +414,6 @@
 
         })
     </script>
+
 </body>
 </html>
