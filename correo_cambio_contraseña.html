@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+
+
+    
+
+    <title>Cotiza Fácil</title>
+    <div class="container">
+        <img alt="Logo" height="180px" width="320px" src="https://dsm01pap006files.storage.live.com/y4mNYSblU15eU4-_GqQ1mLll3h9vDL3Qk3rTrnG_-8m3kNnvIn2gjgn2JuUKP_-8IH6CZMMh5DaPqqCC1YwrBuHe8YQg4oWtN8O63r0LJn27is8XCqJY8t9T-zheYsrHZku3NQKONZJroyD7AEoQHiA1ppCPL9MavGXXowQ1vuLeot--2DBaSgkbv7W1eqjrFGz?width=494&height=231&cropmode=none">
+    </div>
+</head>
+
+
+<body>
+
+    <section class="container">
+            
+        <container class="container_form">
+            <h1 class="Title">Cambiar contraseña?</h1>
+            <p style="text-align: justify;width: 180px">Te enviaremos un link para que crees una nueva contraseña</p>
+            <input id="correo" placeholder="Correo" id="email" type="email"> 
+            <div id="mensaje" class="error"></div>
+            <button id="enviar_correo">Enviar Correo</button>
+        </container>
+
+    </section>
+
+
+    <script type="module">
+    
+       const error_login = document.getElementById("error_login")
+
+
+        import {app} from "./js/firebase.js"; 
+        import {db} from "./js/firebase.js"; 
+        import { getAuth, sendPasswordResetEmail} 
+        from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+
+        var correo = document.getElementById("correo")
+        var mensaje = document.getElementById("mensaje")
+
+
+        const auth = getAuth();
+
+        enviar_correo.addEventListener('click',(e)=>{
+            console.log(correo.value)
+            if(correo!=""){
+            sendPasswordResetEmail(auth,correo.value).then(function() {mensaje.innerHTML="Correo enviado"}).catch(function(error) {mensaje.innerHTML="Error, intentar nuevamente"})
+            }else{
+                mensaje.innerHTML="Falta colocar un correo"
+            }
+        })
+
+
+    </script>
+</body>
+</html>
