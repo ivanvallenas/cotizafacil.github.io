@@ -191,8 +191,12 @@
                         var text = "Material: "+conjunto_materiales[i].innerHTML+"%0a"+"Marca: "+conjunto_marcas[i].innerHTML+"%0a"+"Cantidad: "+conjunto_cantidades[i].innerHTML+"%0a"+"Precio total: "+precios_values[i]+"%0a"+"%0a"
                         link_wa= link_wa + text                      
                     }
-                    link_wa = link_wa+"Direccion:"+map_link
+                    var text2 = "Direccion:"+String("https://www.google.com/maps/search/?api=1&query="+childSnapshot.val().coordenada_lat+","+childSnapshot.val().coordenada_lng)
+                    var text3 = encodeURIComponent(text2)
+                    link_wa = link_wa+text3
+
                     button_wa.href = link_wa
+                    console.log()
                 })
 
                 btncon.appendChild(content)
