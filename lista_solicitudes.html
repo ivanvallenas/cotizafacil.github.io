@@ -59,6 +59,7 @@
         const prefijo_pais = sessionStorage.getItem("prefijo_pais")
         const telefono = sessionStorage.getItem("telefono")
         const direccion = sessionStorage.getItem("direccion")
+        const habilitado = sessionStorage.getItem("habilitado")
         const ferreteria_coordenada_lat = sessionStorage.getItem("ferreteria_coordenada_lat")
         const ferreteria_coordenada_lng = sessionStorage.getItem("ferreteria_coordenada_lng")
 
@@ -267,7 +268,7 @@
                         m.className=codigo_solicitud+"material"
                         material_marca.appendChild(m)
 
-                        if(child_materiales.val().marca!="Cualquier marca"){
+                        if(child_materiales.val().marca!="Cualquier marca" || (crear_array_marcas(child_materiales.val().material)).length==1){
                         var ma = document.createElement("div")
                         ma.innerHTML=child_materiales.val().marca
                         ma.className = codigo_solicitud+"marca"
@@ -369,44 +370,46 @@
 
                 button_cotizar.addEventListener("click",function(){
 
+                    if(habilitado == true){
 
-                    if(fecha_validez_cotizacion.value!=""){
+                        if(fecha_validez_cotizacion.value!=""){
 
-                        var conjunto_materiales = document.getElementsByClassName(codigo_solicitud+"material")
-                        var conjunto_marcas = document.getElementsByClassName(codigo_solicitud+"marca")
-                        var conjunto_cantidades = document.getElementsByClassName(codigo_solicitud+"cantidad")
-                        var conjunto_precios = document.getElementsByClassName(codigo_solicitud+"precio")
-                        const precios_values = Array.from(conjunto_precios).map(input => input.value);
-                        var pedido_final = pedido_completo(conjunto_precios)
-                        var precio_total_final = suma_precio_total(conjunto_precios)
-                        var num_materiales = conjunto_materiales.length
+                            var conjunto_materiales = document.getElementsByClassName(codigo_solicitud+"material")
+                            var conjunto_marcas = document.getElementsByClassName(codigo_solicitud+"marca")
+                            var conjunto_cantidades = document.getElementsByClassName(codigo_solicitud+"cantidad")
+                            var conjunto_precios = document.getElementsByClassName(codigo_solicitud+"precio")
+                            const precios_values = Array.from(conjunto_precios).map(input => input.value);
+                            var pedido_final = pedido_completo(conjunto_precios)
+                            var precio_total_final = suma_precio_total(conjunto_precios)
+                            var num_materiales = conjunto_materiales.length
 
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario),{
-                        nombre: nombre,
-                        telefono: telefono,
-                        telefono_completo:prefijo_pais+telefono,
-                        direccion: direccion,
-                        pedido: pedido_final,
-                        precio_total: precio_total_final,
-                        fecha_validez_cotizacion: fecha_validez_cotizacion.value,
-                        coordenada_lat: ferreteria_coordenada_lat,
-                        coordenada_lng: ferreteria_coordenada_lng                        })
+                            set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario),{
+                            nombre: nombre,
+                            telefono: telefono,
+                            telefono_completo:prefijo_pais+telefono,
+                            direccion: direccion,
+                            pedido: pedido_final,
+                            precio_total: precio_total_final,
+                            fecha_validez_cotizacion: fecha_validez_cotizacion.value,
+                            coordenada_lat: ferreteria_coordenada_lat,
+                            coordenada_lng: ferreteria_coordenada_lng                        })
 
-                       for(var i=0;i<num_materiales;i++){
-                        console.log(precios_values[i])
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/precio"),precios_values[i])
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/cantidad"),conjunto_cantidades[i].innerHTML)
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].innerHTML)
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/marca"),valor_marca(conjunto_marcas[i]))
-                       }
-                      
-                        set(ref(db, "Solicitudes/"+codigo_solicitud+"/"+usuario),{
-                        precio1: "",
-                        })
+                        for(var i=0;i<num_materiales;i++){
+                            console.log(precios_values[i])
+                            set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/precio"),precios_values[i])
+                            set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/cantidad"),conjunto_cantidades[i].innerHTML)
+                            set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].innerHTML)
+                            set(ref(db, "Solicitudes/"+codigo_solicitud+"/Cotizaciones/"+usuario+"/materiales/material"+(i+1)+"/marca"),valor_marca(conjunto_marcas[i]))
+                        }
+                        
+                            set(ref(db, "Solicitudes/"+codigo_solicitud+"/"+usuario),{
+                            precio1: "",
+                            })
 
-                    }else{
-                        error_cotizar.innerHTML="Falta fecha limite de validez"
-                    }
+                        }else{
+                            error_cotizar.innerHTML="Falta fecha limite de validez"
+                        }
+                    }else{error_cotizar.innerHTML="Aún no está habilitado para cotizar, contacte a soporte técnico"}
 
                 })
 

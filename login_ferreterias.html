@@ -94,7 +94,7 @@
                     const direccion = snapshot.val().direccion;
                     const ferreteria_coordenada_lat = snapshot.val().coordenada_lat;
                     const ferreteria_coordenada_lng = snapshot.val().coordenada_lng;
-
+                    const habilitado = snapshot.val().habilitado;
 
                     const ferreteria_pruductos =[]
                     const ferreteria_precios = []
@@ -119,6 +119,7 @@
                     sessionStorage.setItem("nombre_ferreteria",nombre)
                     sessionStorage.setItem("telefono",telefono)
                     sessionStorage.setItem("direccion",direccion)
+                    sessionStorage.setItem("habilitado",habilitado)
 
                     window.location="lista_solicitudes.html"
                 })

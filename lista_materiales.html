@@ -41,6 +41,7 @@
       
     <button class="main_buttons" id="btn_anadir_material"> Añadir material</button>
     </section>
+    <div id="mensaje"></div>
     <button class="main_buttons" id="btn_actualizar_datos"> Actualizar Datos</button>
     
     <a class="button_wa" style="margin-top: 20px; margin-bottom: 20px;"href="https://wa.me/51947896570?text=CotizaFácil: Necesito soporte técnico">Solicitar soporte técnico</a>
@@ -137,6 +138,8 @@
       var conjunto_materiales = document.getElementsByClassName("material")
       var conjunto_marcas = document.getElementsByClassName("marca")
       var conjunto_precios = document.getElementsByClassName("precio")
+      var mensaje = document.getElementById("mensaje")
+
 
       update(ref(db, "ferreterias/"+usuario),{
         nombre: nombre_ferreteria.value,
@@ -171,7 +174,7 @@
       sessionStorage.setItem("ferreteria_materiales",JSON.stringify(fm))
       sessionStorage.setItem("ferreteria_marcas",JSON.stringify(fma))
     
-      alert("Datos actualizados correctamente")
+      mensaje.innerHTML="Datos acutalizados correctamente"
 
     });
     
