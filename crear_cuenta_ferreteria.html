@@ -90,7 +90,7 @@
                 localStorage.setItem("email",email)
                 localStorage.setItem("password",password)
 
-                var habilitado = true
+                var habilitado = false
                 set(ref(db, "ferreterias/"+usuario),{
                         uid: usuario,
                         nombre: nombre_ferreteria,
