@@ -172,7 +172,7 @@
                 fecha_validez_cotizacion.innerHTML="Oferta válida hasta: "+childSnapshot.val().fecha_validez_cotizacion
                 content.appendChild(fecha_validez_cotizacion)
                 
-
+            
                 var button_wa = document.createElement("a")
                 button_wa.className="button_wa"
                 //button_wa.href="lollllll"
@@ -186,7 +186,7 @@
                     var conjunto_cantidades = document.getElementsByClassName(nombre+"cantidad")
                     var conjunto_precios = document.getElementsByClassName(nombre+"precio")
                     const precios_values = Array.from(conjunto_precios).map(input => input.innerHTML)
-                    var link_wa = "https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a%0a"
+                    var link_wa = "https://wa.me/"+childSnapshot.val().prefijo_pais+childSnapshot.val().telefono+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a%0a"
                     console.log(link_wa)
                     for(var i=0;i<conjunto_materiales.length;i++){
                         var text = "Material: "+conjunto_materiales[i].innerHTML+"%0a"+"Marca: "+conjunto_marcas[i].innerHTML+"%0a"+"Cantidad: "+conjunto_cantidades[i].innerHTML+"%0a"+"Precio total: "+precios_values[i]+"%0a"+"%0a"
@@ -197,7 +197,7 @@
                     link_wa = link_wa+text3
 
                     button_wa.href = link_wa
-                    console.log()
+                    console.log(childSnapshot.val().telefono)
                 })
 
                 btncon.appendChild(content)
