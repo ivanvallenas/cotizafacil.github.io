@@ -186,7 +186,7 @@
                     var conjunto_cantidades = document.getElementsByClassName(nombre+"cantidad")
                     var conjunto_precios = document.getElementsByClassName(nombre+"precio")
                     const precios_values = Array.from(conjunto_precios).map(input => input.innerHTML)
-                    var link_wa = "https://wa.me/"+childSnapshot.val().prefijo_pais+childSnapshot.val().telefono+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a%0a"
+                    var link_wa = "https://wa.me/"+childSnapshot.val().telefono_completo+"?text=CotizaFácil:%20Me%20interesa%20esta%20cotización:%0a%0a"
                     console.log(link_wa)
                     for(var i=0;i<conjunto_materiales.length;i++){
                         var text = "Material: "+conjunto_materiales[i].innerHTML+"%0a"+"Marca: "+conjunto_marcas[i].innerHTML+"%0a"+"Cantidad: "+conjunto_cantidades[i].innerHTML+"%0a"+"Precio total: "+precios_values[i]+"%0a"+"%0a"
