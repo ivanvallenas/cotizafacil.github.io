@@ -63,8 +63,6 @@
         const ferreteria_coordenada_lat = sessionStorage.getItem("ferreteria_coordenada_lat")
         const ferreteria_coordenada_lng = sessionStorage.getItem("ferreteria_coordenada_lng")
 
-
-
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_materiales")))
@@ -370,7 +368,7 @@
 
                 button_cotizar.addEventListener("click",function(){
 
-                    if(1 == 1){
+                    if(habilitado == "true"){
 
                         if(fecha_validez_cotizacion.value!=""){
 
