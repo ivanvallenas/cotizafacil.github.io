@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotiza Fácil</title>
+    <link rel="icon" href="https://dsm01pap006files.storage.live.com/y4muPjvqeVbCJNWvseKcnuuuNERSrad-Sw5dGSauCna_5yGNbRZJTp2hFvinMmd3ROFmOKvUfQ-bJRZKvzQ6cLJuC2HfVfc16NkH1m9MqLbcOZE02h89q6hYiJtfDQBuLgvRQ_w8sVz505g6HBx2li3CsQ6CB20r_CdauhN-IUFSEsznBwrUf7blWr1umfaPBiC?width=450&height=345&cropmode=none">
+    <link rel="stylesheet" type="text/css" href="css/compras.css">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+</head>
+<body>
+    <div class="container2">
+        <div id="btns_de_listas" class="container2" >
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='compras.html'"" style="background-color:hsl(24, 72%, 52%)">Compras</button>
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='ventas.html'"">Ventas</button>
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_actual.html'"">Inventario</button>
+        </div>
+    </div>
+
+
+  <section class="container">
+      <h1>Proveedor</h1>
+      <input class="main_inputs" type="text" id="proveedor" placeholder="Nombre de empresa">
+  </section>
+   
+  <section class="container">
+      <h1>Fecha de compra</h1>
+      <input class="main_inputs" id="fecha_compra" type="date" placeholder="dd/mm/yyyy">
+  </section>
+
+  <section class="container">
+    <h1>Lista de materiales</h1>
+  
+    <div class="table" id="tabla_materiales">
+      <div class="titulo_columna"><p>Material y marca</p></div>
+      <div class="titulo_columna"><p>Cantidad</p></div>
+      <div class="titulo_columna"><p>Costo total</p></div>
+    </div>
+    <div>
+        <button class="main_buttons" style="width: 180px;" id="btn_añadir_material">Añadir material</button>
+        <button class="main_buttons" style="width: 180px;" id="btn_eliminar_material">Eliminar material</button>
+    </div>
+
+  </section>
+
+  <section class="container">
+      <div id="error_solicitud" class="error"></div>
+      <button class="main_buttons" id="btn_registrar_compra">Registrar compra</button>
+  </section>
+  
+
+
+
+  <script type="module">
+
+    import {db} from "./js/firebase.js";
+    import {getDatabase,set, get, update, remove, ref, child}
+    from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+    const usuario = sessionStorage.getItem("usuario")
+
+    var btn_añadir_material = document.getElementById("btn_añadir_material");
+    var tabla_materiales = document.getElementById("tabla_materiales");
+    var btn_registrar_compra = document.getElementById("btn_registrar_compra");
+    var fecha_compra = document.getElementById("fecha_compra");
+    var proveedor = document.getElementById("proveedor");
+    var error_solicitud = document.getElementById("error_solicitud")
+
+    let lista_materiales = ['Elegir material', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_materiales_valores = [' ', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_marcas = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
+    let lista_marcas_valores = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
+
+    function crear_select(array, array_valores){
+      var select = document.createElement("select");
+      for (var i = 0; i < array.length; i++) {
+          var option = document.createElement("option");
+          option.value = array_valores[i];
+          option.text = array[i];
+          select.appendChild(option);
+      }
+      return select;
+    }
+
+    function crear_linea_material(materiales, materiales_valores,marcas,marcas_valores, tabla){
+
+      var div_material_marca = document.createElement("div")
+      div_material_marca.className="item2"
+
+      var div_material = document.createElement("div")
+      var select_material = crear_select(materiales,materiales_valores)
+      select_material.className="material"
+      div_material.appendChild(select_material)
+      div_material_marca.appendChild(div_material)
+
+      var div_marca = document.createElement("div")
+      var select_marca = crear_select(marcas,marcas_valores)
+      select_marca.className = "marca"
+      div_marca.appendChild(select_marca)
+      div_material_marca.appendChild(div_marca)
+
+      tabla.appendChild(div_material_marca)
+
+      var div_cantidad = document.createElement("div")
+      div_cantidad.className = "item"
+      var cantidad = document.createElement("input")
+      cantidad.className = "quantity_box cantidades"
+      cantidad.value = 0
+      cantidad.type = "number"
+      div_cantidad.appendChild(cantidad)
+      tabla.appendChild(div_cantidad)
+
+      var div_costo = document.createElement("div")
+      div_costo.className = "item"
+      var costo = document.createElement("input")
+      costo.className = "quantity_box costos"
+      costo.value = 0
+      costo.type = "number"
+      div_costo.appendChild(costo)
+      tabla.appendChild(div_costo)
+
+
+
+    }
+
+    for(var i=0;i<2;i++){
+      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
+    }
+
+    function informacion_completa(){
+      var conjunto_cantidades = document.getElementsByClassName("quantity_box")
+      var cantidades_values = Array.from(conjunto_cantidades).map(input => input.value)
+      let numero_cantidades_0 = 0;
+      for(let i = 0; i < cantidades_values.length; i++) {if(cantidades_values[i] == 0) {numero_cantidades_0++}}
+
+      if(fecha_compra.value=="" || proveedor.value==""){
+        return "incompleta"
+      }else if(numero_cantidades_0>0){
+        return "incompleta"
+      }else{
+        return "completa"
+      }
+    }
+
+    function InsertData() {
+
+      var codigo_compra = Math.floor(Math.random()*10000);
+ 
+      set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra),{
+            codigo_compra: codigo_compra,
+            proveedor: proveedor.value,
+            fecha_compra: fecha_compra.value,
+        })
+
+      var conjunto_materiales = document.getElementsByClassName("material");
+      var conjunto_marcas = document.getElementsByClassName("marca");
+      var conjunto_cantidades = document.getElementsByClassName("quantity_box cantidades");
+      var conjunto_costos = document.getElementsByClassName("quantity_box costos");
+
+      var num_materiales = conjunto_materiales.length-1
+
+      for(var i=0;i<conjunto_materiales.length-1;i++){
+        set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].value)
+        set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(i+1)+"/marca"),conjunto_marcas[i].value)
+        set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(i+1)+"/cantidad"),conjunto_cantidades[i].value)
+        set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(i+1)+"/costo"),conjunto_costos[i].value)
+
+      }
+
+      set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(num_materiales+1)+"/material"),conjunto_materiales[num_materiales].value)
+      set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(num_materiales+1)+"/marca"),conjunto_marcas[num_materiales].value)
+      set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(num_materiales+1)+"/cantidad"),conjunto_cantidades[num_materiales].value)
+      set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(num_materiales+1)+"/costo"),conjunto_costos[num_materiales].value).then(() => {window.location.href = "compras.html"})
+
+    }
+
+    btn_añadir_material.addEventListener('click', (e)=>{
+      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
+      
+    })
+
+    btn_eliminar_material.addEventListener('click', (e)=>{
+        let grid = document.getElementById("tabla_materiales");
+        let lastRow = grid.childNodes.length - 1;
+        let lastRow2 = grid.childNodes.length - 2;
+        let lastRow3 = grid.childNodes.length - 3;
+        grid.removeChild(grid.childNodes[lastRow]); 
+        grid.removeChild(grid.childNodes[lastRow2]);
+        grid.removeChild(grid.childNodes[lastRow3]);   
+   
+  
+    })
+
+
+    btn_registrar_compra.addEventListener('click', (e)=>{
+      if(informacion_completa()=="completa"){
+        InsertData()
+       }else{
+        error_solicitud.innerHTML="Faltan datos por rellenar"
+      }
+    });
+
+  </script>
+
+
+</body>
+</html>
