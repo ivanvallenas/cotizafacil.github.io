@@ -29,7 +29,11 @@
           <h1>Dirección</h1>
           <input class="main_inputs" type="text" id="direccion">
           <h1>Alcance de entregas en km</h1>
-          <input class="main_inputs" type="number" id="alcance">
+          <div class="scrollbar-container" style="display: flex; justify-content: space-between">
+            <h4>0</h4>
+            <input type="range" min="0" max="20"class="scrollbar" id="alcance">
+            <h4>20</h4>
+          </div>
 
     </div>
 
@@ -77,12 +81,14 @@
     var telefono = document.getElementById("telefono")
     var direccion = document.getElementById("direccion")
     var alcance = document.getElementById("alcance")
+
     
 
     nombre_ferreteria.value = sessionStorage.getItem("nombre_ferreteria")
     telefono.value = sessionStorage.getItem("telefono")
     direccion.value = sessionStorage.getItem("direccion")
     alcance.value = sessionStorage.getItem("alcance")
+
 
     let lista_materiales = ['Elegir material','Elegir material.','ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
     let lista_materiales_valores = [' ','Elegir material.','ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
