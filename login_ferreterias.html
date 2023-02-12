@@ -96,6 +96,7 @@
                     const ferreteria_coordenada_lng = snapshot.val().coordenada_lng;
                     const habilitado = snapshot.val().habilitado;
                     const prefijo_pais = snapshot.val().prefijo_pais;
+                    const alcance = snapshot.val().alcance;
 
 
                     const ferreteria_pruductos =[]
@@ -123,6 +124,7 @@
                     sessionStorage.setItem("telefono",telefono)
                     sessionStorage.setItem("direccion",direccion)
                     sessionStorage.setItem("habilitado",habilitado)
+                    sessionStorage.setItem("alcance",alcance)
 
                     window.location="lista_solicitudes.html"
                 })

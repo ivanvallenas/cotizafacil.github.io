@@ -37,6 +37,24 @@
 
     <script type="module">
 
+       
+        const ferreteria_coordenada_lat = sessionStorage.getItem("ferreteria_coordenada_lat")
+        const ferreteria_coordenada_lng = sessionStorage.getItem("ferreteria_coordenada_lng")
+        const alcance = sessionStorage.getItem("alcance")
+
+        var coordinate = {lat_max:0, lat_min:0, lng_max:0, lng_min:0}
+
+        coordinate.lat_max = Number(ferreteria_coordenada_lat) + (alcance/111.13)
+        coordinate.lat_min = Number(ferreteria_coordenada_lng) - (alcance/111.13)
+        coordinate.lng_max = Number(ferreteria_coordenada_lng) + (alcance/111.32 * Math.cos(Number(ferreteria_coordenada_lat) * (Math.PI / 180)))
+        coordinate.lng_min = Number(ferreteria_coordenada_lng) - (alcance/111.32 * Math.cos(Number(ferreteria_coordenada_lng) * (Math.PI / 180)));
+        
+        function solicitud_dentro_alcance(lat, lng){
+            if(lat<coordinate.lat_max  && lat>coordinate.lat_min && lng<coordinate.lng_max && lng>coordinate.lng_min){
+            return(true)}else{return(false)}
+        }
+        
+        
         let now = new Date();
         let year = now.getFullYear();
         let month = now.getMonth() + 1;
@@ -51,6 +69,10 @@
        // orderByChild("fecha"),startAt(4)
   
         const parte = query(ref(db,'Solicitudes'),orderByChild("fecha_limite"), startAt(fecha_actual))
+        //const parte2 = query(ref(parte,'Solicitudes'),orderByChild("coordenada_lat"), startAt(coordinate.lat_min), endAt(coordinate.long_max))
+        //const parte3 = query(ref(parte2,'Solicitudes'),orderByChild("coordenada_lng"), startAt(coordinate.lng_min), endAt(coordinate.lng_max))
+
+
 
         //Define a varible that makes reference to the div where all the quotes request are going to apear
         var btncon = document.getElementById("botones")
@@ -60,8 +82,7 @@
         const telefono = sessionStorage.getItem("telefono")
         const direccion = sessionStorage.getItem("direccion")
         const habilitado = sessionStorage.getItem("habilitado")
-        const ferreteria_coordenada_lat = sessionStorage.getItem("ferreteria_coordenada_lat")
-        const ferreteria_coordenada_lng = sessionStorage.getItem("ferreteria_coordenada_lng")
+
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
@@ -174,6 +195,8 @@
 
 
 
+
+
         
         //function to show all the quotes and refresh when a change in the db apears
 
@@ -185,8 +208,11 @@
             //a snapshot of the data base is created in order to get the data to build the html for each quote request and one expandible element is created for each quote request
             snapshot.forEach((childSnapshot) => {
 
+                var lat = Number(childSnapshot.val().coordenada_lat)
+                var lng = Number(childSnapshot.val().coordenada_lng)
+                console.log("alcance: "+solicitud_dentro_alcance(lat,lng))
                 
-                if (childSnapshot.child(usuario).exists()) {
+                if (childSnapshot.child(usuario).exists() || solicitud_dentro_alcance(lat,lng)==false) {
                 }else{ 
                 
                 var empresa = document.createElement("div")

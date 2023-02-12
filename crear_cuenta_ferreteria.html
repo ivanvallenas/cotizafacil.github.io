@@ -99,6 +99,7 @@
                         telefono: telefono,
                         entregas: "si",
                         habilitado: habilitado,
+                        alcance: 10,
                         coordenada_lat: sessionStorage.getItem("ferreteria_coordenada_lat"),
                         coordenada_lng: sessionStorage.getItem("ferreteria_coordenada_lng")
 
@@ -131,12 +132,13 @@
                 sessionStorage.setItem("prefijo_pais",prefijo_pais)
                 sessionStorage.setItem("telefono",telefono)
                 sessionStorage.setItem("habilitado",habilitado)
+                sessionStorage.setItem("alcance",alcance)
+
                 sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
                 sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
                 sessionStorage.setItem("ferreteria_materiales",JSON.stringify(ferreteria_materiales))
                 sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas))
                 sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas))
-
 
                 set(ref(db, "ferreterias/"+usuario+"/materiales/material"+num_materiales+"/precio"),0).then(() => {window.location.href = "lista_materiales.html"})
 

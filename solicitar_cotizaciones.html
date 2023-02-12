@@ -139,7 +139,7 @@
             municipio: "",//municipio.value,
             calle: calle.value,
             fecha_limite: fecha_limite.value,
-            
+            coordenada_index: sessionStorage.getItem("coordenada_index")        
         })
 
       set(ref(db, "Solicitudes/"+codigo_solicitud+"/coordenada_lat"),sessionStorage.getItem("coordenada_lat"))
@@ -211,10 +211,49 @@
 
     map.panTo(latLng);
     markerCoords = latLng;
-    console.log(markerCoords.lat() + " " + markerCoords.lng())
+    console.log("coordenadas: "+markerCoords.lat() + " " + markerCoords.lng())
     sessionStorage.setItem("coordenada_lat",markerCoords.lat())
     sessionStorage.setItem("coordenada_lng",markerCoords.lng())
     console.log(sessionStorage.getItem("coordenada_lat"))
+
+
+    function selectedChars(str, n) {
+      let result = "";
+      for (let i = 0; i < n; i++) {
+        result += str[i];
+      }
+      return result;
+    }
+
+    function eliminateChars(str, char) {
+      let result = "";
+      for (let i = 0; i < str.length; i++) {
+        if (str[i] !== char) {
+          result += str[i];
+        }
+      }
+      return result;
+    }
+
+    function corregir_coordenada(coordenada){
+            if(coordenada[0]=="-"){selectedChars(coordenada,12)}else{selectedChars(coordenada,11)}
+            return(coordenada)
+    }
+    
+    function coordenada_index(lat,lng){
+      var lat2 = String(corregir_coordenada(lat))
+      var lng2 = String(corregir_coordenada(lng))
+      console.log(lng2[0])
+      if(lng2[0]=="-"){lng2=eliminateChars(lng2,"-")}
+      eliminateChars(lng2,".")
+      eliminateChars(lat2,".")
+      lat2 = eliminateChars(lat2,".")
+      lng2 = eliminateChars(lng2,".")
+      var coor_index = String(lat2)+String(lng2)
+      return (coor_index)
+    }
+
+    sessionStorage.setItem("coordenada_index", coordenada_index(markerCoords.lat(),markerCoords.lng()))
 
   }
 </script>
