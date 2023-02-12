@@ -145,6 +145,13 @@
       crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales,i,true)
     })
 
+
+    alcance.addEventListener('click', (e)=>{
+      update(ref(db, "ferreterias/"+usuario),{
+        alcance: alcance.value
+      })
+    })
+
     btn_actualizar_datos.addEventListener('click', (e)=>{
 
       var conjunto_materiales = document.getElementsByClassName("material")
