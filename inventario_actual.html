@@ -58,47 +58,35 @@
       return select;
     }
 
-    function crear_linea_material(materiales, materiales_valores,marcas,marcas_valores, tabla){
+    function crear_linea_material(materiales,marcas,cantidades,costos,tabla){
+        for(var i=0;i<materiales.length;i++){
 
-      var div_material_marca = document.createElement("div")
-      div_material_marca.className="item2"
+            var div_material_marca = document.createElement("div")
+            div_material_marca.className="item2"
 
-      var div_material = document.createElement("div")
-      var select_material = crear_select(materiales,materiales_valores)
-      select_material.className="material"
-      div_material.appendChild(select_material)
-      div_material_marca.appendChild(div_material)
+            var div_material = document.createElement("div")
+            div_material.innerHTML = materiales[i]
+            div_material_marca.appendChild(div_material)
 
-      var div_marca = document.createElement("div")
-      var select_marca = crear_select(marcas,marcas_valores)
-      select_marca.className = "marca"
-      div_marca.appendChild(select_marca)
-      div_material_marca.appendChild(div_marca)
+            var div_marca = document.createElement("div")
+            div_marca.innerHTML = marcas[i]
+            div_material_marca.appendChild(div_marca)
 
-      tabla.appendChild(div_material_marca)
+            tabla.appendChild(div_material_marca)
 
-      var div_cantidad = document.createElement("div")
-      div_cantidad.className = "item"
-      var cantidad = document.createElement("input")
-      cantidad.className = "quantity_box cantidades"
-      cantidad.value = 0
-      cantidad.type = "number"
-      div_cantidad.appendChild(cantidad)
-      tabla.appendChild(div_cantidad)
+            var div_cantidades = document.createElement("div")
+            div_cantidades.innerHTML = cantidades[i]
+            div_cantidades.className = "item"
+            tabla.appendChild(div_cantidades)
 
-      var div_costo = document.createElement("div")
-      div_costo.className = "item"
-      var costo = document.createElement("input")
-      costo.className = "quantity_box costos"
-      costo.value = 0
-      costo.type = "number"
-      div_costo.appendChild(costo)
-      tabla.appendChild(div_costo)
+            var div_costos = document.createElement("div")
+            div_costos.innerHTML = costos[i]
+            div_costos.className = "item"
+            tabla.appendChild(div_costos)
+        }
     }
 
-    for(var i=0;i<2;i++){
-      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
-    }
+
 
     get(ref(db, "ferreterias/"+usuario))
     .then((snapshot)=>{
@@ -143,33 +131,19 @@
 
         snapshot.child("ventas").forEach((ventas) => {
             ventas.child("materiales").forEach((child_materiales) => {
-                if((child_materiales.val().material+child_materiales.val().marca)==ferreteria_pruductos[i]){
-                    ferreteria_cantidades[i] = ferreteria_cantidades[i]-Number(child_materiales.val().cantidad)
-                    ferreteria_costo_mercaderia[i] = ferreteria_costo_mercaderia[i]-Number(child_materiales.val().costo)
+                for(var i=0;i<ferreteria_pruductos.length;i++){
+                    if((child_materiales.val().material+child_materiales.val().marca)==ferreteria_pruductos[i]){
+                        ferreteria_cantidades[i] = ferreteria_cantidades[i]-Number(child_materiales.val().cantidad)
+                        ferreteria_costo_mercaderia[i] = ferreteria_costo_mercaderia[i]-Number(child_materiales.val().costo)
+                        break
+                    }
                 }
             })
         })
 
 
 
-        console.log(ferreteria_materiales)
-        console.log(ferreteria_cantidades)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        crear_linea_material(ferreteria_materiales,ferreteria_marcas,ferreteria_cantidades,ferreteria_costo_mercaderia,tabla_materiales)
 
 
 
