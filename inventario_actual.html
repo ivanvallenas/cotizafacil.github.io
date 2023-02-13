@@ -14,7 +14,7 @@
         <div id="btns_de_listas" class="container2" >
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_actual.html'"" style="background-color:hsl(24, 72%, 52%)">Inventario Actual</button>
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_base.html'"">Inventario Base</button>
-            <button id="lista_materiales" class="main_buttons"  onclick="window.location='informe.html'"">Informe</button>
+            <button id="lista_materiales" class="main_buttons">Informe</button>
         </div>
     </div>
    
@@ -80,7 +80,9 @@
             tabla.appendChild(div_cantidades)
 
             var div_costos = document.createElement("div")
-            div_costos.innerHTML = costos[i]
+            //div_costos.innerHTML = costos[i]
+            div_costos.innerHTML = "--"
+
             div_costos.className = "item"
             tabla.appendChild(div_costos)
         }
@@ -134,7 +136,6 @@
                 for(var i=0;i<ferreteria_pruductos.length;i++){
                     if((child_materiales.val().material+child_materiales.val().marca)==ferreteria_pruductos[i]){
                         ferreteria_cantidades[i] = ferreteria_cantidades[i]-Number(child_materiales.val().cantidad)
-                        ferreteria_costo_mercaderia[i] = ferreteria_costo_mercaderia[i]-Number(child_materiales.val().costo)
                         break
                     }
                 }
