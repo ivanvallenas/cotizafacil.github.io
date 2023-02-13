@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotiza Fácil</title>
+    <link rel="icon" href="https://dsm01pap006files.storage.live.com/y4muPjvqeVbCJNWvseKcnuuuNERSrad-Sw5dGSauCna_5yGNbRZJTp2hFvinMmd3ROFmOKvUfQ-bJRZKvzQ6cLJuC2HfVfc16NkH1m9MqLbcOZE02h89q6hYiJtfDQBuLgvRQ_w8sVz505g6HBx2li3CsQ6CB20r_CdauhN-IUFSEsznBwrUf7blWr1umfaPBiC?width=450&height=345&cropmode=none">
+    <link rel="stylesheet" type="text/css" href="css/compras.css">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+</head>
+<body>
+    <div class="container2">
+        <div id="btns_de_listas" class="container2" >
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_actual.html'"" style="background-color:hsl(24, 72%, 52%)">Inventario Actual</button>
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_base.html'"">Inventario Base</button>
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='informe.html'"">Informe</button>
+        </div>
+    </div>
+   
+
+  <section class="container">
+    <h1>Lista de materiales</h1>
+  
+    <div class="table" id="tabla_materiales">
+      <div class="titulo_columna"><p>Material y marca</p></div>
+      <div class="titulo_columna"><p>Cantidad</p></div>
+      <div class="titulo_columna"><p>Costo total</p></div>
+    </div>
+  </section>
+
+
+
+  <script type="module">
+
+    import {db} from "./js/firebase.js";
+    import {getDatabase,set, get, update, remove, ref, child}
+    from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+    const usuario = sessionStorage.getItem("usuario")
+
+    var tabla_materiales = document.getElementById("tabla_materiales");
+    var error_solicitud = document.getElementById("error_solicitud")
+
+    let lista_materiales = ['Elegir material', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_materiales_valores = [' ', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_marcas = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
+    let lista_marcas_valores = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
+
+    function crear_select(array, array_valores){
+      var select = document.createElement("select");
+      for (var i = 0; i < array.length; i++) {
+          var option = document.createElement("option");
+          option.value = array_valores[i];
+          option.text = array[i];
+          select.appendChild(option);
+      }
+      return select;
+    }
+
+    function crear_linea_material(materiales, materiales_valores,marcas,marcas_valores, tabla){
+
+      var div_material_marca = document.createElement("div")
+      div_material_marca.className="item2"
+
+      var div_material = document.createElement("div")
+      var select_material = crear_select(materiales,materiales_valores)
+      select_material.className="material"
+      div_material.appendChild(select_material)
+      div_material_marca.appendChild(div_material)
+
+      var div_marca = document.createElement("div")
+      var select_marca = crear_select(marcas,marcas_valores)
+      select_marca.className = "marca"
+      div_marca.appendChild(select_marca)
+      div_material_marca.appendChild(div_marca)
+
+      tabla.appendChild(div_material_marca)
+
+      var div_cantidad = document.createElement("div")
+      div_cantidad.className = "item"
+      var cantidad = document.createElement("input")
+      cantidad.className = "quantity_box cantidades"
+      cantidad.value = 0
+      cantidad.type = "number"
+      div_cantidad.appendChild(cantidad)
+      tabla.appendChild(div_cantidad)
+
+      var div_costo = document.createElement("div")
+      div_costo.className = "item"
+      var costo = document.createElement("input")
+      costo.className = "quantity_box costos"
+      costo.value = 0
+      costo.type = "number"
+      div_costo.appendChild(costo)
+      tabla.appendChild(div_costo)
+    }
+
+    for(var i=0;i<2;i++){
+      crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
+    }
+
+    get(ref(db, "ferreterias/"+usuario))
+    .then((snapshot)=>{
+
+        const ferreteria_pruductos =[]
+        const ferreteria_cantidades = []
+        const ferreteria_materiales = []
+        const ferreteria_marcas = []
+        const ferreteria_costo_mercaderia = []
+
+
+        snapshot.child("inventario_base/materiales").forEach((child_materiales) => {
+            ferreteria_materiales.push(child_materiales.val().material)
+            ferreteria_marcas.push(child_materiales.val().marca)
+            ferreteria_cantidades.push(Number(child_materiales.val().cantidad))
+            ferreteria_pruductos.push(child_materiales.val().material+child_materiales.val().marca)
+            ferreteria_costo_mercaderia.push(Number(child_materiales.val().costo))
+        })
+
+
+        snapshot.child("compras").forEach((compras) => {
+            compras.child("materiales").forEach((child_materiales) => {
+                var producto_nuevo = true
+                for(var i=0;i<ferreteria_pruductos.length;i++){
+                    if((child_materiales.val().material+child_materiales.val().marca)==ferreteria_pruductos[i]){
+                        ferreteria_cantidades[i] = ferreteria_cantidades[i]+Number(child_materiales.val().cantidad)
+                        ferreteria_costo_mercaderia[i] = ferreteria_costo_mercaderia[i]+Number(child_materiales.val().costo)
+                        producto_nuevo = false
+                        break
+                    }
+                }
+
+                if(producto_nuevo==true){
+                    ferreteria_materiales.push(child_materiales.val().material)
+                    ferreteria_marcas.push(child_materiales.val().marca)
+                    ferreteria_cantidades.push(Number(child_materiales.val().cantidad))
+                    ferreteria_pruductos.push(child_materiales.val().material+child_materiales.val().marca)
+                    ferreteria_costo_mercaderia.push(Number(child_materiales.val().costo))
+                }
+            })
+        })
+
+        snapshot.child("ventas").forEach((ventas) => {
+            ventas.child("materiales").forEach((child_materiales) => {
+                if((child_materiales.val().material+child_materiales.val().marca)==ferreteria_pruductos[i]){
+                    ferreteria_cantidades[i] = ferreteria_cantidades[i]-Number(child_materiales.val().cantidad)
+                    ferreteria_costo_mercaderia[i] = ferreteria_costo_mercaderia[i]-Number(child_materiales.val().costo)
+                }
+            })
+        })
+
+
+
+        console.log(ferreteria_materiales)
+        console.log(ferreteria_cantidades)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+
+
+
+
+
+  </script>
+
+
+</body>
+</html>
