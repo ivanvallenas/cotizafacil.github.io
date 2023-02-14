@@ -150,7 +150,77 @@
 
     })
 
+  </script>
 
+  <script>
+
+function calculateEarningsPerStock(buys, sales) {
+  let earnings = {};
+  let remainingStock = {};
+  let currentBuyIndex = {};
+  
+  for (let i = 0; i < sales.length; i++) {
+    let stock = sales[i].stock;
+    if (!remainingStock[stock]) {
+      remainingStock[stock] = 0;
+      currentBuyIndex[stock] = 0;
+    }
+    remainingStock[stock] += sales[i].quantity;
+    while (remainingStock[stock] > 0 && currentBuyIndex[stock] < buys.length) {
+      let buyStock = buys[currentBuyIndex[stock]].stock;
+      if (buyStock !== stock) {
+        currentBuyIndex[stock]++;
+        continue;
+      }
+      let buyQuantity = buys[currentBuyIndex[stock]].quantity;
+      if (buyQuantity > remainingStock[stock]) {
+        if (!earnings[stock]) {
+          earnings[stock] = 0;
+        }
+        earnings[stock] += remainingStock[stock] * (sales[i].price - buys[currentBuyIndex[stock]].price);
+        buys[currentBuyIndex[stock]].quantity -= remainingStock[stock];
+        remainingStock[stock] = 0;
+      } else {
+        if (!earnings[stock]) {
+          earnings[stock] = 0;
+        }
+        earnings[stock] += buyQuantity * (sales[i].price - buys[currentBuyIndex[stock]].price);
+        remainingStock[stock] -= buyQuantity;
+        currentBuyIndex[stock]++;
+      }
+    }
+  }
+  
+  let results = {};
+  for (let stock in remainingStock) {
+    results[stock] = {
+      remainingQuantity: remainingStock[stock],
+      valorizationBySalePrice: remainingStock[stock] * sales[sales.length - 1].price,
+      valorizationByBuyPrice: remainingStock[stock] * buys[currentBuyIndex[stock] - 1].price,
+      earnings: earnings[stock] || 0
+    };
+  }
+  
+  return results;
+}
+
+
+
+    const buys = [
+    {date: '2022-01-01', price: 100, quantity: 10, stock: 'AAPL'},
+    {date: '2022-02-01', price: 110, quantity: 5, stock: 'AAPL'},
+    {date: '2022-03-01', price: 120, quantity: 20, stock: 'AAPL'},
+    {date: '2022-04-01', price: 90, quantity: 10, stock: 'TSLA'},
+    {date: '2022-05-01', price: 95, quantity: 5, stock: 'TSLA'}
+    ];
+    const sales = [
+    {date: '2022-06-01', price: 140, quantity: 16, stock: 'AAPL'},
+    {date: '2022-06-01', price: 100, quantity: 11, stock: 'TSLA'}
+
+    ]
+
+
+    console.log(calculateEarningsAndStock2(buys, sales));
 
 
 

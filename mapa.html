@@ -1,41 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8WxzIXnIZ5swbmV8wqUUc8XS8fhkmqNo"></script>
-  <script>
-    var map;
-    var marker;
-    var markerCoords;
 
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -16.657622699209597, lng: -68.29686080988427},
-        zoom: 8
-      });
+<script>
 
-      map.addListener('click', function(e) {
-        placeMarkerAndPanTo(e.latLng, map);
-      });
+function calculateEarningsPerStock(buys, sales) {
+  // Object to store the earnings for each stock
+  let earnings = {};
+  // Object to store the earnings for each stock
+  let valuation_cost = {};
+  // Object to keep track of the remaining stock for each stock
+  let remainingStock = {};
+  // Object to keep track of the current buy index for each stock
+  let currentBuyIndex = {};
+  
+  // Loop through all the sales
+  for (let i = 0; i < sales.length; i++) {
+    let stock = sales[i].stock;
+    // Initialize the remaining stock and current buy index for each stock
+    if (!remainingStock[stock]) {
+      remainingStock[stock] = 0;
+      currentBuyIndex[stock] = 0;
     }
-
-    function placeMarkerAndPanTo(latLng, map) {
-      if(marker) {
-        marker.setMap(null);
+    // Increase the remaining stock for the current stock
+    remainingStock[stock] += sales[i].quantity;
+    // Loop through the buys to calculate the earnings for each sale
+    while (remainingStock[stock] > 0 && currentBuyIndex[stock] < buys.length) {
+      let buyStock = buys[currentBuyIndex[stock]].stock;
+      // Skip to the next buy if the stock doesn't match
+      if (buyStock !== stock) {
+        currentBuyIndex[stock]++;
+        continue;
       }
+      let buyQuantity = buys[currentBuyIndex[stock]].quantity;
+      // Calculate the earnings if the remaining stock is greater than the current buy quantity
+      if (buyQuantity > remainingStock[stock]) {
+        console.log("pilll")
+        console.log(buys[currentBuyIndex[stock]].price)
 
-      marker = new google.maps.Marker({
-        position: latLng,
-        map: map
-      });
-
-      map.panTo(latLng);
-      markerCoords = latLng;
-
-      console.log(markerCoords.lat() + " " + markerCoords.lng())
+        if (!earnings[stock]) {
+          earnings[stock] = 0;
+          valuation_cost[stock] = 0;
+        }
+        earnings[stock] += remainingStock[stock] * (sales[i].price - buys[currentBuyIndex[stock]].price);
+        buys[currentBuyIndex[stock]].quantity -= remainingStock[stock];
+        remainingStock[stock] = 0;
+      } else {
+        console.log("pulll")
+        console.log(buys[currentBuyIndex[stock]].price)
+        // Calculate the earnings if the current buy quantity is greater than the remaining stock
+        if (!earnings[stock]) {
+          earnings[stock] = 0;
+          valuation_cost[stock] = 0;
+        }
+        earnings[stock] += buyQuantity * (sales[i].price - buys[currentBuyIndex[stock]].price);
+        remainingStock[stock] -= buyQuantity;
+        currentBuyIndex[stock]++;
+      }
     }
-  </script>
+  }
+  
+  // Return the earnings object
+  return earnings;
+}
+
+
+
+
+
+const buys = [
+  {date: '2022-01-01', price: 100, quantity: 10, stock: 'AAPL'},
+  {date: '2022-02-01', price: 110, quantity: 5, stock: 'AAPL'},
+  {date: '2022-03-01', price: 120, quantity: 20, stock: 'AAPL'},
+  {date: '2022-04-01', price: 130, quantity: 20, stock: 'AAPL'},
+  {date: '2022-04-01', price: 140, quantity: 20, stock: 'AAPL'},
+
+];
+const sales = [
+  {date: '2022-06-01', price: 140, quantity: 43, stock: 'AAPL'},
+
+]
+
+
+
+
+
+console.log(calculateEarningsPerStock(buys, sales)  );
+
+
+
+
+
+</script>
 </head>
-<body onload="initMap()">
-  <div id="map" style="height: 200px; width: 80%;"></div>
 </body>
 </html>
