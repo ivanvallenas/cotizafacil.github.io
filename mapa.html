@@ -8,7 +8,13 @@ function calculateEarningsPerStock(buys, sales) {
   // Object to store the earnings for each stock
   let earnings = {};
   // Object to store the earnings for each stock
-  let valuation_cost = {};
+  let total_sell = {};
+
+  let total_buy = {};
+  let current_inventory_value = {};
+
+
+
   // Object to keep track of the remaining stock for each stock
   let remainingStock = {};
   // Object to keep track of the current buy index for each stock
@@ -40,8 +46,9 @@ function calculateEarningsPerStock(buys, sales) {
 
         if (!earnings[stock]) {
           earnings[stock] = 0;
-          valuation_cost[stock] = 0;
+          total_sell[stock] = 0;
         }
+        total_sell[stock] += remainingStock[stock] * (sales[i].price);
         earnings[stock] += remainingStock[stock] * (sales[i].price - buys[currentBuyIndex[stock]].price);
         buys[currentBuyIndex[stock]].quantity -= remainingStock[stock];
         remainingStock[stock] = 0;
@@ -51,17 +58,29 @@ function calculateEarningsPerStock(buys, sales) {
         // Calculate the earnings if the current buy quantity is greater than the remaining stock
         if (!earnings[stock]) {
           earnings[stock] = 0;
-          valuation_cost[stock] = 0;
+          total_sell[stock] = 0;
         }
+        total_sell[stock] += buyQuantity * (sales[i].price);
         earnings[stock] += buyQuantity * (sales[i].price - buys[currentBuyIndex[stock]].price);
         remainingStock[stock] -= buyQuantity;
         currentBuyIndex[stock]++;
       }
     }
   }
+
+  for(let i = 0; i < buys.length; i++){
+    let stock = buys[i].stock;
+    total_buy[stock]=
+
+  }
+
+
+
+
+
   
   // Return the earnings object
-  return earnings;
+  return total_sell;
 }
 
 
@@ -74,10 +93,13 @@ const buys = [
   {date: '2022-03-01', price: 120, quantity: 20, stock: 'AAPL'},
   {date: '2022-04-01', price: 130, quantity: 20, stock: 'AAPL'},
   {date: '2022-04-01', price: 140, quantity: 20, stock: 'AAPL'},
+  {date: '2022-04-01', price: 100, quantity: 10, stock: 'TSLA'},
+  {date: '2022-05-01', price: 110, quantity: 20, stock: 'TSLA'},
 
 ];
 const sales = [
-  {date: '2022-06-01', price: 140, quantity: 43, stock: 'AAPL'},
+  {date: '2022-06-01', price: 100, quantity: 1, stock: 'AAPL'},
+  {date: '2022-07-01', price: 100, quantity: 2, stock: 'TSLA'},
 
 ]
 
