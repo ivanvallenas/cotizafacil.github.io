@@ -81,4 +81,21 @@ a.button_wa{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    }
 
+   .introduccion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;;
+    font-size: 25px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(87, 84, 84);
+    font-family: 'Roboto', sans-serif;
+    width: 80%;
+    max-width: 500px;
+}
+
 
