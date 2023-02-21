@@ -4,113 +4,82 @@
 
 <script>
 
-function calculateEarningsPerStock(buys, sales) {
-  // Object to store the earnings for each stock
-  let earnings = {};
-  // Object to store the earnings for each stock
-  let total_sell = {};
-
-  let total_buy = {};
-  let current_inventory_value = {};
 
 
 
-  // Object to keep track of the remaining stock for each stock
-  let remainingStock = {};
-  // Object to keep track of the current buy index for each stock
-  let currentBuyIndex = {};
-  
-  // Loop through all the sales
-  for (let i = 0; i < sales.length; i++) {
-    let stock = sales[i].stock;
-    // Initialize the remaining stock and current buy index for each stock
-    if (!remainingStock[stock]) {
-      remainingStock[stock] = 0;
-      currentBuyIndex[stock] = 0;
-    }
-    // Increase the remaining stock for the current stock
-    remainingStock[stock] += sales[i].quantity;
-    // Loop through the buys to calculate the earnings for each sale
-    while (remainingStock[stock] > 0 && currentBuyIndex[stock] < buys.length) {
-      let buyStock = buys[currentBuyIndex[stock]].stock;
-      // Skip to the next buy if the stock doesn't match
-      if (buyStock !== stock) {
-        currentBuyIndex[stock]++;
-        continue;
-      }
-      let buyQuantity = buys[currentBuyIndex[stock]].quantity;
-      // Calculate the earnings if the remaining stock is greater than the current buy quantity
-      if (buyQuantity > remainingStock[stock]) {
-        console.log("pilll")
-        console.log(buys[currentBuyIndex[stock]].price)
 
-        if (!earnings[stock]) {
-          earnings[stock] = 0;
-          total_sell[stock] = 0;
-        }
-        total_sell[stock] += remainingStock[stock] * (sales[i].price);
-        earnings[stock] += remainingStock[stock] * (sales[i].price - buys[currentBuyIndex[stock]].price);
-        buys[currentBuyIndex[stock]].quantity -= remainingStock[stock];
-        remainingStock[stock] = 0;
-      } else {
-        console.log("pulll")
-        console.log(buys[currentBuyIndex[stock]].price)
-        // Calculate the earnings if the current buy quantity is greater than the remaining stock
-        if (!earnings[stock]) {
-          earnings[stock] = 0;
-          total_sell[stock] = 0;
-        }
-        total_sell[stock] += buyQuantity * (sales[i].price);
-        earnings[stock] += buyQuantity * (sales[i].price - buys[currentBuyIndex[stock]].price);
-        remainingStock[stock] -= buyQuantity;
-        currentBuyIndex[stock]++;
-      }
+
+function calculo_ganacias_datos(buys,sales){
+  let compras={}
+  let ventas={}
+  let total_compras={}
+  let total_ventas={}
+  let ganancia={}
+  let total_costo_venta={}
+  let inventario_actual={}
+  let inventario_actual_valor={}
+
+  function lista_compras(stock,num_compras,costo){
+    if (!compras[stock]) {
+      inventario_actual[stock]=0
+      total_compras[stock]=0
+      ganancia[stock]=0
+      total_costo_venta[stock]=0
+      inventario_actual_valor[stock]=0
+      compras[stock] = [] }
+    for(var i=0;i<num_compras;i++){
+      compras[stock].push(costo)
+      total_compras[stock]=total_compras[stock]+costo
     }
   }
 
-  for(let i = 0; i < buys.length; i++){
-    let stock = buys[i].stock;
-    total_buy[stock]=
-
+  function lista_ventas(stock,num_ventas,precio){
+    if (!ventas[stock]) {
+      ventas[stock] = []
+      total_ventas[stock]=0
+     }
+    for(var i=0;i<num_ventas;i++){
+      ventas[stock].push(precio)
+      total_ventas[stock]=total_ventas[stock]+precio
+    }
   }
 
+  for(let i = 0; i < sales.length; i++){lista_ventas(sales[i].stock,sales[i].quantity,sales[i].price)}
+  for(let i = 0; i < buys.length; i++){lista_compras(buys[i].stock,buys[i].quantity,buys[i].price)}
 
+  for(key in compras){
+    if(!ventas[key]){num_ventas = 0}else{num_ventas=ventas[key].length}
+    inventario_actual[key]=compras[key].length-num_ventas
+    for(var i=0;i<Math.min(compras[key].length,ventas[key].length);i++){
+      ganancia[key]=ganancia[key]+ventas[key][i]-compras[key][i]
+      total_costo_venta[key]= total_costo_venta[key]+compras[key][i]
+    }
+    if(inventario_actual[key]<=0){inventario_actual_valor[key]=0}else{inventario_actual_valor[key]=total_compras[key]-total_costo_venta[key]}
+  }
 
-
-
-  
-  // Return the earnings object
-  return total_sell;
+  return({inventario_actual,total_compras,total_ventas,ganancia,total_costo_venta,inventario_actual_valor})
 }
 
-
-
+let prueba = {}
 
 
 const buys = [
-  {date: '2022-01-01', price: 100, quantity: 10, stock: 'AAPL'},
-  {date: '2022-02-01', price: 110, quantity: 5, stock: 'AAPL'},
-  {date: '2022-03-01', price: 120, quantity: 20, stock: 'AAPL'},
-  {date: '2022-04-01', price: 130, quantity: 20, stock: 'AAPL'},
-  {date: '2022-04-01', price: 140, quantity: 20, stock: 'AAPL'},
-  {date: '2022-04-01', price: 100, quantity: 10, stock: 'TSLA'},
-  {date: '2022-05-01', price: 110, quantity: 20, stock: 'TSLA'},
+  {date: '2022-03-01', price: 100, quantity: 2, stock: 'AAPL'},
+  {date: '2022-03-01', price: 101, quantity: 3, stock: 'AAPL'},
+  {date: '2022-03-01', price: 101, quantity: 5, stock: 'ppp'},
 
 ];
 const sales = [
-  {date: '2022-06-01', price: 100, quantity: 1, stock: 'AAPL'},
-  {date: '2022-07-01', price: 100, quantity: 2, stock: 'TSLA'},
+  {date: '2022-06-01', price: 100, quantity: 10, stock: 'AAPL'},
+  {date: '2022-06-01', price: 102, quantity: 10, stock: 'AAPL'},
+  {date: '2022-06-01', price: 102, quantity: 10, stock: 'ppp'},
 
 ]
 
+console.log(buys)
 
-
-
-
-console.log(calculateEarningsPerStock(buys, sales)  );
-
-
-
+pp=calculo_ganacias_datos(buys,sales)
+console.log(pp)
 
 
 </script>

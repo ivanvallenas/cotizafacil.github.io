@@ -14,7 +14,7 @@
         <div id="btns_de_listas" class="container2" >
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_actual.html'"" style="background-color:hsl(24, 72%, 52%)">Inventario Actual</button>
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_base.html'"">Inventario Base</button>
-            <button id="lista_materiales" class="main_buttons">Informe</button>
+            <button id="lista_materiales" class="main_buttons" onclick="window.location='informe.html'"">Informe</button>
         </div>
     </div>
    
@@ -88,6 +88,13 @@
         }
     }
 
+    function buys(fecha,precio,cantidad,producto){
+        this.fecha=fecha
+        this.precio=precio
+        this.cantidad=cantidad
+        this.producto=producto
+    }
+
 
 
     get(ref(db, "ferreterias/"+usuario))
@@ -98,6 +105,11 @@
         const ferreteria_materiales = []
         const ferreteria_marcas = []
         const ferreteria_costo_mercaderia = []
+        const ferreteria_precio_mercaderia = []
+
+        var pp = []
+
+
 
 
         snapshot.child("inventario_base/materiales").forEach((child_materiales) => {
@@ -106,8 +118,11 @@
             ferreteria_cantidades.push(Number(child_materiales.val().cantidad))
             ferreteria_pruductos.push(child_materiales.val().material+child_materiales.val().marca)
             ferreteria_costo_mercaderia.push(Number(child_materiales.val().costo))
+            ferreteria_precio_mercaderia.push(Number(child_materiales.val().costo)/Number(child_materiales.val().cantidad))
+
         })
 
+        
 
         snapshot.child("compras").forEach((compras) => {
             compras.child("materiales").forEach((child_materiales) => {
@@ -143,12 +158,42 @@
         })
 
 
-
         crear_linea_material(ferreteria_materiales,ferreteria_marcas,ferreteria_cantidades,ferreteria_costo_mercaderia,tabla_materiales)
 
+        var fecha = snapshot.child("inventario_base/fecha_inventario").val()
 
+        snapshot.child("inventario_base/materiales").forEach((child_materiales) => {
+            
+            console.log(child_materiales.val().material)
+            var compra = new buys("lll","lll","kk","lll")
+            //pp.add(new buys("lll","lll","kk","lll"))
+         
+
+        })
+
+
+        snapshot.child("compras").forEach((compras) => {
+            var codigo_compra = compras.key
+            compras.child("materiales").forEach((child_materiales) => {
+                
+                pp[codigo_compra+child_materiales.val().material]=new buys(Number(child_materiales.val().cantidad,"ll","ll","lll"))
+  
+
+                 
+            })
+        })
+
+        console.log(pp)
+        
+
+
+
+
+
+        
 
     })
+
 
   </script>
 
@@ -220,7 +265,7 @@ function calculateEarningsPerStock(buys, sales) {
     ]
 
 
-    console.log(calculateEarningsAndStock2(buys, sales));
+    //console.log(calculateEarningsAndStock2(buys, sales));
 
 
 

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotiza Fácil</title>
+    <link rel="icon" href="https://dsm01pap006files.storage.live.com/y4muPjvqeVbCJNWvseKcnuuuNERSrad-Sw5dGSauCna_5yGNbRZJTp2hFvinMmd3ROFmOKvUfQ-bJRZKvzQ6cLJuC2HfVfc16NkH1m9MqLbcOZE02h89q6hYiJtfDQBuLgvRQ_w8sVz505g6HBx2li3CsQ6CB20r_CdauhN-IUFSEsznBwrUf7blWr1umfaPBiC?width=450&height=345&cropmode=none">
+    <link rel="stylesheet" type="text/css" href="css/compras.css">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+</head>
+<body>
+    <div class="container2">
+        <div id="btns_de_listas" class="container2" >
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_actual.html'"">Inventario Actual</button>
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_base.html'"">Inventario Base</button>
+            <button id="lista_materiales" class="main_buttons" style="background-color:hsl(24, 72%, 52%)">Informe</button>
+        </div>
+    </div>
+   
+
+  <section class="container">
+    <h1>Ventas Totales</h1>
+    <h4 id="indicador_ventas"></h4>
+    <h1>Ganancias Totales</h1>
+    <h4 id="indicador_ganancias"></h4>
+    <h1>Valor de Inventario</h1>
+    <h4 id="indicador_inventario"></h4>
+  </section>
+
+
+
+  <script type="module">
+
+    import {db} from "./js/firebase.js";
+    import {getDatabase,set, get, update, remove, ref, child}
+    from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+
+    const usuario = sessionStorage.getItem("usuario")
+    var indicador_ganancias = document.getElementById("indicador_ganancias")
+    var indicador_ventas = document.getElementById("indicador_ventas")
+    var indicador_inventario = document.getElementById("indicador_inventario")
+
+
+    function calculo_ganacias_datos(buys,sales){
+      let compras={}
+      let ventas={}
+      let total_compras={}
+      let total_ventas={}
+      let ganancia={}
+      let total_costo_venta={}
+      let inventario_actual={}
+      let inventario_actual_valor={}
+      var resumen_compras = 0
+      var resumen_ventas = 0
+      var resumen_ganancias = 0
+
+
+
+      function lista_compras(stock,num_compras,costo){
+        if (!compras[stock]) {
+          inventario_actual[stock]=0
+          total_compras[stock]=0
+          ganancia[stock]=0
+          total_costo_venta[stock]=0
+          inventario_actual_valor[stock]=0
+          compras[stock] = [] }
+        for(var i=0;i<num_compras;i++){
+          compras[stock].push(costo)
+          total_compras[stock]=total_compras[stock]+costo
+          resumen_compras = resumen_compras+costo
+        }
+      }
+
+      function lista_ventas(stock,num_ventas,precio){
+        if (!ventas[stock]) {
+          ventas[stock] = []
+          total_ventas[stock]=0
+        }
+        for(var i=0;i<num_ventas;i++){
+          ventas[stock].push(precio)
+          total_ventas[stock]=total_ventas[stock]+precio
+          resumen_ventas=resumen_ventas+precio
+        }
+      }
+
+      for(let i = 0; i < sales.length; i++){lista_ventas(sales[i].stock,sales[i].quantity,sales[i].price)}
+      for(let i = 0; i < buys.length; i++){lista_compras(buys[i].stock,buys[i].quantity,buys[i].price)}
+
+      for(let key in compras){
+        var num_ventas=0
+        if(!ventas[key]){num_ventas = 0}else{num_ventas=ventas[key].length}
+        inventario_actual[key]=compras[key].length-num_ventas
+        for(var i=0;i<Math.min(compras[key].length,ventas[key].length);i++){
+          ganancia[key]=ganancia[key]+ventas[key][i]-compras[key][i]
+          total_costo_venta[key]= total_costo_venta[key]+compras[key][i]
+          resumen_ganancias = resumen_ganancias + ventas[key][i]-compras[key][i]
+        }
+        if(inventario_actual[key]<=0){inventario_actual_valor[key]=0}else{inventario_actual_valor[key]=total_compras[key]-total_costo_venta[key]}
+      }
+
+      var resumen_costo_venta = resumen_ventas-resumen_ganancias
+      var resumen_inventario_actual_valor = resumen_compras - resumen_costo_venta
+
+      return({compras,ventas,inventario_actual,total_compras,total_ventas,ganancia,total_costo_venta,inventario_actual_valor, resumen_compras, resumen_ventas, resumen_ganancias, resumen_costo_venta, resumen_inventario_actual_valor})
+    }
+
+    function buys(fecha,precio,cantidad,producto){
+        this.date=fecha
+        this.price=precio
+        this.quantity=cantidad
+        this.stock=producto
+    }
+
+    get(ref(db, "ferreterias/"+usuario))
+    .then((snapshot)=>{
+
+
+      let l_compras = []
+      let l_ventas = []
+
+      snapshot.child("inventario_base/materiales").forEach((child_materiales) => {
+        l_compras.push( new buys(child_materiales.val().fecha,Number(child_materiales.val().precio),Number(child_materiales.val().cantidad),(child_materiales.val().material+child_materiales.val().marca))) 
+      })
+
+      snapshot.child("compras").forEach((compras) => {
+        compras.child("materiales").forEach((child_materiales) => {
+          l_compras.push( new buys(child_materiales.val().fecha,Number(child_materiales.val().precio),Number(child_materiales.val().cantidad),(child_materiales.val().material+child_materiales.val().marca))) 
+        })
+      })
+
+      snapshot.child("ventas").forEach((ventas) => {
+        ventas.child("materiales").forEach((child_materiales) => {
+          l_ventas.push( new buys(child_materiales.val().fecha,Number(child_materiales.val().precio),Number(child_materiales.val().cantidad),(child_materiales.val().material+child_materiales.val().marca))) 
+        })
+      })
+
+      
+      console.log(l_compras)
+      console.log(l_ventas)
+
+
+      let datos=calculo_ganacias_datos(l_compras,l_ventas)
+
+      console.log(datos)
+
+      indicador_ventas.innerHTML=datos.resumen_ventas
+      indicador_ganancias.innerHTML=datos.resumen_ganancias
+      indicador_inventario.innerHTML=datos.resumen_inventario_actual_valor
+
+    })
+
+
+  </script>
+
+
+
+
+
+</body>
+</html>

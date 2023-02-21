@@ -14,7 +14,7 @@
         <div id="btns_de_listas" class="container2" >
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_actual.html'"">Inventario Actual</button>
             <button id="lista_materiales" class="main_buttons"  onclick="window.location='inventario_base.html'"" style="background-color:hsl(24, 72%, 52%)">Inventario Base</button>
-            <button id="lista_materiales" class="main_buttons" >Informe</button>
+            <button id="lista_materiales" class="main_buttons"  onclick="window.location='informe.html'"" >Informe</button>
         </div>
     </div>
    
@@ -153,13 +153,16 @@
       var num_materiales = conjunto_materiales.length-1
 
       for(var i=0;i<conjunto_materiales.length-1;i++){
+        set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(i+1)+"/fecha"),fecha_inventario.value)
+        set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(i+1)+"/precio"),Number(conjunto_costos[i].value)/Number(conjunto_cantidades[i].value))
         set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(i+1)+"/material"),conjunto_materiales[i].value)
         set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(i+1)+"/marca"),conjunto_marcas[i].value)
         set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(i+1)+"/cantidad"),conjunto_cantidades[i].value)
         set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(i+1)+"/costo"),conjunto_costos[i].value)
 
       }
-
+      set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(num_materiales+1)+"/fecha"),fecha_inventario.value)
+      set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(num_materiales+1)+"/precio"),Number(conjunto_costos[num_materiales].value)/Number(conjunto_cantidades[num_materiales].value))
       set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(num_materiales+1)+"/material"),conjunto_materiales[num_materiales].value)
       set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(num_materiales+1)+"/marca"),conjunto_marcas[num_materiales].value)
       set(ref(db, "ferreterias/"+usuario+"/inventario_base/materiales/material"+(num_materiales+1)+"/cantidad"),conjunto_cantidades[num_materiales].value)
