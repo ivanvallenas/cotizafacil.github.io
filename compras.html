@@ -48,17 +48,166 @@
       <div id="error_solicitud" class="error"></div>
       <button class="main_buttons" id="btn_registrar_compra">Registrar compra</button>
   </section>
+
+  <style>
+
+    
+    body {
+      font: 16px Arial;  
+    }
+    
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+    }
+    
+
+
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+    
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff; 
+      border-bottom: 1px solid #d4d4d4; 
+    }
+    
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+      background-color: #e9e9e9; 
+    }
+    
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: DodgerBlue !important; 
+      color: #ffffff; 
+    }
+  </style>
   
 
 
 
   <script type="module">
 
+    function autocomplete(inp, arr) {
+          /*the autocomplete function takes two arguments,
+          the text field element and an array of possible autocompleted values:*/
+          var currentFocus;
+          /*execute a function when someone writes in the text field:*/
+          inp.addEventListener("input", function(e) {
+              var a, b, i, val = this.value;
+              /*close any already open lists of autocompleted values*/
+              closeAllLists();
+              if (!val) { return false;}
+              currentFocus = -1;
+              /*create a DIV element that will contain the items (values):*/
+              a = document.createElement("DIV");
+              a.setAttribute("id", this.id + "autocomplete-list");
+              a.setAttribute("class", "autocomplete-items");
+              /*append the DIV element as a child of the autocomplete container:*/
+              this.parentNode.appendChild(a);
+              /*for each item in the array...*/
+              for (i = 0; i < arr.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                  /*create a DIV element for each matching element:*/
+                  b = document.createElement("DIV");
+                  /*make the matching letters bold:*/
+                  b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                  b.innerHTML += arr[i].substr(val.length);
+                  /*insert a input field that will hold the current array item's value:*/
+                  b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                  /*execute a function when someone clicks on the item value (DIV element):*/
+                  b.addEventListener("click", function(e) {
+                      /*insert the value for the autocomplete text field:*/
+                      inp.value = this.getElementsByTagName("input")[0].value;
+                      /*close the list of autocompleted values,
+                      (or any other open lists of autocompleted values:*/
+                      closeAllLists();
+                  });
+                  a.appendChild(b);
+                }
+              }
+          });
+          /*execute a function presses a key on the keyboard:*/
+          inp.addEventListener("keydown", function(e) {
+              var x = document.getElementById(this.id + "autocomplete-list");
+              if (x) x = x.getElementsByTagName("div");
+              if (e.keyCode == 40) {
+                /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+                currentFocus++;
+                /*and and make the current item more visible:*/
+                addActive(x);
+              } else if (e.keyCode == 38) { //up
+                /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+                currentFocus--;
+                /*and and make the current item more visible:*/
+                addActive(x);
+              } else if (e.keyCode == 13) {
+                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                e.preventDefault();
+                if (currentFocus > -1) {
+                  /*and simulate a click on the "active" item:*/
+                  if (x) x[currentFocus].click();
+                }
+              }
+          });
+          function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
+          }
+          function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+              x[i].classList.remove("autocomplete-active");
+            }
+          }
+          function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+              if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+              }
+            }
+          }
+          /*execute a function when someone clicks in the document:*/
+          document.addEventListener("click", function (e) {
+              closeAllLists(e.target);
+          });
+    }
+      
+
     import {db} from "./js/firebase.js";
     import {getDatabase,set, get, update, remove, ref, child}
     from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
     const usuario = sessionStorage.getItem("usuario")
+    let lista_materiales = []
+    lista_materiales =JSON.parse(sessionStorage.getItem("catalogo_materiales"))
+
+    let lista_marcas = []
+    lista_marcas =JSON.parse(sessionStorage.getItem("catalogo_marcas"))
 
     var btn_añadir_material = document.getElementById("btn_añadir_material");
     var tabla_materiales = document.getElementById("tabla_materiales");
@@ -67,9 +216,9 @@
     var proveedor = document.getElementById("proveedor");
     var error_solicitud = document.getElementById("error_solicitud")
 
-    let lista_materiales = ['Elegir material', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)','CEMENTO -  (unid)','CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_materiales2 = ['Elegir material', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)','CEMENTO -  (unid)','CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
     let lista_materiales_valores = [' ', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)','CEMENTO -  (unid)' ,'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
-    let lista_marcas = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
+    let lista_marcas2 = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
     let lista_marcas_valores = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
 
     function crear_select(array, array_valores){
@@ -88,18 +237,29 @@
       var div_material_marca = document.createElement("div")
       div_material_marca.className="item2"
 
-      var div_material = document.createElement("div")
-      var select_material = crear_select(materiales,materiales_valores)
-      select_material.className="material"
-      div_material.appendChild(select_material)
-      div_material_marca.appendChild(div_material)
+      var div_material_marca_ac = document.createElement("div")
+      div_material_marca_ac.className="autocomplete"
 
-      var div_marca = document.createElement("div")
-      var select_marca = crear_select(marcas,marcas_valores)
-      select_marca.className = "marca"
-      div_marca.appendChild(select_marca)
-      div_material_marca.appendChild(div_marca)
+      var input_material = document.createElement("input")
+      input_material.placeholder = "Elegir material"
+      input_material.className = "material"
+      autocomplete(input_material, lista_materiales)
+      div_material_marca_ac.appendChild(input_material)
 
+
+      var input_marca = document.createElement("input")
+      input_marca.placeholder = "Elegir marca"
+      input_marca.className = "marca"
+      autocomplete(input_marca, lista_marcas)
+      div_material_marca_ac.appendChild(input_marca)
+
+      div_material_marca.appendChild(div_material_marca_ac)
+
+
+
+
+
+    
       tabla.appendChild(div_material_marca)
 
       var div_cantidad = document.createElement("div")
@@ -160,6 +320,26 @@
 
       var num_materiales = conjunto_materiales.length-1
 
+      for(var i=0;i<conjunto_materiales.length;i++){
+
+        if(lista_materiales.includes(conjunto_materiales[i].value)==false){
+          lista_materiales.push(conjunto_materiales[i].value)
+        }
+
+        if(lista_marcas.includes(conjunto_marcas[i].value)==false){
+          lista_marcas.push(conjunto_marcas[i].value)
+        }
+
+      }
+
+      sessionStorage.setItem("catalogo_materiales",JSON.stringify(lista_materiales))
+      sessionStorage.setItem("catalogo_marcas",JSON.stringify(lista_marcas))
+
+
+      set(ref(db, "ferreterias/"+usuario+"/catalogo_materiales"),lista_materiales)
+      set(ref(db, "ferreterias/"+usuario+"/catalogo_marcas"),lista_marcas)
+
+
       for(var i=0;i<conjunto_materiales.length-1;i++){
         set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(i+1)+"/fecha"),fecha_compra.value)
         set(ref(db, "ferreterias/"+usuario+"/compras/"+fecha_compra.value+proveedor.value+codigo_compra+"/materiales/material"+(i+1)+"/precio"),Number(conjunto_costos[i].value)/Number(conjunto_cantidades[i].value))
@@ -198,6 +378,7 @@
 
 
     btn_registrar_compra.addEventListener('click', (e)=>{
+
       if(informacion_completa()=="completa"){
         InsertData()
        }else{

@@ -98,6 +98,17 @@
                     const prefijo_pais = snapshot.val().prefijo_pais;
                     const alcance = snapshot.val().alcance;
 
+                    let catalogo_materiales = []
+                    let catalogo_marcas = []
+
+
+                    snapshot.child("catalogo_materiales").forEach((child_materiales) => {
+                        catalogo_materiales.push(child_materiales.val())
+                    })
+
+                    snapshot.child("catalogo_marcas").forEach((child_materiales) => {
+                        catalogo_marcas.push(child_materiales.val())
+                    })
 
                     const ferreteria_pruductos =[]
                     const ferreteria_precios = []
@@ -114,11 +125,14 @@
                     sessionStorage.setItem("ferreteria_pruductos",JSON.stringify(ferreteria_pruductos))
                     sessionStorage.setItem("ferreteria_precios",JSON.stringify(ferreteria_precios))
                     sessionStorage.setItem("ferreteria_materiales",JSON.stringify(ferreteria_materiales))
-                    sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas))
+                    sessionStorage.setItem("ferreteria_marcas",JSON.stringify(ferreteria_marcas)) 
+                    
+                    sessionStorage.setItem("catalogo_materiales",JSON.stringify(catalogo_materiales))
+                    sessionStorage.setItem("catalogo_marcas",JSON.stringify(catalogo_marcas)) 
 
                     sessionStorage.setItem("ferreteria_coordenada_lat",ferreteria_coordenada_lat)
                     sessionStorage.setItem("ferreteria_coordenada_lng",ferreteria_coordenada_lng)
-                    
+
                     sessionStorage.setItem("nombre_ferreteria",nombre)
                     sessionStorage.setItem("prefijo_pais",prefijo_pais)
                     sessionStorage.setItem("telefono",telefono)
