@@ -376,8 +376,11 @@
   
     })
 
-
+    
     btn_registrar_compra.addEventListener('click', (e)=>{
+
+      set(ref(db, "ferreterias/mzvPeTrpRyaN35l60lIWytiDyvo2/catalogo_materiales"),lista_materiales)
+      set(ref(db, "ferreterias/mzvPeTrpRyaN35l60lIWytiDyvo2/catalogo_marcas"),lista_marcas)
 
       if(informacion_completa()=="completa"){
         InsertData()

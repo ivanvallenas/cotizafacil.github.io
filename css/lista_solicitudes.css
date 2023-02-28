@@ -59,6 +59,19 @@ a {
 
 }
 
+.content2 {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid black 2px;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 95%;
+    text-align: center;
+
+}
+
 .titulo_cotizaciones {
     color: black;
     height: 10px;

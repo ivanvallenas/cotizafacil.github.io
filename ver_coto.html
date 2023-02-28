@@ -12,8 +12,18 @@
     <link rel="stylesheet" type="text/css" href="css/lista_solicitudes.css">
     <link rel="stylesheet" type="text/css" href="css/main_elements.css">
 
+
 </head>
 <body>
+
+    <section class="container2">
+
+        <p id="ahorro"></p>
+
+
+    </section>
+
+    
 
     <section class="container2">
 
@@ -47,6 +57,7 @@
         //Define a varible that makes reference to the div where all the quotes request are going to apear
         var btncon = document.getElementById("botones")
         const usuario = sessionStorage.getItem("usuario")
+        const ahorro = document.getElementById("ahorro")
 
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_pruductos")))
         console.log(JSON.parse(sessionStorage.getItem("ferreteria_precios")))
@@ -56,7 +67,8 @@
 
         let ferreteria_precios = []
         ferreteria_precios =JSON.parse(sessionStorage.getItem("ferreteria_precios"))
-      
+        
+        let precios_totales = []
         
         //function to show all the quotes and refresh when a change in the db apears
         onValue(parte, (snapshot) => {
@@ -84,10 +96,17 @@
                 pedido.innerHTML=childSnapshot.val().pedido
 
                 precio.className="item"
-                precio.innerHTML=childSnapshot.val().precio_total
+                precio.innerHTML=Number(childSnapshot.val().precio_total)
 
+                if(childSnapshot.val().pedido=="Completo"){precios_totales.push(childSnapshot.val().precio_total)}
 
-                        
+                if(precios_totales.length>0){
+                    ahorro.innerHTML =("Ahorro gracias a Cotiza Fácil: "+ (Math.max(...precios_totales)-Math.min(...precios_totales)))
+                } 
+
+                console.log(precios_totales)
+
+                var precio_a_pagar = 4 // (Math.max(...precios_totales) - Math.min(...precios_totales)) *0.10
 
                 cbt.appendChild(empresa)
                 cbt.appendChild(pedido)
@@ -202,6 +221,24 @@
 
                 btncon.appendChild(content)
 
+
+                var content2 = document.createElement("div")
+                content2.className="content2" 
+
+                var instrucciones_pago = document.createElement("p")
+                instrucciones_pago.innerHTML = "Para ver esta solicitud debes pagar: " + precio_a_pagar +" bolivianos"
+                instrucciones_pago.style.margin = "10px"
+                content2.appendChild(instrucciones_pago)        
+
+                var button_wa2 = document.createElement("a")
+                button_wa2.className="button_wa"
+                button_wa2.innerHTML="Contactar y pagar"
+                button_wa2.href = ("https://wa.me/51947896570?text=CotizaFácil: Necesito pagar "+precio_a_pagar+" bolivianos de la solicitud:" +codigo_solicitud)
+
+
+                content2.appendChild(button_wa2) 
+                btncon.appendChild(content2)
+
             });
 
 
@@ -215,8 +252,29 @@
             
             //This code is for only show the elements with class "content" when the elements with class "collapsible" are clicked
             var coll = document.getElementsByClassName("collapsible");
+            console.log(Math.min(...precios_totales))
             var i;
             for (i = 0; i < coll.length; i++) {
+                console.log( coll[i].children[2].innerHTML +"=="+Math.min(...precios_totales))
+                if(coll[i].children[2].innerHTML==Math.min(...precios_totales)){
+                    coll[i].addEventListener("click", function() {
+
+                    this.classList.toggle("active");
+                    var content2 = this.nextElementSibling;
+                    var content = content2.nextElementSibling;
+
+                    if (content.style.display === "flex") {
+                    content.style.display = "none";
+                    } else {
+                    content.style.display = "flex";
+                    }
+                    var valor_total = this.getElementsByClassName("item");
+                    var pp = valor_total[2].textContent
+                    console.log(pp)
+
+                });
+
+                }else{
                 coll[i].addEventListener("click", function() {
                     this.classList.toggle("active");
                     var content = this.nextElementSibling;
@@ -229,6 +287,7 @@
                     var pp = valor_total[2].textContent
                     console.log(pp)
                 });
+            }
             }    
         },)
 
