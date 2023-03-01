@@ -42,7 +42,10 @@
       <div class="titulo_columna"><p>Material y marca</p></div>
       <div class="titulo_columna"><p>Cantidad</p></div>
     </div>
-    <button class="main_buttons" id="btn_añadir_material">Añadir material</button>
+    <div>
+      <button class="main_buttons" style="width: 180px;" id="btn_añadir_material">Añadir material</button>
+      <button class="main_buttons" style="width: 180px;" id="btn_eliminar_material">Eliminar material</button>
+  </div>
 
   </section>
 
@@ -132,7 +135,7 @@
       tabla.appendChild(div_cantidad)
     }
 
-    for(var i=0;i<2;i++){
+    for(var i=0;i<1;i++){
       crear_linea_material(lista_materiales,lista_materiales_valores ,lista_marcas, lista_marcas_valores, tabla_materiales)
     }
 
@@ -200,6 +203,17 @@
         error_solicitud.innerHTML="Faltan datos por rellenar"
       }
     });
+
+
+    btn_eliminar_material.addEventListener('click', (e)=>{
+        let grid = document.getElementById("tabla_materiales");
+        if(grid.childNodes.length>7){
+        let lastRow = grid.childNodes.length - 1;
+        let lastRow2 = grid.childNodes.length - 2;
+        grid.removeChild(grid.childNodes[lastRow]); 
+        grid.removeChild(grid.childNodes[lastRow2]);
+        }  
+    })
 
   </script>
 
