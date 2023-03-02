@@ -34,7 +34,7 @@
 
         <div style="height: 25px;" ></div>
         
-        <div class="container">  
+        <div id="div_codigo_solicitud"class="container">  
             <input class="main_inputs" id="codigo_solicitud" type="text" placeholder="Código de solicitud">
             <button class="main_buttons" id="btn_ver_cotizaciones">Ver cotizaciones</button>
         </div>
@@ -53,6 +53,12 @@
         console.log(localStorage.getItem("codigo_solicitud"))
 
         var input_codigo_solicitud = document.getElementById("codigo_solicitud")
+        var div_codigo_solicitud = document.getElementById("div_codigo_solicitud")
+
+        if(localStorage.getItem("activar_div_codigo_solicitud")!="activar"){
+            div_codigo_solicitud.style.display = "none"
+        }
+
 
         if(localStorage.getItem("codigo_solicitud")!=undefined){
             input_codigo_solicitud.value=localStorage.getItem("codigo_solicitud")
