@@ -77,6 +77,33 @@ a.button_wa{
     transform: scale(0.95);
    }
 
+
+   a.button_comprar{
+    background: linear-gradient(to right,#9d6711 ,#aa8d09);
+    background-color: #9e700c;
+    width: 210px;
+    color: #fff;
+    font-family: Trebuchet MS;
+    font-size: 15px;
+    font-weight: 800;
+    font-style: normal;
+    text-decoration: none;
+    padding: 12px 16px;
+    border: 0px solid #000;
+    border-radius: 50px;
+    display: inline-block;
+   }
+   a.button_comprar:hover{
+    background: linear-gradient(to right,#1d31b7 ,#406ab3);
+    
+   }
+   a.button_comprar:active{
+    transform: scale(0.95);
+   }
+
+
+
+
    h1 {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    }

@@ -91,6 +91,7 @@
 
                 empresa.className="item"
                 empresa.innerHTML=childSnapshot.val().nombre
+                var nombre_ferreteria=childSnapshot.val().nombre
 
                 pedido.className="item"
                 pedido.innerHTML=childSnapshot.val().pedido
@@ -213,6 +214,21 @@
 
                     button_wa.href = link_wa
                     console.log(childSnapshot.val().telefono)
+                })
+
+                var button_comprar = document.createElement("a")
+                button_comprar.className="button_comprar"
+                button_comprar.innerHTML="Comprar"
+                content.appendChild(button_comprar)
+
+                button_comprar.addEventListener("click",function(){
+                    sessionStorage.setItem("Solicitud_por_pagar",codigo_solicitud)
+                    sessionStorage.setItem("monto_total_por_pagar",Number(childSnapshot.val().precio_total))
+                    sessionStorage.setItem("ferreteria_por_pagar",nombre_ferreteria)
+
+                    window.location.href = "pagar_cotizacion.html"
+
+
                 })
 
                 btncon.appendChild(content)

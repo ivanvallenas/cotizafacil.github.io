@@ -74,7 +74,8 @@
 
 
   <script type="module">
-    sessionStorage.setItem("coordenada_lat","")
+    localStorage.setItem("activar_div_codigo_solicitud", "activar");
+
 
 
     import {db} from "./js/firebase.js";
@@ -160,7 +161,6 @@
 
       var codigo_solicitud = Math.floor(Math.random()*10000);
       localStorage.setItem("codigo_solicitud", codigo_solicitud);
-      localStorage.setItem("activar_div_codigo_solicitud", "activar");
 
 
       set(ref(db, "Solicitudes/"+codigo_solicitud),{

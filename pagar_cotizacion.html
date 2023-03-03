@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Consigue los mejores precios en materiales de construcción">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/main_elements.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+    
+
+    <title>Cotiza Fácil</title>
+    <link rel="icon" href="https://dsm01pap006files.storage.live.com/y4muPjvqeVbCJNWvseKcnuuuNERSrad-Sw5dGSauCna_5yGNbRZJTp2hFvinMmd3ROFmOKvUfQ-bJRZKvzQ6cLJuC2HfVfc16NkH1m9MqLbcOZE02h89q6hYiJtfDQBuLgvRQ_w8sVz505g6HBx2li3CsQ6CB20r_CdauhN-IUFSEsznBwrUf7blWr1umfaPBiC?width=450&height=345&cropmode=none">
+    
+    <div class="container">
+        <img alt="Logo" height="180px" width="320px" src="https://dsm01pap006files.storage.live.com/y4mNYSblU15eU4-_GqQ1mLll3h9vDL3Qk3rTrnG_-8m3kNnvIn2gjgn2JuUKP_-8IH6CZMMh5DaPqqCC1YwrBuHe8YQg4oWtN8O63r0LJn27is8XCqJY8t9T-zheYsrHZku3NQKONZJroyD7AEoQHiA1ppCPL9MavGXXowQ1vuLeot--2DBaSgkbv7W1eqjrFGz?width=494&height=231&cropmode=none">
+    </div>
+
+</head>
+
+
+<body>
+
+    <section class="container">
+
+        <div class="container" style="padding: 20px; ;width: 400px; height: 500px; border:solid 3px; border-radius: 30px; border-color: black;">
+
+            <div class="container">
+                <h2>Comprar materiales</h2>
+            </div>
+
+            <div class="container" style="margin: 10px;">
+                <h4 id="codigo_solicitud">Solicitud número: </h4>
+            </div>
+            <div   class="container" style="margin: 10px; text-align: left;">
+                <h4 id="ferreteria">Proveedor: </h4>
+            </div>
+
+            <div   class="container" style="margin: 10px; text-align: left;">
+                <h4 id="monto">Monto a pagar: </h4>
+            </div>
+
+            <div class="container">
+                <h3>Tipo de pago</h3>
+                <label>
+                  <input type="checkbox" class="radio" value="1" name="fooby[1][]" />50% adelantado</label>
+                <label>
+                  <input type="checkbox" class="radio" value="1" name="fooby[1][]" />100% pago completo</label>
+            </div>
+
+
+            <div class="container">
+                <img src="https://dsm01pap006files.storage.live.com/y4mkgiVTJehrcXQY1TFGa7bfY2hkdpykfyQbh48aSoEtqSLormmFtqcIdyKWxIX5ViyoLZ_KVDpFzhrkL6Zkm9TJyspXctvoPCKOCFIK4aDREk_4Qi5gHtIit6kSOv5S99gQXzw3_ar4sPZ-0hqi2v8yNcM70NygUtF_KV7M2ck8HCVnLsYMF7L0O1QY0DAMArv?width=292&height=315&cropmode=none" width="270" height="280" />
+            </div>
+
+        </div>
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+x
+
+    <script type="module">
+
+        var codigo_solicitud = document.getElementById("codigo_solicitud")
+        var monto = document.getElementById("monto")
+        var ferreteria = document.getElementById("ferreteria")
+
+
+        codigo_solicitud.innerHTML = "Codigo de solicitud: "+sessionStorage.getItem("Solicitud_por_pagar")
+        monto.innerHTML = "Monto a pagar: "+sessionStorage.getItem("monto_total_por_pagar")
+        ferreteria.innerHTML= "Nombre de ferreteria: " + sessionStorage.getItem("ferreteria_por_pagar")
+
+
+    
+
+    </script>
+
+
+</body>
+</html>
