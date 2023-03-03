@@ -26,8 +26,71 @@
     <h4 id="indicador_ganancias"></h4>
     <h1>Valor de Inventario</h1>
     <h4 id="indicador_inventario"></h4>
+
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
   </section>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    var xValues = ["Italy", "France", "Spain", "USA", "Argentina","Ladrillo"];
+    var yValues = [55, 49, 44, 24, 15,20];
+    var barColors = [
+      "#b91d47",
+      "#00aba9",
+      "#2b5797",
+      "#e8c3b9",
+      "#1e7145"
+    ];
+    
+    new Chart("myChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+
+        legend: {
+          display: false //This will do the task
+        },
+
+        tooltips: {
+          callbacks: {
+              label: function(tooltipItem, data) {
+                  var dataset = data.datasets[tooltipItem.datasetIndex];
+                  var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                      return previousValue + currentValue;
+                  });
+                  var currentValue = dataset.data[tooltipItem.index];
+                  var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                  return data.labels[tooltipItem.index] + ": " + currentValue + " (" + percentage + "%)";
+                }
+              }
+          }
+      },
+
+      plugins: {
+        datalabels: {
+            display: true,
+            color: 'white',
+            formatter: function(value, context) {
+                return context.chart.data.labels[context.dataIndex];
+            }
+        }
+      }
+
+
+
+
+
+    })
+    </script>
 
 
   <script type="module">

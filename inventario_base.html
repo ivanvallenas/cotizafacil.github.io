@@ -43,6 +43,7 @@
       <button class="main_buttons" id="btn_registrar_inventario">Registrar inventario</button>
   </section>
   
+  <script src="js/autocomplete_input.js"></script>
 
 
 
@@ -61,11 +62,19 @@
     var proveedor = document.getElementById("proveedor");
     var error_solicitud = document.getElementById("error_solicitud")
 
-    let lista_materiales = ['Elegir material', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)','CEMENTO -  (unid)' ,'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
-    let lista_materiales_valores = [' ', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)', 'CEMENTO -  (unid)','CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
-    let lista_marcas = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
+    let lista_materiales = []
+    lista_materiales =JSON.parse(sessionStorage.getItem("catalogo_materiales"))
+
+    let lista_marcas = []
+    lista_marcas =JSON.parse(sessionStorage.getItem("catalogo_marcas"))
+
+    let lista_materiales2 = ['Elegir material', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)','CEMENTO -  (unid)','CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_materiales_valores = [' ', 'ALAMBRE DE AMARRE -  (kg)', 'ARENA FINA -  (m3)', 'ARENA CORRIENTE -  (m3)', 'CALAMINA ONDULADA - N.28 1m *2m (unid)', 'CALAMINA PLANA - N.28 2m*1m (unid)','CEMENTO -  (unid)' ,'CEMENTO BLANCO -  (unid)', 'CEMENTO COLA -  (unid)', 'CLAVO - 2 PULG. (kg)', 'CLAVO - 3 PULG. (kg)', 'CLAVO - 4 PULG. (kg)', 'CLAVO DE CALAMINA -  (kg)', 'ESTUCO -  (unid)', 'FIERRO - 1/4 PULG. (unid)', 'FIERRO - 3/8 PULG. (unid)', 'FIERRO DE MEDIA -  (unid)', 'LADRILLO  - 18 HUECOS (unid)', 'LADRILLO  - 6 HUECOS (unid)', 'PIEDRA - MANZANO (m3)', 'PIEDRA - CHANCADA (m3)', 'TUBO - BERMAN 1 PULG. (unid)', 'TUBO - BERMAN 3/4 PULG. (unid)', 'TUBO - CEMENTO 8 PULG. (unid)', 'TUBO - PVC 3 PULG. (unid)', 'TUBO  - PVC 4 PULG. (unid)', 'TUBO - PVC 5 pulg (unid)']
+    let lista_marcas2 = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
     let lista_marcas_valores = ['Cualquier marca', 'ACELORMITTAL', 'ACERGAL', 'ACERO LAS LOMAS', 'ACERO AREQUIPA', 'ADHERE FORTE', 'CONDOR', 'CAMPERO', 'CAMBA', 'ECEBOL', 'VIACHA', 'YURA', 'CERAMICA AVAROA ', 'CERAMICA BLANCA', 'CORINSA', 'COBOCE', 'DISMAT', 'ESTUCO VICHAYA', 'CERAMICA INCERPATZI', 'CERAMICA INCERPAZ', 'PINGUINO', 'STICK MIX', 'TIGRE']
 
+
+    
     function crear_select(array, array_valores){
       var select = document.createElement("select");
       for (var i = 0; i < array.length; i++) {
@@ -82,18 +91,25 @@
       var div_material_marca = document.createElement("div")
       div_material_marca.className="item2"
 
-      var div_material = document.createElement("div")
-      var select_material = crear_select(materiales,materiales_valores)
-      select_material.className="material"
-      div_material.appendChild(select_material)
-      div_material_marca.appendChild(div_material)
+      var div_material_marca_ac = document.createElement("div")
+      div_material_marca_ac.className="autocomplete"
 
-      var div_marca = document.createElement("div")
-      var select_marca = crear_select(marcas,marcas_valores)
-      select_marca.className = "marca"
-      div_marca.appendChild(select_marca)
-      div_material_marca.appendChild(div_marca)
+      var input_material = document.createElement("input")
+      input_material.placeholder = "Elegir material"
+      input_material.className = "material"
+      autocomplete(input_material, lista_materiales)
+      div_material_marca_ac.appendChild(input_material)
 
+
+      var input_marca = document.createElement("input")
+      input_marca.placeholder = "Elegir marca"
+      input_marca.className = "marca"
+      autocomplete(input_marca, lista_marcas)
+      div_material_marca_ac.appendChild(input_marca)
+
+      div_material_marca.appendChild(div_material_marca_ac)
+
+    
       tabla.appendChild(div_material_marca)
 
       var div_cantidad = document.createElement("div")

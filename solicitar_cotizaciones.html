@@ -74,6 +74,8 @@
 
 
   <script type="module">
+    sessionStorage.setItem("coordenada_lat","")
+
 
     import {db} from "./js/firebase.js";
     import {getDatabase,set, get, update, remove, ref, child}
@@ -145,7 +147,7 @@
       let numero_cantidades_0 = 0;
       for(let i = 0; i < cantidades_values.length; i++) {if(cantidades_values[i] == 0) {numero_cantidades_0++}}
 
-      if(fecha_limite.value=="" || calle.value==""){
+      if(fecha_limite.value=="" || calle.value=="" || sessionStorage.getItem("coordenada_lat")=="" ){
         return "incompleta"
       }else if(numero_cantidades_0>0){
         return "incompleta"
