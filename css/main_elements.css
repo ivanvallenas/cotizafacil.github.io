@@ -79,7 +79,8 @@ a.button_wa{
 
 
    a.button_comprar{
-    background: linear-gradient(to right,#9d6711 ,#aa8d09);
+    background: linear-gradient(to right,#FF914D ,#FF914D);
+    margin: 10px;
     background-color: #9e700c;
     width: 210px;
     color: #fff;
